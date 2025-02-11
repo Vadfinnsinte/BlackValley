@@ -1,3 +1,12 @@
+* {
+    -ms-overflow-style: none; /* För IE och Edge */
+    scrollbar-width: none; /* För Firefox */
+  }
+  
+  .scrollViewNoScrollbar::-webkit-scrollbar {
+    display: none; /* För Chrome, Safari och andra webkit-baserade webbläsare */
+  }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
