@@ -1,14 +1,15 @@
-import {SafeAreaView, Text } from 'react-native';
-import CustomHeader from '../../components/CustomHeader';
+import { SafeAreaView, Text, View } from "react-native";
+import CustomHeader from "../../components/CustomHeader";
 
-
-export default function InspirationScreen() {
+const InspirationScreen = () => {
   return (
     <SafeAreaView>
-       <CustomHeader/> 
-    <Text>
-      Inspiration
-    </Text>
+      <CustomHeader />
+      <View>
+        <Text>Inspiration</Text>
+      </View>
     </SafeAreaView>
   );
-}
+};
+
+export default InspirationScreen;

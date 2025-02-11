@@ -1,15 +1,15 @@
-import {SafeAreaView, Text } from 'react-native';
-import CustomHeader from '../../components/CustomHeader';
+import { SafeAreaView, Text, View } from "react-native";
+import CustomHeader from "../../components/CustomHeader";
 
-
-export default function ProductScreen() {
+const ProductScreen = () => {
   return (
     <SafeAreaView>
-      <CustomHeader/> 
-    <Text>
-      Produkter
-    </Text>
+      <CustomHeader />
+      <View>
+        <Text>Produkter</Text>
+      </View>
     </SafeAreaView>
   );
-}
+};
 
+export default ProductScreen;

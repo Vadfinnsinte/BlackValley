@@ -1,15 +1,15 @@
-import {SafeAreaView, Text } from 'react-native';
-import CustomHeader from '../../components/CustomHeader';
+import { SafeAreaView, Text, View } from "react-native";
+import CustomHeader from "../../components/CustomHeader";
 
-
-export default function OrderScreen() {
+const OrderScreen = () => {
   return (
     <SafeAreaView>
-     <CustomHeader/> 
-    <Text>
-     Beställ här
-    </Text>
+      <CustomHeader />
+      <View>
+        <Text>Beställ här</Text>
+      </View>
     </SafeAreaView>
   );
-}
+};
 
+export default OrderScreen;

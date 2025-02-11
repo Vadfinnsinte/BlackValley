@@ -1,16 +1,16 @@
-import {SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, View } from "react-native";
 
-import CustomHeader from '../../components/CustomHeader';
+import CustomHeader from "../../components/CustomHeader";
 
-export default function MaterialScreen() {
+const MaterialScreen = () => {
   return (
     <SafeAreaView>
-      <CustomHeader/> 
-      
-    <Text>
-      Material
-    </Text>
+      <CustomHeader />
+      <View>
+        <Text>Material</Text>
+      </View>
     </SafeAreaView>
   );
-}
+};
 
+export default MaterialScreen;
