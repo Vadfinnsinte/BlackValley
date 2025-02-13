@@ -1,7 +1,6 @@
 import { SafeAreaView, View, Text } from "react-native";
-import CustomHeaderEng from "../../components/CustomHeaderEng";
-
-const ProductEng = () => {
+import CustomHeaderEng from "../../../components/CustomHeaderEng";
+const InspirationEng = () => {
   return (
     <SafeAreaView>
       <CustomHeaderEng />
@@ -12,4 +11,4 @@ const ProductEng = () => {
   );
 };
 
-export default ProductEng;
+export default InspirationEng;

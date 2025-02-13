@@ -6,16 +6,19 @@ import {
   useWindowDimensions,
   Text,
   useColorScheme,
+  TouchableOpacity,
   Pressable,
 } from "react-native";
 import wool from "../assets/images/woolImage.jpg";
 import blackValleylogo from "../assets/images/BlackValleylogo.png";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { useRouter, useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 export default function CustomHeader() {
-  // const colorScheme = useColorScheme();
-  // // const themeColors = Colors[colorScheme] || Colors.light;
+  const colorScheme = useColorScheme();
+  const themeColors = Colors[colorScheme] || Colors.light;
   const router = useRouter();
   const navigation = useNavigation();
   const { width } = useWindowDimensions();
@@ -24,13 +27,60 @@ export default function CustomHeader() {
     navigation.navigate(path);
   };
 
-  return (
-    <SafeAreaView>
+  if (width > 750) {
+    return (
+      <SafeAreaView>
+        <ImageBackground
+          style={width > 750 ? styles.backgroundImage : styles.smallbackground}
+          source={wool}
+          resizeMode="cover">
+          <View style={styles.logoContainer}>
+            <ImageBackground
+              source={blackValleylogo}
+              style={width > 750 ? styles.logo : styles.smallLogo}
+              resizeMode="contain"
+            />
+          </View>
+        </ImageBackground>
+        <View style={styles.navbar}>
+          <Pressable onPress={() => router.push("")}>
+            <Text style={styles.navbarText}>Black Valley</Text>
+          </Pressable>
+
+          <Pressable onPress={() => router.push("product")}>
+            <Text style={styles.navbarText}>Produkter</Text>
+          </Pressable>
+
+          <Pressable onPress={() => router.push("material")}>
+            <Text style={styles.navbarText}>Material</Text>
+          </Pressable>
+
+          <Pressable onPress={() => router.push("order")}>
+            <Text style={styles.navbarText}>Beställ här</Text>
+          </Pressable>
+
+          <Pressable onPress={() => router.push("inspiration")}>
+            <Text style={styles.navbarText}>Inspiration</Text>
+          </Pressable>
+
+          <Pressable onPress={() => navigateAround("(engTabs)")}>
+            <Text style={styles.navbarText}>Eng</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  } else {
+    return (
       <ImageBackground
         style={width > 750 ? styles.backgroundImage : styles.smallbackground}
         source={wool}
         resizeMode="cover">
         <View style={styles.logoContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            style={styles.menuButton}>
+            <Ionicons name="menu" size={40} color={themeColors.hamburgerIcon} />
+          </TouchableOpacity>
           <ImageBackground
             source={blackValleylogo}
             style={width > 750 ? styles.logo : styles.smallLogo}
@@ -38,41 +88,16 @@ export default function CustomHeader() {
           />
         </View>
       </ImageBackground>
-      <View style={styles.navbar}>
-        <Pressable onPress={() => router.back("index")}>
-          <Text style={styles.navbarText}>Black Valley</Text>
-        </Pressable>
-
-        <Pressable onPress={() => router.push("product")}>
-          <Text style={styles.navbarText}>Produkter</Text>
-        </Pressable>
-
-        <Pressable onPress={() => router.push("material")}>
-          <Text style={styles.navbarText}>Material</Text>
-        </Pressable>
-
-        <Pressable onPress={() => router.push("order")}>
-          <Text style={styles.navbarText}>Beställ här</Text>
-        </Pressable>
-
-        <Pressable onPress={() => router.push("inspiration")}>
-          <Text style={styles.navbarText}>Inspiration</Text>
-        </Pressable>
-
-        <Pressable onPress={() => navigateAround("(engTabs)")}>
-          <Text style={styles.navbarText}>Eng</Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
-  );
-} // kolla upp link.
-
+    );
+  }
+}
 const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     height: 160,
     justifyContent: "center",
   },
+
   smallbackground: {
     width: "100%",
     height: 100,
@@ -84,11 +109,22 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignContent: "center",
+    marginBottom: -5,
+    flexDirection: "row",
+  },
+  menuButton: {
+    // alignSelf: "start",
+    marginBottom: -10,
+    justifyContent: "flex-end",
+    zIndex: 20,
   },
   smallLogo: {
     width: "100%",
     height: 80,
+    // marginTop: 40,
+    marginLeft: -40,
   },
+
   navbar: {
     width: "100%",
     height: 50,

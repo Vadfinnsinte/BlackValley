@@ -11,7 +11,7 @@ import {
   useWindowDimensions,
   ScrollView,
 } from "react-native";
-import woolBg from "../../assets/images/woolImage.jpg";
+import woolBg from "../../../assets/images/woolImage.jpg";
 import { useNavigation } from "expo-router";
 import { Colors } from "@/constants/Colors";
 

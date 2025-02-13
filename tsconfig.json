@@ -3,9 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -14,6 +12,9 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/_layout.jsx",
-    "nativewind-env.d.ts"
-, "components/ui/IconSymbol.ios.jsx", "components/ui/IconSymbol.jsx", "app/(tabs)/index.jsx"  ]
+    "nativewind-env.d.ts",
+    "components/ui/IconSymbol.ios.jsx",
+    "components/ui/IconSymbol.jsx",
+    "app/(drawer)/(tabs)/index.jsx"
+  ]
 }
