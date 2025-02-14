@@ -4,7 +4,6 @@ import CustomHeaderEng from "../../../components/CustomHeaderEng";
 const OrderEng = () => {
   return (
     <SafeAreaView>
-      <CustomHeaderEng />
       <View>
         <Text>English</Text>
       </View>

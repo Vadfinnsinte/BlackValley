@@ -1,13 +1,13 @@
 import { SafeAreaView, View, Text } from "react-native";
 import CustomHeaderEng from "../../../components/CustomHeaderEng";
-const InspirationEng = () => {
+const MaterialEng = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>English</Text>
+        <Text>"Material" hej hej</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default InspirationEng;
+export default MaterialEng;

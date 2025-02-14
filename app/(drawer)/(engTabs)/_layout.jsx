@@ -6,7 +6,6 @@ import { Platform } from "react-native";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-
 import CustomHeaderEng from "../../../components/CustomHeaderEng";
 
 export default function TabLayout() {
@@ -16,7 +15,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        header: () => <CustomHeaderEng title="Black Valley" />,
         tabBarBackground: TabBarBackground,
         tabBarStyle: { display: "none" },
       }}>

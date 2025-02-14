@@ -16,7 +16,8 @@ const CustomDrawerContent = (props) => {
   const themeColors = Colors[colorScheme] || Colors.light;
 
   const pathname = usePathname();
-
+  const [showSubMenu, setShowSubMenu] = useState(false);
+  const [showSubMenuOrder, setShowSubMenuOrder] = useState(false);
   const [eng, setEng] = useState(false);
 
   const [loaded] = useFonts({
@@ -106,14 +107,65 @@ const CustomDrawerContent = (props) => {
               ? "#333"
               : themeColors.background,
         }}
-        onPress={() => {
-          if (!eng) {
-            router.push("/material");
-          } else {
-            router.push("/materialEng");
-          }
-        }}
+        onPress={() => setShowSubMenu(!showSubMenu)}
       />
+      {showSubMenu && (
+        <View>
+          <DrawerItem
+            label={eng ? "Wool for dog coats" : "Ull till täcke"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/materialWool" || pathname == "/materialWoolEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/materialWool" || pathname == "/materialWoolEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/materialWool");
+              } else {
+                router.push("/materialWoolEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={eng ? "Leather for collars" : "Läder till halsband"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/materialLeather" ||
+                  pathname == "/materialLeatherEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/materialLeather" ||
+                pathname == "/materialLeatherEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/materialLeather");
+              } else {
+                router.push("/materialLeatherEng");
+              }
+            }}
+          />
+        </View>
+      )}
+
       <DrawerItem
         label={!eng ? "Produkt" : "Product"}
         labelStyle={[
@@ -150,20 +202,70 @@ const CustomDrawerContent = (props) => {
                 : themeColors.hamburgerText,
           },
         ]}
-        style={{
-          backgroundColor:
-            pathname == "/order" || pathname == "/orderEng"
-              ? "#333"
-              : themeColors.background,
-        }}
-        onPress={() => {
-          if (!eng) {
-            router.push("/order");
-          } else {
-            router.push("/orderEng");
-          }
-        }}
+        // style={{
+        //   backgroundColor:
+        //     pathname == "/order" || pathname == "/orderEng"
+        //       ? "#333"
+        //       : themeColors.background,
+        // }}
+        onPress={() => setShowSubMenuOrder(!showSubMenuOrder)}
       />
+      {showSubMenuOrder && (
+        <View>
+          <DrawerItem
+            label={eng ? "Place Order" : "Lägg Beställning"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/order" || pathname == "/orderEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/order" || pathname == "/orderEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/order");
+              } else {
+                router.push("/orderEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={eng ? "Tearms And Conditions" : "Köpvilkor"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/TermsConditions" ||
+                  pathname == "/TermsConditionsEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/TermsConditions" ||
+                pathname == "/TermsConditionsEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/termsConditions");
+              } else {
+                router.push("/termsConditionsEng");
+              }
+            }}
+          />
+        </View>
+      )}
       <DrawerItem
         label={!eng ? "Eng" : "Swe"}
         labelStyle={[styles.navItemLabel, { color: themeColors.hamburgerText }]}
@@ -204,6 +306,10 @@ const styles = StyleSheet.create({
   navItemLabel: {
     marginLeft: 20,
     fontSize: 18,
+  },
+  navItemLabelsmall: {
+    marginLeft: 40,
+    fontSize: 16,
   },
   userInfoWrapper: {
     flexDirection: "row",

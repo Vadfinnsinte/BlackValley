@@ -4,7 +4,7 @@ const MaterialScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Material</Text>
+        <Text>MaterialWool</Text>
       </View>
     </SafeAreaView>
   );

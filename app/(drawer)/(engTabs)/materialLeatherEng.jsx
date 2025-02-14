@@ -1,14 +1,13 @@
 import { SafeAreaView, View, Text } from "react-native";
 import CustomHeaderEng from "../../../components/CustomHeaderEng";
-const MaterialEng = () => {
+const MaterialLeatherEng = () => {
   return (
     <SafeAreaView>
-      <CustomHeaderEng />
       <View>
-        <Text>"Material" hej hej</Text>
+        <Text>"Material" hej hej Leather</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default MaterialEng;
+export default MaterialLeatherEng;
