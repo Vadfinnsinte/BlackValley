@@ -1,13 +1,10 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-import CustomHeader from "../../components/CustomHeader";
-
 const MaterialScreen = () => {
   return (
     <SafeAreaView>
-      <CustomHeader />
       <View>
-        <Text>Material</Text>
+        <Text>MaterialWool</Text>
       </View>
     </SafeAreaView>
   );

@@ -1,10 +1,9 @@
 import { SafeAreaView, View, Text } from "react-native";
-import CustomHeaderEng from "../../components/CustomHeaderEng";
+import CustomHeaderEng from "../../../components/CustomHeaderEng";
 
-const OrderEng = () => {
+const ProductEng = () => {
   return (
     <SafeAreaView>
-      <CustomHeaderEng />
       <View>
         <Text>English</Text>
       </View>
@@ -12,4 +11,4 @@ const OrderEng = () => {
   );
 };
 
-export default OrderEng;
+export default ProductEng;

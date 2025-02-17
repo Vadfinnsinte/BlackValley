@@ -1,9 +1,8 @@
 import { SafeAreaView, View, Text } from "react-native";
-import CustomHeaderEng from "../../components/CustomHeaderEng";
+import CustomHeaderEng from "../../../components/CustomHeaderEng";
 const MaterialEng = () => {
   return (
     <SafeAreaView>
-      <CustomHeaderEng />
       <View>
         <Text>"Material" hej hej</Text>
       </View>
