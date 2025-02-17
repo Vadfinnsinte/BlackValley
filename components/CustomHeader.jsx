@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 export default function CustomHeader() {
   const colorScheme = useColorScheme();
@@ -22,6 +23,8 @@ export default function CustomHeader() {
   const router = useRouter();
   const navigation = useNavigation();
   const { width } = useWindowDimensions();
+  const [isHoveredOrder, setIsHoveredOrder] = useState(false);
+  const [isHoveredMaterail, setIsHoveredMaterail] = useState(false);
 
   const navigateAround = (path) => {
     navigation.navigate(path);
@@ -51,13 +54,87 @@ export default function CustomHeader() {
             <Text style={styles.navbarText}>Produkter</Text>
           </Pressable>
 
-          <Pressable onPress={() => router.push("material")}>
+          <View
+            onMouseEnter={() => setIsHoveredMaterail(true)}
+            style={styles.navbarText}>
             <Text style={styles.navbarText}>Material</Text>
-          </Pressable>
 
-          <Pressable onPress={() => router.push("order")}>
-            <Text style={styles.navbarText}>Beställ här</Text>
-          </Pressable>
+            {isHoveredMaterail && (
+              <View
+                onMouseLeave={() => setIsHoveredMaterail(false)}
+                style={styles.dropdown}>
+                <Text
+                  style={[
+                    styles.navbarText,
+                    isHoveredMaterail && { cursor: "pointer" },
+                  ]}>
+                  Material
+                </Text>
+                <View style={styles.innerDropdown}>
+                  <Pressable
+                    onPress={() => router.push("/materialWool")}
+                    style={styles.dropdownItem}>
+                    <Text
+                      className="hover:underline"
+                      style={styles.dropdownText}>
+                      Ull
+                    </Text>
+                    <Text style={{ marginTop: -10 }}>Till täcke</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => router.push("/materialLeather")}
+                    style={styles.dropdownItem}>
+                    <Text
+                      className="hover:underline"
+                      style={styles.dropdownText}>
+                      Läder
+                    </Text>
+                    <Text style={{ marginTop: -10 }}>Till halsband</Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+          </View>
+
+          <View
+            onMouseEnter={() => setIsHoveredOrder(true)}
+            style={styles.navbarText}>
+            <Text style={styles.navbarText}>Beställ</Text>
+
+            {isHoveredOrder && (
+              <View
+                onMouseLeave={() => setIsHoveredOrder(false)}
+                style={styles.dropdown}>
+                <Text
+                  style={[
+                    styles.navbarText,
+                    isHoveredOrder && { cursor: "pointer" },
+                  ]}>
+                  Beställ
+                </Text>
+                <View style={styles.innerDropdown}>
+                  <Pressable
+                    onPress={() => router.push("order")}
+                    style={styles.dropdownItem}>
+                    <Text
+                      className="hover:underline"
+                      style={styles.dropdownText}>
+                      Beställ här
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => router.push("termsConditions")}
+                    style={styles.dropdownItem}>
+                    <Text
+                      className="hover:underline"
+                      style={styles.dropdownText}>
+                      Köpvillkor
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+          </View>
 
           <Pressable onPress={() => router.push("inspiration")}>
             <Text style={styles.navbarText}>Inspiration</Text>
@@ -139,5 +216,38 @@ const styles = StyleSheet.create({
   navbarText: {
     fontSize: 25,
     textAlign: "center",
+    position: "relative",
+  },
+  dropdown: {
+    position: "absolute",
+    top: -5,
+    left: "50%",
+    transform: [{ translateX: -65 }],
+    backgroundColor: "#E8E8E9",
+    width: 130,
+    paddingVertical: 5,
+    zIndex: 10,
+  },
+  innerDropdown: {
+    top: 8,
+    borderColor: "black",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    borderTopWidth: 0,
+    borderBottomEndRadius: 8,
+    borderBottomStartRadius: 8,
+  },
+  dropdownText: {
+    fontSize: 18,
+    // textAlign: "center",
+    paddingVertical: 5,
+    color: "#000",
+  },
+  dropdownItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
   },
 });

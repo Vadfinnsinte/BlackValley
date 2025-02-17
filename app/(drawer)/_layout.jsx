@@ -213,7 +213,7 @@ const CustomDrawerContent = (props) => {
       {showSubMenuOrder && (
         <View>
           <DrawerItem
-            label={eng ? "Place Order" : "Lägg Beställning"}
+            label={eng ? "Place Order" : "Beställ här"}
             labelStyle={[
               styles.navItemLabelsmall,
               {
@@ -243,16 +243,16 @@ const CustomDrawerContent = (props) => {
               styles.navItemLabelsmall,
               {
                 color:
-                  pathname == "/TermsConditions" ||
-                  pathname == "/TermsConditionsEng"
+                  pathname == "/termsConditions" ||
+                  pathname == "/termsConditionsEng"
                     ? themeColors.hamburgerTextActive
                     : themeColors.hamburgerText,
               },
             ]}
             style={{
               backgroundColor:
-                pathname == "/TermsConditions" ||
-                pathname == "/TermsConditionsEng"
+                pathname == "/termsConditions" ||
+                pathname == "/termsConditionsEng"
                   ? "#333"
                   : themeColors.background,
             }}
