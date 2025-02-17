@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 10,
   },
+
   placeholderBoxBig: {
     width: 450,
     height: 350,
