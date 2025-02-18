@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, useColorScheme } from "react-native";
+import { View, Text, StyleSheet, Image, useColorScheme, ImageBackground } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "expo-router/drawer";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import "../../global.css";
 import { router, usePathname } from "expo-router";
 import { Colors } from "../../constants/Colors";
-
+import woolBg from "../../assets/images/woolImage.jpg"
 SplashScreen.preventAutoHideAsync();
 
 const CustomDrawerContent = (props) => {
@@ -206,12 +206,6 @@ const CustomDrawerContent = (props) => {
                 : themeColors.hamburgerText,
           },
         ]}
-        // style={{
-        //   backgroundColor:
-        //     pathname == "/order" || pathname == "/orderEng"
-        //       ? "#333"
-        //       : themeColors.background,
-        // }}
         onPress={() => setShowSubMenuOrder(!showSubMenuOrder)}
       />
       {showSubMenuOrder && (
@@ -283,6 +277,7 @@ const CustomDrawerContent = (props) => {
           }
         }}
       />
+    
     </DrawerContentScrollView>
   );
 };
@@ -292,17 +287,16 @@ export default function Layout() {
   const themeColors = Colors[colorScheme] || Colors.light;
 
   return (
-    <Drawer
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-      screenOptions={{
-        headerShown: false,
-        drawerStyle: {
-          backgroundColor: themeColors.background,
-        },
-      }}>
-      {/* <Drawer.Screen name="favourites" options={{ headerShown: true }} />
-      <Drawer.Screen name="settings" options={{ headerShown: true }} /> */}
-    </Drawer>
+      <Drawer
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          headerShown: false,
+          drawerStyle: {
+            backgroundColor: themeColors.background,
+          },
+        }}>
+ 
+      </Drawer>
   );
 }
 
@@ -310,6 +304,9 @@ const styles = StyleSheet.create({
   navItemLabel: {
     marginLeft: 20,
     fontSize: 18,
+  },
+  imageBackground: {
+    flex: 1,
   },
   navItemLabelsmall: {
     marginLeft: 40,

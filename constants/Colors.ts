@@ -22,6 +22,7 @@ export const Colors = {
     backgorundActive: "#515151",
     hamburgerTextActive: "#fff",
     hamburgerText: "#000",
+    detail: "#82BCBD"
   },
   dark: {
     text: "#ECEDEE",
@@ -38,5 +39,6 @@ export const Colors = {
     backgorundActive: "#C0C0C0",
     hamburgerText: "#fff",
     hamburgerTextActive: "#fff",
+    detail: "#82BCBD"
   },
 };
