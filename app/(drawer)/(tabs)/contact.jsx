@@ -1,13 +1,13 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-const ProductScreen = () => {
+const ContactScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Produkter</Text>
+        <Text>Kontakt sociala medier</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default ProductScreen;
+export default ContactScreen;
