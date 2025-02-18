@@ -4,14 +4,43 @@ import { ImageBackground, Pressable, SafeAreaView, StyleSheet, Text, useColorSch
 import Fontisto from '@expo/vector-icons/Fontisto';
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
+import CustomFormCoat from "../../../components/CustomFormCoat";
 const OrderScreen = () => {
   const [coat, setCoat] = useState(false)
+  const [coatForm, setCoatForm] = useState(false)
   const [collar, setCollar] = useState(false)
+  const [collarForm, setCollarForm] = useState(false)
   const [other, setOther] = useState(false)
+  const [otherForm, setOtherForm] = useState(false)
+  const [warning, setWarning] = useState(false)
+  const [warningmessage, setWarningmessage] = useState("Please check one of the boxes")
+  const [stepOne, setStepOne] = useState(true)
+  const [stepTwo, setStepTwo] = useState(true)
+  const [stepThree, setStepThree] = useState(true)
 
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
 
+  const openCustomForm = () => {
+    if(coat) {
+      setCoatForm(true)
+      setStepOne(false)
+      setStepTwo(true)
+    }
+    else if(collar) {
+      setCollarForm(true)
+      setStepOne(false)
+      setStepTwo(true)
+    }
+    else if(other){
+      setOtherForm(true)
+      setStepOne(false)
+      setStepTwo(true)
+    }
+    else {
+      setWarning(true)
+    }
+  } 
 
   return (
       <ImageBackground
@@ -29,7 +58,12 @@ const OrderScreen = () => {
           </Text>
 
         </View>
-        <Text className="text-xl text-center"style={{color: themeColors.text}} >Vänligen välj VAD du vill beställa</Text>
+        <View style={[checkboxStyle.blueSeperator, { backgroundColor: themeColors.detail }]}>
+        <Text className="text-xl text-center"style={{color: "#11181C"}} >1. Vänligen välj vad du vill beställa</Text>
+        </View>
+       
+{       stepOne && 
+<View>
         <View style={checkboxStyle.containerCheck}>  
           <View>
             <Text style={{color: themeColors.text}}>
@@ -44,7 +78,7 @@ const OrderScreen = () => {
 
             </Pressable>}
           </View>
-          <View>
+          <View >
             <Text style={{color: themeColors.text}} >
               Halsband
             </Text>
@@ -76,9 +110,22 @@ const OrderScreen = () => {
           </View>
           
         </View>
-    
-     
-        
+              <Text className={`text-red-400 text-center -mb-2 mt-2 ${!warning ? "invisible" : ""}`}>{warningmessage}</Text>
+          <Pressable onPress={openCustomForm}>
+            <Text style={checkboxStyle.button} >Gå vidare</Text> 
+            
+          </Pressable>
+          <Text style={{color: themeColors.text}} className="text-center text-xs -mt-2">Om du vill beställa flera produkter så finns det alternativet i nästa steg.</Text> 
+          </View>}
+          
+        <View style={[checkboxStyle.blueSeperator, { backgroundColor: themeColors.detail }]}>
+        <Text className="text-xl text-center"style={{color: "#11181C"}} >2. Mått, färg och specifikationer.</Text>
+        </View>
+              {coatForm && <CustomFormCoat />}
+        <View style={[checkboxStyle.blueSeperator, { backgroundColor: themeColors.detail }]}>
+        <Text className="text-xl text-center"style={{color: "#11181C"}} >3. Kontaktuppgifter.</Text>
+        </View>
+               {/* LÄGG IN COMPONENT. */}
       </View>
 
 
@@ -105,5 +152,24 @@ const checkboxStyle = StyleSheet.create({
   imageBackground: {
     flex: 1,
   },
+  blueSeperator: {
+    flex: 1,
+    maxHeight: 40,
+    padding: 2,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  button: {
+    placeSelf: "center",
+    backgroundColor: "#000", 
+    padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 20, 
+    textAlign: "center",
+    color: "#82BCBD",
+    fontWeight: "600",
+    margin: 12
+  }
 })
 export default OrderScreen;
