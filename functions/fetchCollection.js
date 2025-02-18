@@ -1,5 +1,6 @@
-import { db } from "../firebaseConfig";
+import { db } from "../firebaseConfigTwo";
 import { collection, getDocs } from "firebase/firestore";
+
 const fetchCollection = async (path) => {
         try {
           const snapshot = await getDocs(collection(db,path))

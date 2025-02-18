@@ -1,16 +1,18 @@
 
-import { Button, FlatList, Image, SafeAreaView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
-
+import {  FlatList, ImageBackground, SafeAreaView, StyleSheet, Text, useColorScheme, useWindowDimensions, View } from "react-native";
+import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import WoolColor from "../../../components/MaterialColor";
-
+import { Colors } from "@/constants/Colors";
 
 
 const MaterialScreen = () => {
  const { width } = useWindowDimensions();
  const [listOfWools, setListofWools] = useState([])
  const numberOfcolums = width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
+  const colorScheme = useColorScheme();
+  const themeColors = Colors[colorScheme] || Colors.light;
 
   const fetchProducts = async () => {
       const snapshot = await fetchCollection("wool")
@@ -25,7 +27,13 @@ const MaterialScreen = () => {
   
  
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <ImageBackground
+    source={woolBg}
+     style={styles.imageBackground}
+     resizeMode="cover">
+   <View style={themeColors.overlay}>
+    <SafeAreaView style={{ backgroundColor: themeColors.background, flex: 1 }}className="mx-3" >
+
       <View >
         <Text className="text-center text-2xl">Ull till täcken</Text>
       </View>
@@ -39,6 +47,8 @@ const MaterialScreen = () => {
 
       </FlatList>
     </SafeAreaView>
+    </View>
+    </ImageBackground>
   );
 };
 
@@ -48,6 +58,9 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
+  },
+  imageBackground: {
+    flex: 1,
   },
 })
 
