@@ -11,9 +11,9 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+  
     <Tabs
       screenOptions={{
-        // headerLeft: () => <DrawerToggleButton />,
         header: () => <CustomHeader title="Black Valley" />,
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
 
@@ -24,16 +24,13 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          // headerShown: true,
-          // header: () => <CustomHeader />,
+       
         }}
       />
       <Tabs.Screen
         name="material"
         options={{
           title: "Explore",
-          // headerShown: false,
-          // header: () => <CustomHeader />,
         }}
       />
     </Tabs>
