@@ -25,7 +25,11 @@ const CustomDrawerContent = (props) => {
   });
 
   useEffect(() => {
-    console.log(pathname);
+    if (pathname.includes("Eng")) {
+      setEng(true);
+    } else {
+      setEng(false);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -46,14 +50,14 @@ const CustomDrawerContent = (props) => {
           styles.navItemLabel,
           {
             color:
-              pathname == "/" || pathname == "/home"
+              pathname == "/" || pathname == "/indexEng"
                 ? themeColors.hamburgerTextActive
                 : themeColors.hamburgerText,
           },
         ]}
         style={{
           backgroundColor:
-            pathname == "/" || pathname == "/home"
+            pathname == "/" || pathname == "/indexEng"
               ? "#333"
               : themeColors.background,
         }}
@@ -61,7 +65,7 @@ const CustomDrawerContent = (props) => {
           if (!eng) {
             router.push("/");
           } else {
-            router.push("/home");
+            router.push("/indexEng");
           }
         }}
       />
@@ -112,7 +116,7 @@ const CustomDrawerContent = (props) => {
       {showSubMenu && (
         <View>
           <DrawerItem
-            label={eng ? "Wool for dog coats" : "Ull till täcke"}
+            label={!eng ? "Ull till täcke" : "Wool for dog coats"}
             labelStyle={[
               styles.navItemLabelsmall,
               {
@@ -137,7 +141,7 @@ const CustomDrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            label={eng ? "Leather for collars" : "Läder till halsband"}
+            label={!eng ? "Läder till halsband" : "Leather for collars"}
             labelStyle={[
               styles.navItemLabelsmall,
               {
@@ -213,7 +217,7 @@ const CustomDrawerContent = (props) => {
       {showSubMenuOrder && (
         <View>
           <DrawerItem
-            label={eng ? "Place Order" : "Beställ här"}
+            label={!eng ? "Beställ här" : "Place Order"}
             labelStyle={[
               styles.navItemLabelsmall,
               {
@@ -238,7 +242,7 @@ const CustomDrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            label={eng ? "Tearms And Conditions" : "Köpvilkor"}
+            label={!eng ? "Köpvilkor" : "Tearms And Conditions"}
             labelStyle={[
               styles.navItemLabelsmall,
               {
@@ -272,7 +276,7 @@ const CustomDrawerContent = (props) => {
         onPress={() => {
           if (!eng) {
             setEng(true);
-            router.push("/home");
+            router.push("/indexEng");
           } else {
             setEng(false);
             router.push("/");

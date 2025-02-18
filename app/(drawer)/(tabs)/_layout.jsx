@@ -4,8 +4,10 @@ import { Platform } from "react-native";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import CustomHeader from "../../../components/CustomHeader";
+// import CustomHeader from "../../../components/CustomHeader";
+import { navLinks } from "../../../constants/navLinks";
 import { DrawerToggleButton } from "@react-navigation/drawer";
+import Header from "../../../components/Header";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,7 +16,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         // headerLeft: () => <DrawerToggleButton />,
-        header: () => <CustomHeader title="Black Valley" />,
+        header: () => <Header title="Black Valley" data={navLinks} />,
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
 
         tabBarBackground: TabBarBackground,

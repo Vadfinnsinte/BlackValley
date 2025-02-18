@@ -1,13 +1,13 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-const TermsConditionsEng = () => {
+const CoatModels = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>terms</Text>
+        <Text>Täcke</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default TermsConditionsEng;
+export default CoatModels;
