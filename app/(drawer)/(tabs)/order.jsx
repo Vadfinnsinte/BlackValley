@@ -5,6 +5,8 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import CustomFormCoat from "../../../components/CustomFormCoat";
+import CustomFormCollar from "../../../components/CustomFormCollar";
+import CustomFormOther from "../../../components/CustomFormOther";
 const OrderScreen = () => {
   const [coat, setCoat] = useState(false)
   const [coatForm, setCoatForm] = useState(false)
@@ -41,6 +43,30 @@ const OrderScreen = () => {
       setWarning(true)
     }
   } 
+  const handleCoat = () => {
+    setWarning(false)
+    if(collar || other){
+      return
+    }else {
+      setCoat(prevCoat => !prevCoat) 
+    }
+  }
+  const handleCollar = () => {
+    setWarning(false)
+    if(coat || other){
+      return
+    }else {
+      setCollar(prevCollar => !prevCollar) 
+    }
+  }
+  const handleOther = () => {
+    setWarning(false)
+    if(coat || collar){
+      return
+    }else {
+      setOther(prevOther => !prevOther)
+    }
+  }
 
   return (
       <ImageBackground
@@ -62,18 +88,18 @@ const OrderScreen = () => {
         <Text className="text-xl text-center"style={{color: "#11181C"}} >1. Vänligen välj vad du vill beställa</Text>
         </View>
        
-{       stepOne && 
+{     stepOne && 
 <View>
         <View style={checkboxStyle.containerCheck}>  
           <View>
             <Text style={{color: themeColors.text}}>
               Täcke
             </Text>
-            {coat ? <Pressable onPress={() => setCoat(prevCoat => !prevCoat) }>
+            {coat ? <Pressable onPress={handleCoat}>
               <Fontisto name="checkbox-active" size={24} color={themeColors.detail}style={{ alignSelf: 'center' }} /> 
               </Pressable>
             : 
-            <Pressable onPress={() => setCoat(prevCoat => !prevCoat) }>
+            <Pressable onPress={handleCoat}>
               <Fontisto name="checkbox-passive" size={24} color={themeColors.detail} style={{ alignSelf: 'center' }}/>
 
             </Pressable>}
@@ -83,12 +109,12 @@ const OrderScreen = () => {
               Halsband
             </Text>
             {collar ? 
-            <Pressable onPress={() => setCollar(prevCollar => !prevCollar) }>
+            <Pressable onPress={handleCollar}>
               <Fontisto name="checkbox-active" size={24} color={themeColors.detail}style={{ alignSelf: 'center' }} /> 
 
             </Pressable>
             : 
-            <Pressable onPress={() => setCollar(prevCollar => !prevCollar)}>
+            <Pressable onPress={handleCollar}>
             <Fontisto name="checkbox-passive" size={24} color={themeColors.detail} style={{ alignSelf: 'center' }}/>
 
             </Pressable>}
@@ -98,12 +124,12 @@ const OrderScreen = () => {
               Annat
             </Text>
             {other ? 
-            <Pressable onPress={() => setOther(prevOther => !prevOther)}> 
+            <Pressable onPress={handleOther}> 
               <Fontisto name="checkbox-active" size={24} color={themeColors.detail}style={{ alignSelf: 'center' }} /> 
 
             </Pressable>
             : 
-            <Pressable  onPress={() => setOther(prevOther => !prevOther)}>
+            <Pressable  onPress={handleOther}>
               <Fontisto name="checkbox-passive" size={24} color={themeColors.detail} style={{ alignSelf: 'center' }} />
 
             </Pressable>}
@@ -116,13 +142,23 @@ const OrderScreen = () => {
             
           </Pressable>
           <Text style={{color: themeColors.text}} className="text-center text-xs -mt-2">Om du vill beställa flera produkter så finns det alternativet i nästa steg.</Text> 
-          </View>}
+          </View>
+          }
           
+
         <View style={[checkboxStyle.blueSeperator, { backgroundColor: themeColors.detail }]}>
         <Text className="text-xl text-center"style={{color: "#11181C"}} >2. Mått, färg och specifikationer.</Text>
         </View>
-              {coatForm && <CustomFormCoat />}
+        { stepTwo && 
+        <View>
+              {coatForm && <CustomFormCoat setStepThree={setStepThree} stepThree={stepThree} stepOne={stepOne} setStepOne={setStepOne} stepTwo={stepTwo} setStepTwo={setStepTwo}/>}
+              {collarForm && <CustomFormCollar setStepThree={setStepThree} stepThree={stepThree} stepOne={stepOne} setStepOne={setStepOne} stepTwo={stepTwo} setStepTwo={setStepTwo} />}
+              {otherForm && <CustomFormOther setStepThree={setStepThree} stepThree={stepThree} stepOne={stepOne} setStepOne={setStepOne} stepTwo={stepTwo} setStepTwo={setStepTwo}/>}
+        </View>
+        }
+
         <View style={[checkboxStyle.blueSeperator, { backgroundColor: themeColors.detail }]}>
+          
         <Text className="text-xl text-center"style={{color: "#11181C"}} >3. Kontaktuppgifter.</Text>
         </View>
                {/* LÄGG IN COMPONENT. */}
@@ -134,7 +170,7 @@ const OrderScreen = () => {
     </ImageBackground>
   );
 };
-const checkboxStyle = StyleSheet.create({
+export const checkboxStyle = StyleSheet.create({
   container: {
     flex: 1,
   },
