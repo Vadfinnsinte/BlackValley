@@ -5,13 +5,14 @@ import {
   View,
   StyleSheet,
   useColorScheme,
+  useWindowDimensions,
 } from "react-native";
-import { SafeAreaView } from "react-native-web";
-import { checkboxStyle } from "../app/(drawer)/(tabs)/order";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
+import { getSyntheticTrailingComments } from "typescript";
+import { styleCoatForm } from "../constants/formStyles";
 
 const CustomFormCoat = ({
   stepThree,
@@ -24,6 +25,7 @@ const CustomFormCoat = ({
 }) => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
+  const { width } = useWindowDimensions();
   const [selectedModel, setSelectedModel] = useState(null);
   const [open, setOpen] = useState(false);
   const [boneString, setBoneString] = useState(null);
@@ -31,11 +33,21 @@ const CustomFormCoat = ({
     { label: "Modell 1", value: "model1" },
     { label: "Modell 2", value: "model2" },
   ]);
+
   return (
-    <View>
-      <Text className="text-center text-xl"> Täcke </Text>
-      <View>
-        <View style={[style.flexBox, { zIndex: 1000 }]}>
+      
+    <View style={styleCoatForm .centerContent} >
+      <Pressable
+          onPress={() => {
+            setStepOne(true);
+            setStepTwo(false);
+            setCoatForm(false);
+          }}>
+          <Text >Tillbaka till steg 1</Text>
+        </Pressable>
+      <View >
+      <Text className={`text-xl  ${width < 790 ? "text-center" : ""}` } styleCoatForm ={{color: themeColors.detail}}>Täcke</Text>
+        <View style={[width > 750 ? styleCoatForm .flexBox : styleCoatForm .flexBoxSmall , { zIndex: 10 }]}>
           <View>
             <Text>Model</Text>
             <DropDownPicker
@@ -45,44 +57,46 @@ const CustomFormCoat = ({
               setOpen={setOpen}
               setValue={setSelectedModel}
               setItems={setItems}
-              style={style.dropDown}
-              dropDownContainerStyle={style.dropDownContainer}
+              style={styleCoatForm .dropDown}
+              dropDownContainerStyle={styleCoatForm .dropDownContainer}
             />
           </View>
           <View>
             <Text>Mått</Text>
-            <TextInput style={style.input}></TextInput>
+            <TextInput style={styleCoatForm.input}></TextInput>
           </View>
         </View>
-        <View style={style.flexBox}>
+        <View style={[width > 750 ? styleCoatForm .flexBox : styleCoatForm .flexBoxSmall , { zIndex: 9 }]}>
           <View>
             <Text>Önskad färg på tyg</Text>
-            <TextInput style={style.input}></TextInput>
+            <TextInput style={styleCoatForm .input}></TextInput>
           </View>
           <View>
-            <Text>Önskad färg på Cosy krage (om man valt model)</Text>
-            <TextInput style={style.input}></TextInput>
+            <Text>Önskad färg på Cosy krage</Text>
+            <TextInput style={styleCoatForm .input}></TextInput>
+            {/* gör conditional */}
           </View>
         </View>
-        <Text>Brodyr</Text>
-        <View style={style.flexBox}>
+        <Text className={`text-xl ${width < 790 ? "text-center" : ""}` }
+        style={{color: themeColors.detail}}>Brodyr</Text>
+        <View style={[width > 750 ? styleCoatForm .flexBox : styleCoatForm .flexBoxSmall , { zIndex: 8 }]}>
           <View>
             <Text>Önskad Färg</Text>
-            <TextInput style={style.input}></TextInput>
+            <TextInput style={styleCoatForm .input}></TextInput>
           </View>
           <View>
             <Text>Typsnitt</Text>
-            <TextInput style={style.input}></TextInput>
+            <TextInput style={styleCoatForm .input}></TextInput>
           </View>
         </View>
-        <View>
-          <Text>Text(skriv exakt som önskat te.x. (AlViN)(alvin))</Text>
-          <TextInput style={style.input}></TextInput>
+        <View >
+          <Text>Text</Text>
+          <TextInput style={styleCoatForm .input}></TextInput>
+          <Text className="text-sm"> te.x. (AlViN)(alvin)</Text>
         </View>
-        <View>
+        <View style={{marginTop: 10}}>
           <Text style={{ color: themeColors.text }}>Bensnöre</Text>
-          <View style={style.flexBox}>
-            {/* JA-alternativ */}
+          <View style={styleCoatForm .flexBox}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text>Ja</Text>
               <Pressable onPress={() => setBoneString(true)}>
@@ -95,8 +109,6 @@ const CustomFormCoat = ({
                 />
               </Pressable>
             </View>
-
-            {/* NEJ-alternativ */}
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text>Nej</Text>
               <Pressable onPress={() => setBoneString(false)}>
@@ -109,52 +121,20 @@ const CustomFormCoat = ({
                   size={24}
                   color={themeColors.detail}
                 />
+                   {/* behöver lägga till så man ej kan gå vidare ifall man ej klickat i ja eller nej */}
               </Pressable>
             </View>
           </View>
         </View>
       </View>
       <View>
-        <Pressable
-          style={checkboxStyle.button}
-          onPress={() => {
-            setStepOne(true);
-            setStepTwo(false);
-            setCoatForm(false);
-          }}>
-          <Text style={{ color: "#82BCBD" }}>Tillbaka till steg 1</Text>
-        </Pressable>
+        
       </View>
     </View>
+ 
   );
 };
 
 export default CustomFormCoat;
 
-const style = StyleSheet.create({
-  flexBox: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 10,
-    marginBottom: 20,
-  },
-  input: {
-    width: 250,
-    height: 40,
-    backgroundColor: "#D9D9D9",
-    borderRadius: 10,
-    borderColor: "black",
-    borderWidth: 1,
-  },
-  dropDown: {
-    zIndex: 1000,
-    position: "relative",
-    width: 250,
-  },
-  dropDownContainer: {
-    zIndex: 1000,
-    position: "absolute",
-    backgroundColor: "white",
-    top: 50,
-  },
-});
+

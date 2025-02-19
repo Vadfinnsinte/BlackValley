@@ -3,19 +3,21 @@ import {
   ImageBackground,
   Pressable,
   SafeAreaView,
-  StyleSheet,
+  ScrollView,
   Text,
   useColorScheme,
   View,
 } from "react-native";
 // import { Ionicons } from '@expo/vector-icons'
-import Fontisto from "@expo/vector-icons/Fontisto";
+import { checkboxStyle } from "../../../constants/formStyles";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import CustomFormCoat from "../../../components/CustomFormCoat";
 import CustomFormCollar from "../../../components/CustomFormCollar";
 import CustomFormOther from "../../../components/CustomFormOther";
-const OrderScreen = () => {
+import  CheckBox  from "../../../components/CheckBox"
+const OrderScreen = (
+) => {
   const [coat, setCoat] = useState(false);
   const [coatForm, setCoatForm] = useState(false);
   const [collar, setCollar] = useState(false);
@@ -29,7 +31,6 @@ const OrderScreen = () => {
   const [stepOne, setStepOne] = useState(true);
   const [stepTwo, setStepTwo] = useState(true);
   const [stepThree, setStepThree] = useState(true);
-
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
 
@@ -50,55 +51,13 @@ const OrderScreen = () => {
       setWarning(true);
     }
   };
-  const handleCoat = () => {
-    setWarning(false);
-    if (collar || other) {
-      return;
-    } else {
-      setCoat((prevCoat) => !prevCoat);
-    }
-  };
-  const handleCollar = () => {
-    setWarning(false);
-    if (coat || other) {
-      return;
-    } else {
-      setCollar((prevCollar) => !prevCollar);
-    }
-  };
-  const handleOther = () => {
-    setWarning(false);
-    if (coat || collar) {
-      return;
-    } else {
-      setOther((prevOther) => !prevOther);
-    }
-  };
-  //   const handleCoat = () => {
-  //     setWarning(false);
-  //     setCoat(!coat);
-  //     setCollar(false);
-  //     setOther(false);
-  //   };
-  //   const handleCollar = () => {
-  //     setWarning(false);
-  //     setCoat(false);
-  //     setCollar(!collar);
-  //     setOther(false);
-  //   };
-  //   const handleOther = () => {
-  //     setWarning(false);
-  //     setCoat(false);
-  //     setCollar(false);
-  //     setOther(!other);
-  //   };
-
   return (
     <ImageBackground
       source={woolBg}
       style={checkboxStyle.imageBackground}
       resizeMode="cover">
       <View style={themeColors.overlay}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 50 }} keyboardShouldPersistTaps="handled">
         <SafeAreaView
           style={{ backgroundColor: themeColors.background, flex: 1 }}
           className="mx-10">
@@ -126,83 +85,19 @@ const OrderScreen = () => {
                 1. Vänligen välj vad du vill beställa
               </Text>
             </View>
-
             {stepOne && (
               <View>
-                <View style={checkboxStyle.containerCheck}>
-                  <View>
-                    <Text style={{ color: themeColors.text }}>Täcke</Text>
-                    {coat ? (
-                      <Pressable onPress={handleCoat}>
-                        <Fontisto
-                          name="checkbox-active"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    ) : (
-                      <Pressable onPress={handleCoat}>
-                        <Fontisto
-                          name="checkbox-passive"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-                  <View>
-                    <Text style={{ color: themeColors.text }}>Halsband</Text>
-                    {collar ? (
-                      <Pressable onPress={handleCollar}>
-                        <Fontisto
-                          name="checkbox-active"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    ) : (
-                      <Pressable onPress={handleCollar}>
-                        <Fontisto
-                          name="checkbox-passive"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-                  <View>
-                    <Text style={{ color: themeColors.text }}>Annat</Text>
-                    {other ? (
-                      <Pressable onPress={handleOther}>
-                        <Fontisto
-                          name="checkbox-active"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    ) : (
-                      <Pressable onPress={handleOther}>
-                        <Fontisto
-                          name="checkbox-passive"
-                          size={24}
-                          color={themeColors.detail}
-                          style={{ alignSelf: "center" }}
-                        />
-                      </Pressable>
-                    )}
-                  </View>
-                </View>
-                <Text
-                  className={`text-red-400 text-center -mb-2 mt-2 ${
-                    !warning ? "invisible" : ""
-                  }`}>
-                  {warningmessage}
-                </Text>
+                <CheckBox 
+                coat={coat} 
+                setCoat={setCoat} 
+                collar={collar} 
+                setCollar={setCollar} 
+                other={other} 
+                setOther={setOther}
+                setWarning={setWarning}
+                warningmessage={warningmessage}
+                warning={warning}
+                />
                 <Pressable onPress={openCustomForm}>
                   <Text style={checkboxStyle.button}>Gå vidare</Text>
                 </Pressable>
@@ -278,46 +173,10 @@ const OrderScreen = () => {
             {/* LÄGG IN COMPONENT. */}
           </View>
         </SafeAreaView>
+        </ScrollView>
       </View>
     </ImageBackground>
   );
 };
-export const checkboxStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  containerText: {
-    alignItems: "center",
-    margin: 20,
-  },
-  containerCheck: {
-    flexDirection: "row",
-    gap: 30,
-    justifyContent: "center",
-    margin: 10,
-  },
 
-  imageBackground: {
-    flex: 1,
-  },
-  blueSeperator: {
-    flex: 1,
-    maxHeight: 40,
-    padding: 2,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  button: {
-    placeSelf: "center",
-    backgroundColor: "#000",
-    padding: 8,
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderRadius: 20,
-    textAlign: "center",
-    color: "#82BCBD",
-    fontWeight: "600",
-    margin: 12,
-  },
-});
 export default OrderScreen;

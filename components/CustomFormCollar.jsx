@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from "react-native";
-import { checkboxStyle } from "../app/(drawer)/(tabs)/order";
+import { checkboxStyle } from "../constants/formStyles";
+
 const CustomFormCollar = ({
   stepThree,
   setStepThree,
@@ -20,7 +21,7 @@ const CustomFormCollar = ({
         }}>
         <Text style={checkboxStyle.button}>Tillbaka till steg 1</Text>
       </Pressable>
-      {/* LÄgg till NOLLSTÄLLNING av AKTIVA FormVariabeln  */}
+      
     </View>
   );
 };
