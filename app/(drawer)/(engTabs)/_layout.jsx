@@ -1,12 +1,12 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
-
 // import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import CustomHeaderEng from "../../../components/CustomHeaderEng";
+import { navLinksEng } from "../../../constants/navLinksEng";
+import Header from "../../../components/Header";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -15,16 +15,16 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        header: () => <CustomHeaderEng title="Black Valley" />,
+        header: () => <Header title="Black Valley" data={navLinksEng} />,
         tabBarBackground: TabBarBackground,
         tabBarStyle: { display: "none" },
       }}>
       <Tabs.Screen
-        name="home"
+        name="indexEng"
         options={{
           title: "Home",
           headerShown: true,
-          header: () => <CustomHeaderEng />,
+          header: () => <Header title="Black Valley" data={navLinksEng} />,
         }}
       />
       {/* <Tabs.Screen

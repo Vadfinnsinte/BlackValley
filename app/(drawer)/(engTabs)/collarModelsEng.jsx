@@ -1,13 +1,13 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-const TermsConditionsEng = () => {
+const CollorModelsEng = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>terms</Text>
+        <Text>English</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default TermsConditionsEng;
+export default CollorModelsEng;

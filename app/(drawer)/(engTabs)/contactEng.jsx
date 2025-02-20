@@ -1,13 +1,13 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-const TermsConditionsEng = () => {
+const ContactScreenEng = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>terms</Text>
+        <Text>Hello</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default TermsConditionsEng;
+export default ContactScreenEng;
