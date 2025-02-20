@@ -12,9 +12,9 @@ import { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { getSyntheticTrailingComments } from "typescript";
-import { styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { useEffect } from "react";
-import { fonts } from "../constants/fonts";
+import { fontItems } from "../constants/fonts";
 import { fetchCollection } from "../functions/fetchCollection";
 
 const CustomFormCoat = ({
@@ -26,30 +26,34 @@ const CustomFormCoat = ({
   setStepTwo,
   setCoatForm,
 }) => {
+  // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
+  //
+
+  // -- State handlers --
+  // Selected dropdown values
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedFont, setSelectedFont] = useState(null);
+  // Open or closed dropdown
   const [open, setOpen] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openFont, setOpenFont] = useState(false);
   const [colorColar, setColorColar] = useState(false);
-  const [boneString, setBoneString] = useState(null);
+  // Objects with dropdown selection alternatives
   const [models, setModels] = useState([
     { label: "Cosy", value: "Cosy" },
     { label: "Limitless", value: "Limitless" },
     { label: "High-Neck", value: "High-Neck" },
     { label: "Swedish", value: "Swedish" },
   ]);
-  const [woolColors, setWoolColors] = useState([]);
-  const fontItems = fonts.map((font) => ({
-    label: font,
-    value: font.toLowerCase().replace(/\s+/g, "_"),
-  }));
   const [chosenFont, setChosenFonts] = useState(fontItems);
-
+  const [woolColors, setWoolColors] = useState([]);
+  // checkbox handler
+  const [legString, setlegString] = useState(null);
+  //
   const fetchwoolColors = async () => {
     const response = await fetchCollection("wool");
     if (response) {
@@ -59,7 +63,6 @@ const CustomFormCoat = ({
           label: name.color,
           value: name.color,
         }));
-
       setWoolColors(allColors);
     }
   };
@@ -199,7 +202,7 @@ const CustomFormCoat = ({
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
             <TextInput style={styleCoatForm.input}></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
-              te.x. (AlViN)(alvin)
+              blir exakt som skrivet te.x. ALviN, alvin
             </Text>
           </View>
 
@@ -220,10 +223,10 @@ const CustomFormCoat = ({
                   className="m-2">
                   Ja
                 </Text>
-                <Pressable onPress={() => setBoneString(true)}>
+                <Pressable onPress={() => setlegString(true)}>
                   <Fontisto
                     name={
-                      boneString === true
+                      legString === true
                         ? "checkbox-active"
                         : "checkbox-passive"
                     }
@@ -234,10 +237,10 @@ const CustomFormCoat = ({
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
-                <Pressable onPress={() => setBoneString(false)}>
+                <Pressable onPress={() => setlegString(false)}>
                   <Fontisto
                     name={
-                      boneString === false
+                      legString === false
                         ? "checkbox-active"
                         : "checkbox-passive"
                     }
@@ -249,9 +252,9 @@ const CustomFormCoat = ({
             </View>
           </View>
         </View>
-        <View style={setCoatForm.centerContent}>
+        <View>
           <Text style={{ color: themeColors.text }}>
-            Commentarer och special-önskemål
+            Kommentarer och special-önskemål
           </Text>
           <TextInput style={styleCoatForm.bigInput}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
@@ -259,6 +262,14 @@ const CustomFormCoat = ({
           </Text>
         </View>
       </View>
+      <Pressable
+        onPress={() => {
+          setStepThree(true);
+          setCoatForm(false);
+          setStepTwo(false);
+        }}>
+        <Text style={checkboxStyle.button}>Gå vidare</Text>
+      </Pressable>
     </View>
   );
 };
