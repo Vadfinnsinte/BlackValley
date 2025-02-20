@@ -4,7 +4,6 @@ import {
 	useColorScheme,
 	View,
   } from "react-native";
-  import { useState } from "react";
   import { checkboxStyle } from "../constants/formStyles";
   import { Colors } from "@/constants/Colors";
   import Fontisto from "@expo/vector-icons/Fontisto";

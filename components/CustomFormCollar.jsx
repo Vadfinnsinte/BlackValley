@@ -20,6 +20,7 @@ const CustomFormCollar = ({
           setCollarForm(false);
         }}>
         <Text style={checkboxStyle.button}>Tillbaka till steg 1</Text>
+        
       </Pressable>
       
     </View>

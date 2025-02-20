@@ -1,6 +1,4 @@
-import {
-	StyleSheet
-  } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const checkboxStyle = StyleSheet.create({
   container: {
@@ -48,7 +46,6 @@ export const styleCoatForm = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     marginBottom: 20,
-    
   },
   flexBoxSmall: {
     display: "flex",
@@ -60,7 +57,7 @@ export const styleCoatForm = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignSelf: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   input: {
     width: 250,
@@ -70,18 +67,24 @@ export const styleCoatForm = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
   },
+  bigInput: {
+    height: 110,
+    backgroundColor: "#D9D9D9",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+  },
   dropDown: {
-    zIndex: 1000,
+    // zIndex: 1000,
     position: "relative",
     width: 250,
+    height: 40,
+    minHeight: 40,
   },
-  dropDownContainer: {
-    zIndex: 1000,
-    position: "absolute",
-    backgroundColor: "white",
-    top: 50,
-  },
-  back: {
-    
-  }
+  // dropDownContainer: {
+  //   zIndex: 1000,
+  //   position: "absolute",
+  //   backgroundColor: "white",
+  //   top: 50,
+  // },
 });
