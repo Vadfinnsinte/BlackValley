@@ -48,6 +48,7 @@ const CustomFormCollar = () => {
     setOpenFont,
     openMetal,
     setOpenMetal,
+    setComingFromForm,
   } = formStore();
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
@@ -85,6 +86,7 @@ const CustomFormCollar = () => {
 
   useEffect(() => {
     fetchLeatherColors();
+    setComingFromForm("Collar");
   }, []);
 
   return (

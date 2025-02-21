@@ -16,17 +16,39 @@ const ContactForm = ({}) => {
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
-  const { stepThree, setStepThree, stepOne, setStepOne, stepTwo, setStepTwo } =
-    formStore();
+  const {
+    stepThree,
+    setStepThree,
+    stepOne,
+    setStepOne,
+    stepTwo,
+    setStepTwo,
+    comingFromForm,
+    setCollarForm,
+    setOtherForm,
+    setCoatForm,
+  } = formStore();
+
+  const goBack = () => {
+    if (comingFromForm === "Collar") {
+      setStepThree(false);
+      setStepTwo(true);
+      setCollarForm(true);
+    }
+    if (comingFromForm === "Coat") {
+      setStepThree(false);
+      setStepTwo(true);
+      setCoatForm(true);
+    }
+    if (comingFromForm === "Other") {
+      setStepThree(false);
+      setStepTwo(true);
+      setOtherForm(true);
+    }
+  };
   return (
     <View style={styleCoatForm.centerContent}>
-      <Pressable
-        style={{ alignSelf: "flex-end" }}
-        onPress={() => {
-          setStepThree(false);
-          setStepTwo(true);
-          //   setCollarForm(false);   LÄGG TILL EN VARIABEL SOM HAR KOLL PÅ VAR MAN VARIT!
-        }}>
+      <Pressable style={{ alignSelf: "flex-end" }} onPress={goBack}>
         <Text
           style={{
             color: themeColors.text,

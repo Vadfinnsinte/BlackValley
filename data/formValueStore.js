@@ -48,8 +48,6 @@ const formValuesStore = create((set) => ({
   setSelectedModelCoat: (value) => set({ selectedModelCoat: value }),
   selectedColor: null,
   setSelectedColor: (value) => set({ selectedColor: value }),
-  // selectedFont: null,
-  // setSelectedFont: (value) => set({selectedFont: value}),
   openCoatModel: null,
   setOpenCoatModel: (value) => set({ openCoatModel: value }),
   openColor: null,
@@ -60,6 +58,8 @@ const formValuesStore = create((set) => ({
   setChosenFont: (value) => set({ chosenFont: value }),
   legString: null,
   setLegString: (value) => set({ legString: value }),
+  comingFromForm: "",
+  setComingFromForm: (value) => set({ comingFromForm: value }),
 }));
 
 export { formValuesStore };

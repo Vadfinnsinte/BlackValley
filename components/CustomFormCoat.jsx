@@ -45,6 +45,7 @@ const CustomFormCoat = () => {
     setChosenFont,
     legString,
     setLegString,
+    setComingFromForm,
   } = formStore();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
@@ -84,6 +85,7 @@ const CustomFormCoat = () => {
 
   useEffect(() => {
     fetchwoolColors();
+    setComingFromForm("Coat");
   }, []);
 
   return (

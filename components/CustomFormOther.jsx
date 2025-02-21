@@ -1,6 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 import { checkboxStyle } from "../constants/formStyles";
 import { formStore } from "../data/formStoreHooks";
+import { useEffect } from "react";
 
 const CustomFormOther = () => {
   const {
@@ -11,7 +12,12 @@ const CustomFormOther = () => {
     stepTwo,
     setStepTwo,
     setOtherForm,
+    comingFromForm,
+    setComingFromForm,
   } = formStore();
+  useEffect(() => {
+    setComingFromForm("Other");
+  }, []);
   return (
     <View>
       <Text className="text-center text-xl"> Annat </Text>

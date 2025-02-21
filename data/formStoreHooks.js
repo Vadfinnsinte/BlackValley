@@ -73,6 +73,8 @@ const formStore = () => {
   const setLegString = formValuesStore((state) => state.setLegString);
   // const woolColors = formValuesStore((state) => state.woolColors);
   // const setWoolColors = formValuesStore((state) => state.setWoolColors);
+  const comingFromForm = formValuesStore((state) => state.comingFromForm);
+  const setComingFromForm = formValuesStore((state) => state.setComingFromForm);
   return {
     setCoat,
     coat,
@@ -131,6 +133,8 @@ const formStore = () => {
     setChosenFont,
     legString,
     setLegString,
+    comingFromForm,
+    setComingFromForm,
   };
 };
 
