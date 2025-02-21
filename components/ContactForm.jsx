@@ -8,20 +8,16 @@ import {
 } from "react-native";
 import { Colors } from "../constants/Colors";
 import { styleCoatForm } from "../constants/formStyles";
+import { formStore } from "../data/formStoreHooks";
 
-const ContactForm = ({
-  stepThree,
-  setStepThree,
-  stepOne,
-  setStepOne,
-  stepTwo,
-  setStepTwo,
-}) => {
+const ContactForm = ({}) => {
   // -- colors and responsiv variables --
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
+  const { stepThree, setStepThree, stepOne, setStepOne, stepTwo, setStepTwo } =
+    formStore();
   return (
     <View style={styleCoatForm.centerContent}>
       <Pressable

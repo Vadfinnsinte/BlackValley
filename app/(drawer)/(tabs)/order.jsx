@@ -17,20 +17,32 @@ import CustomFormCollar from "../../../components/CustomFormCollar";
 import CustomFormOther from "../../../components/CustomFormOther";
 import CheckBox from "../../../components/CheckBox";
 import ContactForm from "../../../components/ContactForm";
+import { formStore } from "../../../data/formStoreHooks";
 const OrderScreen = () => {
-  const [coat, setCoat] = useState(false);
-  const [coatForm, setCoatForm] = useState(false);
-  const [collar, setCollar] = useState(false);
-  const [collarForm, setCollarForm] = useState(false);
-  const [other, setOther] = useState(false);
-  const [otherForm, setOtherForm] = useState(false);
-  const [warning, setWarning] = useState(false);
-  const [warningmessage, setWarningmessage] = useState(
-    "Please check one of the boxes"
-  );
-  const [stepOne, setStepOne] = useState(true);
-  const [stepTwo, setStepTwo] = useState(true);
-  const [stepThree, setStepThree] = useState(true);
+  const {
+    setCoat,
+    coat,
+    coatForm,
+    setCoatForm,
+    collar,
+    setCollar,
+    collarForm,
+    setCollarForm,
+    other,
+    setOther,
+    otherForm,
+    setOtherForm,
+    warning,
+    setWarning,
+    warningmessage,
+    setWarningmessage,
+    stepOne,
+    setStepOne,
+    stepTwo,
+    setStepTwo,
+    stepThree,
+    setStepThree,
+  } = formStore();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
 
@@ -49,6 +61,7 @@ const OrderScreen = () => {
       setStepTwo(true);
     } else {
       setWarning(true);
+      // setWarningmessage("Please check one of the boxes");
     }
   };
   return (
@@ -89,17 +102,7 @@ const OrderScreen = () => {
               </View>
               {stepOne && (
                 <View>
-                  <CheckBox
-                    coat={coat}
-                    setCoat={setCoat}
-                    collar={collar}
-                    setCollar={setCollar}
-                    other={other}
-                    setOther={setOther}
-                    setWarning={setWarning}
-                    warningmessage={warningmessage}
-                    warning={warning}
-                  />
+                  <CheckBox />
                   <Pressable onPress={openCustomForm}>
                     <Text style={checkboxStyle.button}>Gå vidare</Text>
                   </Pressable>
@@ -125,39 +128,9 @@ const OrderScreen = () => {
               </View>
               {stepTwo && (
                 <View>
-                  {coatForm && (
-                    <CustomFormCoat
-                      setStepThree={setStepThree}
-                      stepThree={stepThree}
-                      stepOne={stepOne}
-                      setStepOne={setStepOne}
-                      stepTwo={stepTwo}
-                      setStepTwo={setStepTwo}
-                      setCoatForm={setCoatForm}
-                    />
-                  )}
-                  {collarForm && (
-                    <CustomFormCollar
-                      setStepThree={setStepThree}
-                      stepThree={stepThree}
-                      stepOne={stepOne}
-                      setStepOne={setStepOne}
-                      stepTwo={stepTwo}
-                      setStepTwo={setStepTwo}
-                      setCollarForm={setCollarForm}
-                    />
-                  )}
-                  {otherForm && (
-                    <CustomFormOther
-                      setStepThree={setStepThree}
-                      stepThree={stepThree}
-                      stepOne={stepOne}
-                      setStepOne={setStepOne}
-                      stepTwo={stepTwo}
-                      setStepTwo={setStepTwo}
-                      setOtherForm={setOtherForm}
-                    />
-                  )}
+                  {coatForm && <CustomFormCoat />}
+                  {collarForm && <CustomFormCollar />}
+                  {otherForm && <CustomFormOther />}
                 </View>
               )}
 

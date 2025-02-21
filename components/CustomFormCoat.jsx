@@ -16,44 +16,50 @@ import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { useEffect } from "react";
 import { fontItems } from "../constants/fonts";
 import { fetchCollection } from "../functions/fetchCollection";
+import { formStore } from "../data/formStoreHooks";
 
-const CustomFormCoat = ({
-  stepThree,
-  setStepThree,
-  stepOne,
-  setStepOne,
-  stepTwo,
-  setStepTwo,
-  setCoatForm,
-}) => {
+const CustomFormCoat = () => {
+  const {
+    stepThree,
+    setStepThree,
+    stepOne,
+    setStepOne,
+    stepTwo,
+    setStepTwo,
+    setCoatForm,
+    selectedModelCoat,
+    setSelectedModelCoat,
+    selectedColor,
+    setSelectedColor,
+    selectedFont,
+    setSelectedFont,
+    openCoatModel,
+    setOpenCoatModel,
+    openColor,
+    setOpenColor,
+    openFont,
+    setOpenFont,
+    colorColar,
+    setColorColar,
+    chosenFont,
+    setChosenFont,
+    legString,
+    setLegString,
+  } = formStore();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
+  const [woolColors, setWoolColors] = useState([]);
 
-  // -- State handlers --
-  // Selected dropdown values
-  const [selectedModel, setSelectedModel] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedFont, setSelectedFont] = useState(null);
-  // Open or closed dropdown
-  const [open, setOpen] = useState(false);
-  const [openColor, setOpenColor] = useState(false);
-  const [openFont, setOpenFont] = useState(false);
-  const [colorColar, setColorColar] = useState(false);
-  // Objects with dropdown selection alternatives
   const [models, setModels] = useState([
     { label: "Cosy", value: "Cosy" },
     { label: "Limitless", value: "Limitless" },
     { label: "High-Neck", value: "High-Neck" },
     { label: "Swedish", value: "Swedish" },
   ]);
-  const [chosenFont, setChosenFonts] = useState(fontItems);
-  const [woolColors, setWoolColors] = useState([]);
-  // checkbox handler
-  const [legString, setlegString] = useState(null);
-  //
+
   const fetchwoolColors = async () => {
     const response = await fetchCollection("wool");
     if (response) {
@@ -64,16 +70,17 @@ const CustomFormCoat = ({
           value: name.color,
         }));
       setWoolColors(allColors);
+      console.log(allColors);
     }
   };
 
   useEffect(() => {
-    if (selectedModel === "Cosy") {
+    if (selectedModelCoat === "Cosy") {
       setColorColar(true);
     } else {
       setColorColar(false);
     }
-  }, [selectedModel]);
+  }, [selectedModelCoat]);
 
   useEffect(() => {
     fetchwoolColors();
@@ -111,17 +118,18 @@ const CustomFormCoat = ({
           <View>
             <Text style={{ color: themeColors.text }}>Modell</Text>
             <DropDownPicker
-              open={open}
-              value={selectedModel}
+              open={openCoatModel}
+              value={selectedModelCoat}
               items={models}
-              setOpen={setOpen}
-              setValue={setSelectedModel}
+              setOpen={setOpenCoatModel}
+              // setValue={setSelectedModelCoat}
               setItems={setModels}
               placeholder="Välj en modell"
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
-              onChangeValue={(value) => {
-                setSelectedModel(value);
+              setValue={(callback) => {
+                const newValue = callback(selectedModelCoat);
+                setSelectedModelCoat(newValue);
               }}
             />
           </View>
@@ -142,13 +150,14 @@ const CustomFormCoat = ({
               value={selectedColor}
               items={woolColors}
               setOpen={setOpenColor}
-              setValue={setSelectedColor}
+              // setValue={setSelectedColor}
               setItems={setWoolColors}
               placeholder="Välj färg"
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
-              onChangeValue={(value) => {
-                setSelectedColor(value);
+              setValue={(callback) => {
+                const newValue = callback(selectedColor);
+                setSelectedColor(newValue);
               }}
             />
           </View>
@@ -182,13 +191,14 @@ const CustomFormCoat = ({
               value={selectedFont}
               items={chosenFont}
               setOpen={setOpenFont}
-              setValue={setSelectedFont}
-              setItems={setChosenFonts}
+              // setValue={setSelectedFont}
+              setItems={setChosenFont}
               placeholder="Välj font"
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
-              onChangeValue={(value) => {
-                setSelectedFont(value);
+              setValue={(callback) => {
+                const newValue = callback(selectedFont);
+                setSelectedFont(newValue);
               }}
             />
           </View>
@@ -223,7 +233,7 @@ const CustomFormCoat = ({
                   className="m-2">
                   Ja
                 </Text>
-                <Pressable onPress={() => setlegString(true)}>
+                <Pressable onPress={() => setLegString(true)}>
                   <Fontisto
                     name={
                       legString === true
@@ -237,7 +247,7 @@ const CustomFormCoat = ({
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
-                <Pressable onPress={() => setlegString(false)}>
+                <Pressable onPress={() => setLegString(false)}>
                   <Fontisto
                     name={
                       legString === false

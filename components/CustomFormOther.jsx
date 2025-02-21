@@ -1,15 +1,17 @@
 import { Pressable, Text, View } from "react-native";
 import { checkboxStyle } from "../constants/formStyles";
+import { formStore } from "../data/formStoreHooks";
 
-const CustomFormOther = ({
-  stepThree,
-  setStepThree,
-  stepOne,
-  setStepOne,
-  stepTwo,
-  setStepTwo,
-  setOtherForm,
-}) => {
+const CustomFormOther = () => {
+  const {
+    stepThree,
+    setStepThree,
+    stepOne,
+    setStepOne,
+    stepTwo,
+    setStepTwo,
+    setOtherForm,
+  } = formStore();
   return (
     <View>
       <Text className="text-center text-xl"> Annat </Text>
