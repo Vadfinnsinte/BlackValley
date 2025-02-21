@@ -60,6 +60,7 @@ const Navstyles = StyleSheet.create({
     top: 7,
     borderColor: "black",
     borderWidth: 1,
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
     borderTopWidth: 0,
     borderBottomEndRadius: 8,
     borderBottomStartRadius: 8,

@@ -4,12 +4,13 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
+  StyleSheet,
   Text,
   useColorScheme,
   View,
 } from "react-native";
-// import { Ionicons } from '@expo/vector-icons'
 import { checkboxStyle } from "../../../constants/formStyles";
+import Fontisto from "@expo/vector-icons/Fontisto";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import CustomFormCoat from "../../../components/CustomFormCoat";
@@ -64,12 +65,14 @@ const OrderScreen = () => {
       // setWarningmessage("Please check one of the boxes");
     }
   };
+
   return (
     <ImageBackground
       source={woolBg}
       style={checkboxStyle.imageBackground}
       resizeMode="cover">
       <View style={themeColors.overlay}>
+
         <ScrollView
           contentContainerStyle={{ paddingBottom: 50 }}
           keyboardShouldPersistTaps="handled">
@@ -158,9 +161,16 @@ const OrderScreen = () => {
             </View>
           </SafeAreaView>
         </ScrollView>
+
       </View>
     </ImageBackground>
   );
 };
+
+
+  imageBackground: {
+    flex: 1,
+  },
+});
 
 export default OrderScreen;
