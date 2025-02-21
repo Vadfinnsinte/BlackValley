@@ -12,7 +12,6 @@ import {
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
-import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import InspoList from "../../../components/InspoList";
 
@@ -49,7 +48,11 @@ const InspirationScreen = () => {
           }}
           className="mx-10">
           <View>
-            <Text className="text-center text-2xl">Inspiration</Text>
+            <Text
+              style={[styles.Text, { color: themeColors.text }]}
+              className="text-center ">
+              Inspiration
+            </Text>
           </View>
           <FlatList
             numColumns={numberOfcolums}
@@ -67,13 +70,15 @@ const InspirationScreen = () => {
 export default InspirationScreen;
 
 const styles = StyleSheet.create({
-  //   container: {
-  //     justifyContent: "center",
-  //     alignContent: "center",
-  //     alignItems: "center",
-  //     alignSelf: "center",
-  //     padding: 2,
-  //   },
+  Text: {
+    margin: 10,
+    fontFamily: "monospace",
+    fontSize: 32,
+    fontWeight: "bold",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+
   imageBackground: {
     flex: 1,
   },

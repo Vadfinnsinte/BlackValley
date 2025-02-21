@@ -1,28 +1,37 @@
-import { Image, StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet, View } from "react-native";
 
 const InspoList = ({ image, name, width }) => {
   return (
-    <View style={styles.div}>
-      <Image
-        accessibilitylabel={`${name}`}
+    <View
+      style={width > 780 ? styles.imageContainer : styles.smallImageContainer}>
+      <ImageBackground
+        accessibilityLabel={`${name}`}
         source={{ uri: image }}
-        style={width > 780 ? styles.image : styles.smallimage}
+        style={styles.image}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    height: 400,
+  imageContainer: {
     width: 400,
-  },
-  smallimage: {
-    height: 150,
-    width: 150,
-  },
-  div: {
+    height: 400,
+    borderRadius: 7, // Rundade hörn
+    overflow: "hidden", // Gör så att borderRadius fungerar
     margin: 10,
+  },
+  smallImageContainer: {
+    width: 240,
+    height: 240,
+    borderRadius: 6,
+    overflow: "hidden",
+    margin: 10,
+  },
+  image: {
+    flex: 1, // Gör att bilden fyller containern
+    width: "100%",
+    height: "100%",
   },
 });
 
