@@ -15,7 +15,6 @@ const ContactForm = ({}) => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
-  //
   const {
     stepThree,
     setStepThree,
