@@ -118,7 +118,7 @@ const CustomFormCollar = () => {
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
             { zIndex: 10 },
           ]}>
-          <View>
+          <View style={{ zIndex: 13 }}>
             <Text style={{ color: themeColors.text }}>Modell</Text>
             <DropDownPicker
               open={collarModelOpen}
@@ -132,7 +132,7 @@ const CustomFormCollar = () => {
               }}
               setItems={setModels}
               placeholder="Välj en modell"
-              style={styleCoatForm.dropDown}
+              style={[styleCoatForm.dropDown, { zIndex: 110 }]}
               dropDownContainerStyle={{ maxHeight: 150 }}
             />
           </View>
@@ -143,7 +143,7 @@ const CustomFormCollar = () => {
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }></TextInput>
           </View>
-          <View>
+          <View style={{ zIndex: 11 }}>
             <Text style={{ color: themeColors.text }}>Bredd</Text>
             <DropDownPicker
               open={openWidth}
@@ -166,7 +166,7 @@ const CustomFormCollar = () => {
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
             { zIndex: 9 },
           ]}>
-          <View>
+          <View style={{ zIndex: 11 }}>
             <Text style={{ color: themeColors.text }}>
               Önskad färg på skinn
             </Text>
@@ -192,7 +192,7 @@ const CustomFormCollar = () => {
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }></TextInput>
           </View>
-          <View>
+          <View style={{ zIndex: 10 }}>
             <Text style={{ color: themeColors.text }}>
               Önskad metall på ring
             </Text>
