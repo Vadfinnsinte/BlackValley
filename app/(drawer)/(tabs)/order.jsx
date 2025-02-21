@@ -72,7 +72,6 @@ const OrderScreen = () => {
       style={checkboxStyle.imageBackground}
       resizeMode="cover">
       <View style={themeColors.overlay}>
-
         <ScrollView
           contentContainerStyle={{ paddingBottom: 50 }}
           keyboardShouldPersistTaps="handled">
@@ -161,16 +160,9 @@ const OrderScreen = () => {
             </View>
           </SafeAreaView>
         </ScrollView>
-
       </View>
     </ImageBackground>
   );
 };
-
-
-  imageBackground: {
-    flex: 1,
-  },
-});
 
 export default OrderScreen;
