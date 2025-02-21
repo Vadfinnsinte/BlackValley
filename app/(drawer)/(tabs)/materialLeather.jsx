@@ -1,4 +1,14 @@
-import { FlatList, Image, ImageBackground, SafeAreaView, StyleSheet, Text, useColorScheme, useWindowDimensions, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
@@ -6,44 +16,45 @@ import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
 const MaterialScreenLeather = () => {
   const { width } = useWindowDimensions();
-  const [listOfLeather, setlistOfLeather] = useState([])
-  const numberOfcolums = width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
-    const colorScheme = useColorScheme();
-    const themeColors = Colors[colorScheme] || Colors.light;
-   const fetchProducts = async () => {
-       const snapshot = await fetchCollection("leather")
-       const sortedList = snapshot.sort((a, b) => a.colorGroup.localeCompare(b.colorGroup));
-       setlistOfLeather(sortedList)
-       console.log(listOfLeather);
- 
-   }
-     useEffect(() => {
-      fetchProducts()
-     }, []);
-   
+  const [listOfLeather, setlistOfLeather] = useState([]);
+  const numberOfcolums =
+    width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
+  const colorScheme = useColorScheme();
+  const themeColors = Colors[colorScheme] || Colors.light;
+  const fetchProducts = async () => {
+    const snapshot = await fetchCollection("leather");
+    const sortedList = snapshot.sort((a, b) =>
+      a.colorGroup.localeCompare(b.colorGroup)
+    );
+    setlistOfLeather(sortedList);
+    console.log(listOfLeather);
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <ImageBackground
-     source={woolBg}
+      source={woolBg}
       style={styles.imageBackground}
       resizeMode="cover">
-    <View style={themeColors.overlay}>
-    <SafeAreaView style={{ backgroundColor: themeColors.background, flex: 1 }}
+      <View style={themeColors.overlay}>
+        <SafeAreaView
+          style={{ backgroundColor: themeColors.background, flex: 1 }}
           className="mx-3">
-      <View>
-        <Text className="text-center text-2xl" >Läder till halsband</Text>
+          <View>
+            <Text className="text-center text-2xl">Läder till halsband</Text>
+          </View>
+          <FlatList
+            contentContainerStyle={styles.container}
+            data={listOfLeather}
+            numColumns={numberOfcolums}
+            key={numberOfcolums}
+            renderItem={({ item }) => (
+              <WoolColor image={item.url} color={item.color} width={width} />
+            )}></FlatList>
+        </SafeAreaView>
       </View>
-      <FlatList
-        contentContainerStyle={styles.container}
-        data={listOfLeather}
-        numColumns={numberOfcolums}
-        key={numberOfcolums}
-        renderItem={({ item }) => <WoolColor image={item.url} color={item.color} width={width} /> }
-        >
-      
-      </FlatList>
-    </SafeAreaView>
-    </View>
     </ImageBackground>
   );
 };
@@ -66,7 +77,7 @@ const styles = StyleSheet.create({
   smallimage: {
     height: 150,
     width: 150,
-  }
-})
+  },
+});
 
 export default MaterialScreenLeather;

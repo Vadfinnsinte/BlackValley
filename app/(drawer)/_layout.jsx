@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image, useColorScheme, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  useColorScheme,
+  ImageBackground,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "expo-router/drawer";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
@@ -8,13 +15,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import "../../global.css";
 import { router, usePathname } from "expo-router";
 import { Colors } from "../../constants/Colors";
-import woolBg from "../../assets/images/woolImage.jpg"
+import woolBg from "../../assets/images/woolImage.jpg";
 SplashScreen.preventAutoHideAsync();
 
-const CustomDrawerContent = (props) => {
+export const CustomDrawerContent = (props) => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
-
   const pathname = usePathname();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showSubMenuOrder, setShowSubMenuOrder] = useState(false);
@@ -277,7 +283,6 @@ const CustomDrawerContent = (props) => {
           }
         }}
       />
-    
     </DrawerContentScrollView>
   );
 };
@@ -287,16 +292,14 @@ export default function Layout() {
   const themeColors = Colors[colorScheme] || Colors.light;
 
   return (
-      <Drawer
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
-        screenOptions={{
-          headerShown: false,
-          drawerStyle: {
-            backgroundColor: themeColors.background,
-          },
-        }}>
- 
-      </Drawer>
+    <Drawer
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          backgroundColor: themeColors.background,
+        },
+      }}></Drawer>
   );
 }
 
