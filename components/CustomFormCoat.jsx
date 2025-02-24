@@ -11,10 +11,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import { getSyntheticTrailingComments } from "typescript";
 import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { useEffect } from "react";
-import { fontItems } from "../constants/fonts";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
 
@@ -46,6 +44,16 @@ const CustomFormCoat = () => {
     legString,
     setLegString,
     setComingFromForm,
+    setMeasurementsCoat,
+    measurementsCoat,
+    cosyCollarColor,
+    setCosyCollarColor,
+    brodyrColor,
+    setBrodyrColor,
+    brodyrText,
+    setBrodyrText,
+    commentsCoat,
+    setCommentsCoat,
   } = formStore();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
@@ -71,9 +79,13 @@ const CustomFormCoat = () => {
           value: name.color,
         }));
       setWoolColors(allColors);
-      console.log(allColors);
     }
   };
+  console.log("measuremenst: ", measurementsCoat);
+  console.log("cosyCollarColor: ", cosyCollarColor);
+  console.log("brodyrColor: ", brodyrColor);
+  console.log("brodyrText: ", brodyrText);
+  console.log("commentsCoat: ", commentsCoat);
 
   useEffect(() => {
     if (selectedModelCoat === "Cosy") {
@@ -124,7 +136,6 @@ const CustomFormCoat = () => {
               value={selectedModelCoat}
               items={models}
               setOpen={setOpenCoatModel}
-              // setValue={setSelectedModelCoat}
               setItems={setModels}
               placeholder="Välj en modell"
               style={styleCoatForm.dropDown}
@@ -137,7 +148,10 @@ const CustomFormCoat = () => {
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Mått</Text>
-            <TextInput style={styleCoatForm.input}></TextInput>
+            <TextInput
+              value={measurementsCoat}
+              onChangeText={(text) => setMeasurementsCoat(text)}
+              style={styleCoatForm.input}></TextInput>
           </View>
         </View>
         <View
@@ -152,7 +166,6 @@ const CustomFormCoat = () => {
               value={selectedColor}
               items={woolColors}
               setOpen={setOpenColor}
-              // setValue={setSelectedColor}
               setItems={setWoolColors}
               placeholder="Välj färg"
               style={styleCoatForm.dropDown}
@@ -168,7 +181,10 @@ const CustomFormCoat = () => {
               <Text style={{ color: themeColors.text }}>
                 Önskad färg på Cosy krage
               </Text>
-              <TextInput style={styleCoatForm.input}></TextInput>
+              <TextInput
+                value={cosyCollarColor}
+                onChangeText={(text) => setCosyCollarColor(text)}
+                style={styleCoatForm.input}></TextInput>
             </View>
           )}
         </View>
@@ -184,7 +200,10 @@ const CustomFormCoat = () => {
           ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Önskad Färg</Text>
-            <TextInput style={styleCoatForm.input}></TextInput>
+            <TextInput
+              value={brodyrColor}
+              onChangeText={(text) => setBrodyrColor(text)}
+              style={styleCoatForm.input}></TextInput>
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
@@ -193,7 +212,6 @@ const CustomFormCoat = () => {
               value={selectedFont}
               items={chosenFont}
               setOpen={setOpenFont}
-              // setValue={setSelectedFont}
               setItems={setChosenFont}
               placeholder="Välj font"
               style={styleCoatForm.dropDown}
@@ -212,7 +230,10 @@ const CustomFormCoat = () => {
           ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
-            <TextInput style={styleCoatForm.input}></TextInput>
+            <TextInput
+              value={brodyrText}
+              onChangeText={(text) => setBrodyrText(text)}
+              style={styleCoatForm.input}></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
               blir exakt som skrivet te.x. ALviN, alvin
             </Text>
@@ -268,7 +289,10 @@ const CustomFormCoat = () => {
           <Text style={{ color: themeColors.text }}>
             Kommentarer och special-önskemål
           </Text>
-          <TextInput style={styleCoatForm.bigInput}></TextInput>
+          <TextInput
+            value={commentsCoat}
+            onChangeText={(text) => setCommentsCoat(text)}
+            style={styleCoatForm.bigInput}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
           </Text>

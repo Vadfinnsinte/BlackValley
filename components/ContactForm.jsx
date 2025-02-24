@@ -26,6 +26,7 @@ const ContactForm = ({}) => {
     setCollarForm,
     setOtherForm,
     setCoatForm,
+    setStepFour,
   } = formStore();
 
   const goBack = () => {
@@ -122,6 +123,13 @@ const ContactForm = ({}) => {
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
+          <Pressable
+            onPress={() => {
+              setStepThree(false);
+              setStepFour(true);
+            }}>
+            <Text>Granska</Text>
+          </Pressable>
         </View>
       </View>
     </View>

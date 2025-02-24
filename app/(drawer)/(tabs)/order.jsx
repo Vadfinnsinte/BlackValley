@@ -18,6 +18,7 @@ import CustomFormCollar from "../../../components/CustomFormCollar";
 import CustomFormOther from "../../../components/CustomFormOther";
 import CheckBox from "../../../components/CheckBox";
 import ContactForm from "../../../components/ContactForm";
+import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 const OrderScreen = () => {
   const {
@@ -43,6 +44,7 @@ const OrderScreen = () => {
     setStepTwo,
     stepThree,
     setStepThree,
+    stepFour,
   } = formStore();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -147,16 +149,19 @@ const OrderScreen = () => {
                   3. Kontaktuppgifter.
                 </Text>
               </View>
-              {stepThree && (
-                <ContactForm
-                  stepThree={stepThree}
-                  setStepThree={setStepThree}
-                  stepOne={stepOne}
-                  setStepOne={setStepOne}
-                  stepTwo={stepTwo}
-                  setStepTwo={setStepTwo}
-                />
-              )}
+              {stepThree && <ContactForm />}
+              <View
+                style={[
+                  checkboxStyle.blueSeperator,
+                  { backgroundColor: themeColors.detail },
+                ]}>
+                <Text
+                  className="text-xl text-center"
+                  style={{ color: "#11181C" }}>
+                  4. Granska och skicka beställning.
+                </Text>
+              </View>
+              {stepFour && <CompleteEmail />}
             </View>
           </SafeAreaView>
         </ScrollView>
