@@ -25,13 +25,11 @@ const InspirationScreen = () => {
 
   const fetchInspo = async () => {
     const picture = await fetchCollection("inspiration");
-    console.log(picture);
     setInspirationList(picture);
   };
 
   useEffect(() => {
     fetchInspo();
-    // console.log(picture);
   }, []);
 
   return (
@@ -59,7 +57,7 @@ const InspirationScreen = () => {
             data={inspirationList}
             key={numberOfcolums}
             renderItem={({ item }) => (
-              <InspoList image={item.url} width={width} />
+              <InspoList image={item.url} name={item.name} width={width} />
             )}></FlatList>
         </SafeAreaView>
       </View>

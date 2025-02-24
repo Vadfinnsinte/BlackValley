@@ -2,7 +2,7 @@ import { Image, StyleSheet, View, Text } from "react-native";
 
 const WoolColor = ({ image, color, width }) => {
   return (
-    <View style={styles.div}>
+    <View accessible={true} focusable={true} style={styles.div}>
       <Image
         accessibilityLabel={`${color} ull`}
         style={width > 780 ? styles.image : styles.smallimage}

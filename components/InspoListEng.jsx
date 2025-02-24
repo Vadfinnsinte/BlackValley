@@ -1,13 +1,13 @@
 import { ImageBackground, StyleSheet, View } from "react-native";
 
-const InspoList = ({ image, name, width }) => {
+const InspoListEng = ({ image, name, width }) => {
   return (
     <View
       accessible={true}
       focusable={true}
       style={width > 780 ? styles.imageContainer : styles.smallImageContainer}>
       <ImageBackground
-        accessibilityLabel={name}
+        accessibilityLabel={`${name}`}
         source={{ uri: image }}
         style={styles.image}
       />
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InspoList;
+export default InspoListEng;
