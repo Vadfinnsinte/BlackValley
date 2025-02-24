@@ -85,6 +85,8 @@ const formValuesStore = create((set) => ({
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),
+  lengthCollar: "",
+  setLengthCollar: (value) => set({ lengthCollar: value }),
 }));
 
 export { formValuesStore };

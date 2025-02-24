@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../constants/Colors";
-import { styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { formStore } from "../data/formStoreHooks";
 
 const ContactForm = ({}) => {
@@ -123,14 +123,15 @@ const ContactForm = ({}) => {
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
-          <Pressable
-            onPress={() => {
-              setStepThree(false);
-              setStepFour(true);
-            }}>
-            <Text>Granska</Text>
-          </Pressable>
         </View>
+        <Pressable
+          style={checkboxStyle.button}
+          onPress={() => {
+            setStepThree(false);
+            setStepFour(true);
+          }}>
+          <Text style={{ color: themeColors.detail }}>Granska</Text>
+        </Pressable>
       </View>
     </View>
   );

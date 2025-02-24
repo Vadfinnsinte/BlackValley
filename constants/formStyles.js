@@ -83,6 +83,7 @@ export const styleCoatForm = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
+    padding: 4,
   },
   dropDown: {
     // zIndex: 1000,

@@ -161,7 +161,7 @@ const OrderScreen = () => {
                   4. Granska och skicka beställning.
                 </Text>
               </View>
-              {stepFour && <CompleteEmail />}
+              <View>{stepFour && <CompleteEmail />}</View>
             </View>
           </SafeAreaView>
         </ScrollView>

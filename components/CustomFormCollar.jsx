@@ -49,6 +49,14 @@ const CustomFormCollar = () => {
     openMetal,
     setOpenMetal,
     setComingFromForm,
+    lengthCollar,
+    setLengthCollar,
+    brodyrColor,
+    setBrodyrColor,
+    brodyrText,
+    setBrodyrText,
+    commentsCoat,
+    setCommentsCoat,
   } = formStore();
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
@@ -66,7 +74,7 @@ const CustomFormCollar = () => {
     { label: "Silver", value: "Silver" },
     { label: "Solid mässing (40:- extra)", value: "Solid mässing" },
   ]);
-  const [leathers, setLeathers] = useState([]);
+  const [leathers, setLeathers] = useState(["loading"]);
   const [chosenFont, setChosenFonts] = useState(fontItems);
   // --
 
@@ -122,6 +130,7 @@ const CustomFormCollar = () => {
             <Text style={{ color: themeColors.text }}>Modell</Text>
             <DropDownPicker
               open={collarModelOpen}
+              onRequestClose={() => setCollarModelOpen(false)}
               items={models}
               value={selectedModalCollar}
               setOpen={setCollarModelOpen}
@@ -141,7 +150,9 @@ const CustomFormCollar = () => {
             <TextInput
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
-              }></TextInput>
+              }
+              value={lengthCollar}
+              onChangeText={(text) => setLengthCollar(text)}></TextInput>
           </View>
           <View style={{ zIndex: 11 }}>
             <Text style={{ color: themeColors.text }}>Bredd</Text>
@@ -190,7 +201,9 @@ const CustomFormCollar = () => {
             <TextInput
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
-              }></TextInput>
+              }
+              value={brodyrColor}
+              onChangeText={(text) => setBrodyrColor(text)}></TextInput>
           </View>
           <View style={{ zIndex: 10 }}>
             <Text style={{ color: themeColors.text }}>
@@ -219,7 +232,10 @@ const CustomFormCollar = () => {
           ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
-            <TextInput style={styleCoatForm.input}></TextInput>
+            <TextInput
+              value={brodyrText}
+              onChangeText={(text) => setBrodyrText(text)}
+              style={styleCoatForm.input}></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
               te.x. (AlViN)(alvin)
             </Text>
@@ -246,7 +262,11 @@ const CustomFormCollar = () => {
           <Text style={{ color: themeColors.text, marginTop: 20 }}>
             Kommentarer och special-önskemål
           </Text>
-          <TextInput style={styleCoatForm.bigInput}></TextInput>
+          <TextInput
+            multiline={true}
+            value={commentsCoat}
+            onChangeText={(text) => setCommentsCoat(text)}
+            style={styleCoatForm.bigInput}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
           </Text>

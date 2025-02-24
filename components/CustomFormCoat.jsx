@@ -81,11 +81,6 @@ const CustomFormCoat = () => {
       setWoolColors(allColors);
     }
   };
-  console.log("measuremenst: ", measurementsCoat);
-  console.log("cosyCollarColor: ", cosyCollarColor);
-  console.log("brodyrColor: ", brodyrColor);
-  console.log("brodyrText: ", brodyrText);
-  console.log("commentsCoat: ", commentsCoat);
 
   useEffect(() => {
     if (selectedModelCoat === "Cosy") {
@@ -290,6 +285,7 @@ const CustomFormCoat = () => {
             Kommentarer och special-önskemål
           </Text>
           <TextInput
+            multiline={true}
             value={commentsCoat}
             onChangeText={(text) => setCommentsCoat(text)}
             style={styleCoatForm.bigInput}></TextInput>

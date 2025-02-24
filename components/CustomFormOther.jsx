@@ -51,6 +51,7 @@ const CustomFormOther = () => {
           fårgor.
         </Text>
         <TextInput
+          multiline={true}
           style={[styleCoatForm.bigInput, { height: 160 }]}></TextInput>
         <Text style={{ color: themeColors.text }} className="text-sm">
           (symboler, andra färger?)

@@ -66,6 +66,8 @@ const formStore = () => {
   const setOpenLeather = formValuesStore((state) => state.setOpenLeather);
   const openMetal = formValuesStore((state) => state.openMetal);
   const setOpenMetal = formValuesStore((state) => state.setOpenMetal);
+  const lengthCollar = formValuesStore((state) => state.lengthCollar);
+  const setLengthCollar = formValuesStore((state) => state.setLengthCollar);
 
   //other
   const other = formValuesStore((state) => state.other);
@@ -176,6 +178,8 @@ const formStore = () => {
     setBrodyrText,
     setStepFour,
     stepFour,
+    lengthCollar,
+    setLengthCollar,
   };
 };
 

@@ -8,6 +8,7 @@ const {
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
+import { styleCoatForm } from "../constants/formStyles";
 
 const CompleteEmail = () => {
   const {
@@ -26,6 +27,11 @@ const CompleteEmail = () => {
     setStepThree,
     //
     // Collar form - Variables
+    selectedModalCollar,
+    lengthCollar,
+    collarWidth,
+    selectedLeather,
+    selectedMetal,
   } = formStore();
   const [item, setItem] = useState(false);
   // colors and responsiv variables.
@@ -46,18 +52,26 @@ const CompleteEmail = () => {
       legStrings: legString ? "Ja" : "Nej",
       comment: commentsCoat,
     };
-    if (item === false) {
-      setItem(true);
-    }
   }
   if (comingFromForm === "Collar") {
-    buyerObj = {};
+    buyerObj = {
+      modell: selectedModalCollar,
+      measurement: lengthCollar,
+      width: collarWidth,
+      materialColor: selectedLeather,
+      brodyrColour: brodyrColor,
+      metal: selectedMetal,
+      font: selectedFont,
+      text: brodyrText,
+      legStrings: legString ? "Ja" : "Nej",
+      comment: commentsCoat,
+    };
   }
   if (comingFromForm === "Other") {
     buyerObj = {};
   }
   return (
-    <View>
+    <View style={styleCoatForm.centerContent}>
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
@@ -73,17 +87,77 @@ const CompleteEmail = () => {
           Tillbaka till kontakt.
         </Text>
       </Pressable>
-      <Text>Beställning till Black Valley.</Text>
-      <Text>Modell: {buyerObj.modell}</Text>
-      {item && <Text>Mått: {buyerObj.measurement}</Text>}
-      <Text>
-        Färg på {comingFromForm}: {buyerObj.materialColor}
-      </Text>
-      <Text>Brodyr Färg: {buyerObj.brodyrColour}</Text>
-      <Text>Font: {buyerObj.font}</Text>
-      <Text>Text (blir exakt som skrivet här): {buyerObj.text}</Text>
-      {item && <Text>Besnören: {buyerObj.legStrings}</Text>}
-      <Text>Kommentarer och önskemål: {buyerObj.comment}</Text>
+      <View style={{ margin: 20 }}>
+        <Text
+          style={{
+            color: themeColors.text,
+            fontSize: 23,
+            marginBottom: 10,
+            textAlign: "center",
+          }}>
+          Beställning till Black Valley.
+        </Text>
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Modell: {buyerObj.modell}
+        </Text>
+        {buyerObj.measurement && (
+          <Text
+            style={{
+              color: themeColors.text,
+            }}>
+            Mått: {buyerObj.measurement}
+          </Text>
+        )}
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Färg på {comingFromForm}: {buyerObj.materialColor}
+        </Text>
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Brodyr Färg: {buyerObj.brodyrColour}
+        </Text>
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Font: {buyerObj.font}
+        </Text>
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Text (blir exakt som skrivet här): {buyerObj.text}
+        </Text>
+        {buyerObj.legStrings && (
+          <Text
+            style={{
+              color: themeColors.text,
+            }}>
+            Besnören: {buyerObj.legStrings}
+          </Text>
+        )}
+        {buyerObj.metal && (
+          <Text
+            style={{
+              color: themeColors.text,
+            }}>
+            Metall på ringar: {buyerObj.metal}
+          </Text>
+        )}
+        <Text
+          style={{
+            color: themeColors.text,
+          }}>
+          Kommentarer och önskemål: {buyerObj.comment}
+        </Text>
+      </View>
     </View>
   );
 };
