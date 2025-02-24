@@ -12,13 +12,12 @@ import {
 import { checkboxStyle } from "../../../constants/formStyles";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { Colors } from "@/constants/Colors";
-import { useState } from "react";
 import CustomFormOther from "../../../components/CustomFormOther";
-import ContactForm from "../../../components/ContactForm";
 import { formStore } from "../../../data/formStoreHooks";
 import CustomFormCoatEng from "../../../components/CustomFormCoatEng";
 import CheckBoxEng from "../../../components/CheckBoxEng";
 import CustomFormCollarEng from "../../../components/CustomFormCollarEng";
+import ContactFormEng from "../../../components/ContactFormEng";
 const OrderScreenEng = () => {
   const {
     setCoat,
@@ -147,16 +146,7 @@ const OrderScreenEng = () => {
                   3. Contact details
                 </Text>
               </View>
-              {stepThree && (
-                <ContactForm
-                  stepThree={stepThree}
-                  setStepThree={setStepThree}
-                  stepOne={stepOne}
-                  setStepOne={setStepOne}
-                  stepTwo={stepTwo}
-                  setStepTwo={setStepTwo}
-                />
-              )}
+              {stepThree && <ContactFormEng />}
             </View>
           </SafeAreaView>
         </ScrollView>

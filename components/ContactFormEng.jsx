@@ -10,7 +10,7 @@ import { Colors } from "../constants/Colors";
 import { styleCoatForm } from "../constants/formStyles";
 import { formStore } from "../data/formStoreHooks";
 
-const ContactForm = ({}) => {
+const ContactFormEng = ({}) => {
   // -- colors and responsiv variables --
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -54,14 +54,14 @@ const ContactForm = ({}) => {
             textDecorationLine: "underline",
             marginBottom: 6,
           }}>
-          Tillbaka till steg 2
+          Back to step 2
         </Text>
       </Pressable>
       <View>
         <Text
           className={`text-xl  ${width < 790 ? "text-center" : ""}`}
           style={{ color: themeColors.detail }}>
-          Kontakt
+          Contact information
         </Text>
         <View
           style={[
@@ -69,14 +69,14 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Förnamn</Text>
+            <Text style={{ color: themeColors.text }}>Name</Text>
             <TextInput
               placeholder="Anna"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Efternamn</Text>
+            <Text style={{ color: themeColors.text }}>Surname</Text>
             <TextInput
               placeholder="Andersson"
               placeholderTextColor="#808080"
@@ -89,16 +89,16 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
+            <Text style={{ color: themeColors.text }}>Phone number</Text>
             <TextInput
               placeholder="070-1235678"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Mailadress</Text>
+            <Text style={{ color: themeColors.text }}>Email</Text>
             <TextInput
-              placeholder="exemel@exempel.se"
+              placeholder="example@example.com"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
@@ -109,14 +109,14 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Gata</Text>
+            <Text style={{ color: themeColors.text }}>Street</Text>
             <TextInput
-              placeholder="Adressvägen 17"
+              placeholder="Adressroad 17"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Postnummer</Text>
+            <Text style={{ color: themeColors.text }}>Postal code</Text>
             <TextInput
               placeholder="233 33"
               placeholderTextColor="#808080"
@@ -128,4 +128,4 @@ const ContactForm = ({}) => {
   );
 };
 
-export default ContactForm;
+export default ContactFormEng;
