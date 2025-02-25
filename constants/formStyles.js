@@ -102,13 +102,9 @@ export const styleCoatForm = StyleSheet.create({
     backgroundColor: "#82BCBD",
     paddingLeft: 30,
     paddingRight: 30,
-    // maxWidth: 40,
     alignSelf: "center",
   },
-  productInformationContainer: {
-    maxWidth: 450,
-    margin: 10,
-  },
+
   contactText: {
     color: "#000",
     margin: 6,
@@ -117,5 +113,39 @@ export const styleCoatForm = StyleSheet.create({
     color: "#000",
     margin: 6,
     fontSize: 16,
+  },
+});
+export const stylesModalForm = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Mörk bakgrund
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    width: "60%", // Bestäm storlek på modalen
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5, // För Android-skugga
+  },
+  modalText: {
+    fontSize: 15,
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  buttons: {
+    padding: 8,
+    padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 20,
+    textAlign: "center",
+    fontWeight: "600",
+    margin: 12,
   },
 });

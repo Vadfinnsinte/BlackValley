@@ -4,11 +4,13 @@ const {
   Pressable,
   useColorScheme,
   useWindowDimensions,
+  Modal,
+  StyleSheet,
 } = require("react-native");
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
-import { styleCoatForm } from "../constants/formStyles";
+import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
 
 const CompleteEmail = () => {
   const {
@@ -37,11 +39,13 @@ const CompleteEmail = () => {
     userInformation,
   } = formStore();
   const [item, setItem] = useState(true);
+  const [openCancel, setOpenCancel] = useState(false);
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
+
   let buyerObj = {};
 
   if (comingFromForm === "Coat") {
@@ -127,7 +131,12 @@ const CompleteEmail = () => {
           </View>
         </View>
         {item ? (
-          <View style={styleCoatForm.productInformationContainer}>
+          <View
+            style={
+              width > 780
+                ? { maxWidth: 450, margin: 10, minWidth: 400 }
+                : { margin: 10 }
+            }>
             <Text
               style={{ fontSize: 23, marginBottom: 10, textAlign: "center" }}>
               Produkt information:
@@ -175,7 +184,56 @@ const CompleteEmail = () => {
             </Text>
           </View>
         )}
+        <View
+          style={
+            width > 780
+              ? { flexDirection: "row", justifyContent: "space-between" }
+              : {}
+          }>
+          <Pressable onPress={() => setOpenCancel(true)}>
+            <Text
+              style={[
+                stylesModalForm.buttons,
+                { backgroundColor: "#000", color: themeColors.detail },
+              ]}>
+              Avbryt
+            </Text>
+          </Pressable>
+          <Pressable>
+            <Text
+              style={[
+                stylesModalForm.buttons,
+                { color: "#000", backgroundColor: themeColors.detail },
+              ]}>
+              Skicka beställning
+            </Text>
+          </Pressable>
+        </View>
       </View>
+      <Modal
+        visible={openCancel}
+        transparent={true}
+        onRequestClose={() => setOpenCancel(false)}>
+        <View style={stylesModalForm.modalOverlay}>
+          <View style={stylesModalForm.modalContent}>
+            <Text style={stylesModalForm.modalText}>
+              Detta kommer ta bort all information.
+            </Text>
+            <Text style={stylesModalForm.modalText}>
+              Är du säker på att du vill avbryta beställningen?
+            </Text>
+            <Text style={stylesModalForm.modalText}>
+              Vill du ändra infromation välj istället gå tillbaka.
+            </Text>
+            <Pressable onPress={() => setOpenCancel(false)}>
+              <Text>Avbryt</Text>
+            </Pressable>
+            <Pressable onPress={() => setOpenCancel(false)}>
+              <Text>Ta bort informationen</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
