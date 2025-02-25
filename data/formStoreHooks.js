@@ -74,6 +74,8 @@ const formStore = () => {
   const setOther = formValuesStore((state) => state.setOther);
   const otherForm = formValuesStore((state) => state.otherForm);
   const setOtherForm = formValuesStore((state) => state.setOtherForm);
+  const specialOrder = formValuesStore((state) => state.specialOrder);
+  const setSpecialOrder = formValuesStore((state) => state.setSpecialOrder);
 
   //warningmessage
   const warning = formValuesStore((state) => state.warning);
@@ -101,12 +103,20 @@ const formStore = () => {
   const openFont = formValuesStore((state) => state.openFont);
   const setOpenFont = formValuesStore((state) => state.setOpenFont);
 
+  // Contact info
+  const userInformation = formValuesStore((state) => state.userInformation);
+  const setUserInformation = formValuesStore(
+    (state) => state.setUserInformation
+  );
+
   // const selectedFont = formValuesStore((state) => state.selectedFont);
   // const setSelectedFont = formValuesStore((state) => state.selectedFont);
   // const woolColors = formValuesStore((state) => state.woolColors);
   // const setWoolColors = formValuesStore((state) => state.setWoolColors);
 
   return {
+    setUserInformation,
+    userInformation,
     setCoat,
     coat,
     collar,
@@ -180,6 +190,8 @@ const formStore = () => {
     stepFour,
     lengthCollar,
     setLengthCollar,
+    specialOrder,
+    setSpecialOrder,
   };
 };
 

@@ -6,6 +6,8 @@ import {
   StyleSheet,
   useColorScheme,
   useWindowDimensions,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";

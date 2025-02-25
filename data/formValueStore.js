@@ -87,6 +87,42 @@ const formValuesStore = create((set) => ({
   setComingFromForm: (value) => set({ comingFromForm: value }),
   lengthCollar: "",
   setLengthCollar: (value) => set({ lengthCollar: value }),
+  specialOrder: "",
+  setSpecialOrder: (value) => set({ specialOrder: value }),
+  userInformation: {
+    name: "",
+    surname: "",
+    phoneNumber: "",
+    email: "",
+    street: "",
+    postalCode: 0,
+  },
+  setUserInformation: {
+    setName: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, name: value },
+      })),
+    setSurname: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, surname: value },
+      })),
+    setPhoneNumber: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, phoneNumber: value },
+      })),
+    setEmail: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, email: value },
+      })),
+    setStreet: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, street: value },
+      })),
+    setPostalCode: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, postalCode: value },
+      })),
+  },
 }));
 
 export { formValuesStore };

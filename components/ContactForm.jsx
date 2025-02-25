@@ -27,6 +27,8 @@ const ContactForm = ({}) => {
     setOtherForm,
     setCoatForm,
     setStepFour,
+    setUserInformation,
+    userInformation,
   } = formStore();
 
   const goBack = () => {
@@ -46,6 +48,8 @@ const ContactForm = ({}) => {
       setOtherForm(true);
     }
   };
+  console.log(userInformation.street);
+
   return (
     <View style={styleCoatForm.centerContent}>
       <Pressable style={{ alignSelf: "flex-end" }} onPress={goBack}>
@@ -72,6 +76,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Förnamn</Text>
             <TextInput
+              value={userInformation.name}
+              onChangeText={(text) => setUserInformation.setName(text)}
               placeholder="Anna"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -79,6 +85,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Efternamn</Text>
             <TextInput
+              value={userInformation.suename}
+              onChangeText={(text) => setUserInformation.setSurname(text)}
               placeholder="Andersson"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -92,6 +100,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
             <TextInput
+              value={userInformation.phoneNumber}
+              onChangeText={(text) => setUserInformation.setPhoneNumber(text)}
               placeholder="070-1235678"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -99,6 +109,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Mailadress</Text>
             <TextInput
+              value={userInformation.email}
+              onChangeText={(text) => setUserInformation.setEmail(text)}
               placeholder="exemel@exempel.se"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -112,6 +124,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Gata</Text>
             <TextInput
+              value={userInformation.street}
+              onChangeText={(text) => setUserInformation.setStreet(text)}
               placeholder="Adressvägen 17"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -119,6 +133,8 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Postnummer</Text>
             <TextInput
+              value={userInformation.postalCode}
+              onChangeText={(text) => setUserInformation.setPostalCode(text)}
               placeholder="233 33"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>

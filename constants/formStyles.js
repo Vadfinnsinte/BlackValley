@@ -98,10 +98,24 @@ export const styleCoatForm = StyleSheet.create({
     height: 40,
     minHeight: 40,
   },
-  // dropDownContainer: {
-  //   zIndex: 1000,
-  //   position: "absolute",
-  //   backgroundColor: "white",
-  //   top: 50,
-  // },
+  contactInfoConatainer: {
+    backgroundColor: "#82BCBD",
+    paddingLeft: 30,
+    paddingRight: 30,
+    // maxWidth: 40,
+    alignSelf: "center",
+  },
+  productInformationContainer: {
+    maxWidth: 450,
+    margin: 10,
+  },
+  contactText: {
+    color: "#000",
+    margin: 6,
+  },
+  productText: {
+    color: "#000",
+    margin: 6,
+    fontSize: 16,
+  },
 });

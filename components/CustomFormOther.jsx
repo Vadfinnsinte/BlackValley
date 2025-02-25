@@ -15,6 +15,8 @@ const CustomFormOther = () => {
     setOtherForm,
     comingFromForm,
     setComingFromForm,
+    specialOrder,
+    setSpecialOrder,
   } = formStore();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -52,7 +54,9 @@ const CustomFormOther = () => {
         </Text>
         <TextInput
           multiline={true}
-          style={[styleCoatForm.bigInput, { height: 160 }]}></TextInput>
+          style={[styleCoatForm.bigInput, { height: 160 }]}
+          value={specialOrder}
+          onChangeText={(text) => setSpecialOrder(text)}></TextInput>
         <Text style={{ color: themeColors.text }} className="text-sm">
           (symboler, andra färger?)
         </Text>
