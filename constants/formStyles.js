@@ -140,7 +140,6 @@ export const stylesModalForm = StyleSheet.create({
   },
   buttons: {
     padding: 8,
-    padding: 8,
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 20,

@@ -2,49 +2,140 @@ import { create } from "zustand";
 import { fontItems } from "../constants/fonts";
 
 const formValuesStore = create((set) => ({
+  chosenProduct: {
+    coat: false,
+    collar: false,
+    other: false,
+  },
+  setChosenProduct: {
+    setCoat: (value) =>
+      set((state) => ({
+        chosenProduct: { ...state.chosenProduct, coat: value },
+      })),
+    setCollar: (value) =>
+      set((state) => ({
+        chosenProduct: { ...state.chosenProduct, collar: value },
+      })),
+    setOther: (value) =>
+      set((state) => ({
+        chosenProduct: { ...state.chosenProduct, other: value },
+      })),
+  },
+
+  chosenForm: {
+    coatForm: false,
+    collarForm: false,
+    otherForm: false,
+  },
+  setChosenForm: {
+    setCoatForm: (value) =>
+      set((state) => ({
+        chosenForm: { ...state.chosenForm, coatForm: value },
+      })),
+    setCollarForm: (value) =>
+      set((state) => ({
+        chosenForm: { ...state.chosenForm, collarForm: value },
+      })),
+    setOtherForm: (value) =>
+      set((state) => ({
+        chosenForm: { ...state.chosenForm, otherForm: value },
+      })),
+  },
+
   // Coat
-  coat: false,
-  setCoat: (value) => set({ coat: value }),
-  coatForm: false,
-  setCoatForm: (value) => set({ coatForm: value }),
-  selectedModelCoat: null,
-  setSelectedModelCoat: (value) => set({ selectedModelCoat: value }),
-  selectedColor: null,
-  setSelectedColor: (value) => set({ selectedColor: value }),
+
   openCoatModel: null,
   setOpenCoatModel: (value) => set({ openCoatModel: value }),
   openColor: null,
   setOpenColor: (value) => set({ openColor: value }),
-  colorColar: null,
-  setColorColar: (value) => set({ colorColar: value }),
-  chosenFont: fontItems,
-  setChosenFont: (value) => set({ chosenFont: value }),
-  legString: null,
-  setLegString: (value) => set({ legString: value }),
-  measurementsCoat: "",
-  setMeasurementsCoat: (value) => set({ measurementsCoat: value }),
-  cosyCollarColor: "",
-  setCosyCollarColor: (value) => set({ cosyCollarColor: value }),
-  brodyrColor: "",
-  setBrodyrColor: (value) => set({ brodyrColor: value }),
-  brodyrText: "",
-  setBrodyrText: (value) => set({ brodyrText: value }),
-  commentsCoat: "",
-  setCommentsCoat: (value) => set({ commentsCoat: value }),
 
   //collar
-  collar: false,
-  setCollar: (value) => set({ collar: value }),
-  collarForm: false,
-  setCollarForm: (value) => set({ collarForm: value }),
-  selectedModalCollar: null,
-  setSelectedModalCollar: (value) => set({ selectedModalCollar: value }),
-  selectedWidth: "",
-  setSelectedWidth: (value) => set({ selectedWidth: value }),
-  selectedLeather: "",
-  setSelectedLeather: (value) => set({ selectedLeather: value }),
-  selectedMetal: "",
-  setSelectedMetal: (value) => set({ selectedMetal: value }),
+
+  selectedCollarVariables: {
+    selectedModalCollar: null,
+    selectedWidth: "",
+    selectedLeather: "",
+    selectedMetal: "",
+    selectedFont: "",
+    lengthCollar: "",
+    brodyrColor: "",
+    brodyrText: "",
+    chosenFont: fontItems,
+    commentsCollar: "",
+  },
+  setSelectedCollarVariables: {
+    setSelectedModalCollar: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedModalCollar: value,
+        },
+      })),
+    setSelectedWidth: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedWidth: value,
+        },
+      })),
+    setSelectedLeather: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedLeather: value,
+        },
+      })),
+    setSelectedMetal: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedMetal: value,
+        },
+      })),
+    setSelectedFont: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedFont: value,
+        },
+      })),
+    setLengthCollar: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          lengthCollar: value,
+        },
+      })),
+    setBrodyrColor: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          brodyrColor: value,
+        },
+      })),
+    setBrodyrText: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          brodyrText: value,
+        },
+      })),
+    setChosenFont: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          chosenFont: value,
+        },
+      })),
+    setCommentsCollar: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          commentsCollar: value,
+        },
+      })),
+  },
+
   collarModelOpen: false,
   setCollarModelOpen: (value) => set({ collarModelOpen: value }),
   openWidth: false,
@@ -54,12 +145,6 @@ const formValuesStore = create((set) => ({
   openMetal: false,
   setOpenMetal: (value) => set({ openMetal: value }),
 
-  //other
-  other: false,
-  setOther: (value) => set({ other: value }),
-  otherForm: false,
-  setOtherForm: (value) => set({ otherForm: value }),
-
   //warningmessage
   warning: false,
   setWarning: (value) => set({ warning: value }),
@@ -67,26 +152,132 @@ const formValuesStore = create((set) => ({
   setWarningMessage: (value) => set({ warningMessage: value }),
 
   //steps
-  stepOne: true,
-  setStepOne: (value) => set({ stepOne: value }),
-  stepTwo: false,
-  setStepTwo: (value) => set({ stepTwo: value }),
-  stepThree: false,
-  setStepThree: (value) => set({ stepThree: value }),
-  stepFour: false,
-  setStepFour: (value) => set({ stepFour: value }),
+  chosenStep: {
+    stepOne: true,
+    stepTwo: false,
+    stepThree: false,
+    stepFour: false,
+  },
+  setChosenStep: {
+    setStepOne: (value) =>
+      set((state) => ({
+        chosenStep: { ...state.chosenStep, stepOne: value },
+      })),
+    setStepTwo: (value) =>
+      set((state) => ({
+        chosenStep: { ...state.chosenStep, stepTwo: value },
+      })),
+    setStepThree: (value) =>
+      set((state) => ({
+        chosenStep: { ...state.chosenStep, stepThree: value },
+      })),
+    setStepFour: (value) =>
+      set((state) => ({
+        chosenStep: { ...state.chosenStep, stepFour: value },
+      })),
+  },
+  // Coat variables.
+  selectedCoatVariables: {
+    selectedModelCoat: null,
+    selectedColor: null,
+    colorColar: false,
+    chosenFont: fontItems,
+    selectedFont: "",
+    legString: null,
+    measurementsCoat: "",
+    cosyCollarColor: "",
+    brodyrColor: "",
+    brodyrText: "",
+    commentsCoat: "",
+  },
+  setSelectedCoatVariables: {
+    setSelectedModelCoat: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          selectedModelCoat: value,
+        },
+      })),
+    setSelectedColor: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          selectedColor: value,
+        },
+      })),
+    setChosenFont: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          chosenFont: value,
+        },
+      })),
+    setLegString: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          legString: value,
+        },
+      })),
+    setMeasurementsCoat: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          measurementsCoat: value,
+        },
+      })),
+    setCosyCollarColor: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          cosyCollarColor: value,
+        },
+      })),
+    setBrodyrColor: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          brodyrColor: value,
+        },
+      })),
+    setBrodyrText: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          brodyrText: value,
+        },
+      })),
+    setCommentsCoat: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          commentsCoat: value,
+        },
+      })),
+    setColorColar: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          colorColar: value,
+        },
+      })),
+    setSelectedFont: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          selectedFont: value,
+        },
+      })),
+  },
 
   //States that we are using in both
-  selectedFont: "",
-  setSelectedFont: (value) => set({ selectedFont: value }),
   openFont: false,
   setOpenFont: (value) => set({ openFont: value }),
 
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),
-  lengthCollar: "",
-  setLengthCollar: (value) => set({ lengthCollar: value }),
+
   specialOrder: "",
   setSpecialOrder: (value) => set({ specialOrder: value }),
   userInformation: {

@@ -21,13 +21,6 @@ const CustomFormCollarEng = () => {
   const { width } = useWindowDimensions();
   //
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    setCollarForm,
     selectedModalCollar,
     setSelectedModalCollar,
     selectedWidth,
@@ -49,6 +42,8 @@ const CustomFormCollarEng = () => {
     openMetal,
     setOpenMetal,
     setComingFromForm,
+    setChosenForm,
+    setChosenStep,
   } = formStore();
   const [models, setModels] = useState([
     { label: "Snap Lock", value: "Snap Lock" },
@@ -94,9 +89,9 @@ const CustomFormCollarEng = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepOne(true);
-          setStepTwo(false);
-          setCollarForm(false);
+          setChosenStep.setStepOne(true);
+          setChosenStep.setStepTwo(false);
+          setChosenForm.setCollarForm(false);
         }}>
         <Text
           style={{
@@ -253,9 +248,9 @@ const CustomFormCollarEng = () => {
       </View>
       <Pressable
         onPress={() => {
-          setStepThree(true);
-          setCollarForm(false);
-          setStepTwo(false);
+          setChosenStep.setStepThree(true);
+          setChosenForm.setCollarForm(false);
+          setChosenStep.setStepTwo(false);
         }}>
         <Text style={checkboxStyle.button}>Continue</Text>
       </Pressable>

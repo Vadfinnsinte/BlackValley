@@ -15,34 +15,23 @@ const ContactFormEng = ({}) => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
-  const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    comingFromForm,
-    setCollarForm,
-    setOtherForm,
-    setCoatForm,
-  } = formStore();
+  const { comingFromForm, setChosenStep, setChosenForm } = formStore();
 
   const goBack = () => {
     if (comingFromForm === "Collar") {
-      setStepThree(false);
-      setStepTwo(true);
-      setCollarForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setCollarForm(true);
     }
     if (comingFromForm === "Coat") {
-      setStepThree(false);
-      setStepTwo(true);
-      setCoatForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setCoatForm(true);
     }
     if (comingFromForm === "Other") {
-      setStepThree(false);
-      setStepTwo(true);
-      setOtherForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setOtherForm(true);
     }
   };
   return (

@@ -9,7 +9,6 @@ import {
 import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { Colors } from "../constants/Colors";
 import { useEffect, useState } from "react";
-import { fontItems } from "../constants/fonts";
 import DropDownPicker from "react-native-dropdown-picker";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
@@ -21,23 +20,7 @@ const CustomFormCollar = () => {
   const { width } = useWindowDimensions();
   //
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    setCollarForm,
-    selectedModalCollar,
-    setSelectedModalCollar,
-    selectedWidth,
-    setSelectedWidth,
-    selectedLeather,
-    setSelectedLeather,
-    selectedFont,
-    setSelectedFont,
-    selectedMetal,
-    setSelectedMetal,
+    setChosenForm,
     collarModelOpen,
     setCollarModelOpen,
     openWidth,
@@ -49,14 +32,9 @@ const CustomFormCollar = () => {
     openMetal,
     setOpenMetal,
     setComingFromForm,
-    lengthCollar,
-    setLengthCollar,
-    brodyrColor,
-    setBrodyrColor,
-    brodyrText,
-    setBrodyrText,
-    commentsCoat,
-    setCommentsCoat,
+    setChosenStep,
+    selectedCollarVariables,
+    setSelectedCollarVariables,
   } = formStore();
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
@@ -75,8 +53,6 @@ const CustomFormCollar = () => {
     { label: "Solid mässing (40:- extra)", value: "Solid mässing" },
   ]);
   const [leathers, setLeathers] = useState(["loading"]);
-  const [chosenFont, setChosenFonts] = useState(fontItems);
-  // --
 
   const fetchLeatherColors = async () => {
     const response = await fetchCollection("leather");
@@ -102,9 +78,9 @@ const CustomFormCollar = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepOne(true);
-          setStepTwo(false);
-          setCollarForm(false);
+          setChosenStep.setStepOne(true);
+          setChosenStep.setStepTwo(false);
+          setChosenForm.setCollarForm(false);
         }}>
         <Text
           style={{
@@ -132,12 +108,13 @@ const CustomFormCollar = () => {
               open={collarModelOpen}
               onRequestClose={() => setCollarModelOpen(false)}
               items={models}
-              value={selectedModalCollar}
+              value={selectedCollarVariables.selectedModalCollar}
               setOpen={setCollarModelOpen}
               setValue={(callback) => {
-                const newValue = callback(selectedModalCollar);
-                setSelectedModalCollar(newValue);
-                console.log("Uppdaterat metallvärde: ", newValue);
+                const newValue = callback(
+                  selectedCollarVariables.selectedModalCollar
+                );
+                setSelectedCollarVariables.setSelectedModalCollar(newValue);
               }}
               setItems={setModels}
               placeholder="Välj en modell"
@@ -151,14 +128,16 @@ const CustomFormCollar = () => {
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }
-              value={lengthCollar}
-              onChangeText={(text) => setLengthCollar(text)}></TextInput>
+              value={selectedCollarVariables.lengthCollar}
+              onChangeText={(text) =>
+                setSelectedCollarVariables.setLengthCollar(text)
+              }></TextInput>
           </View>
           <View style={{ zIndex: 11 }}>
             <Text style={{ color: themeColors.text }}>Bredd</Text>
             <DropDownPicker
               open={openWidth}
-              value={selectedWidth}
+              value={selectedCollarVariables.selectedWidth}
               items={collarWidth}
               setOpen={setOpenWidth}
               setItems={setCollarWidth}
@@ -166,8 +145,10 @@ const CustomFormCollar = () => {
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedWidth);
-                setSelectedWidth(newValue);
+                const newValue = callback(
+                  setSelectedCollarVariables.selectedWidth
+                );
+                setSelectedCollarVariables.setSelectedWidth(newValue);
               }}
             />
           </View>
@@ -183,7 +164,7 @@ const CustomFormCollar = () => {
             </Text>
             <DropDownPicker
               open={openLeather}
-              value={selectedLeather}
+              value={selectedCollarVariables.selectedLeather}
               items={leathers}
               setOpen={setOpenLeather}
               setItems={setLeathers}
@@ -191,8 +172,10 @@ const CustomFormCollar = () => {
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedLeather);
-                setSelectedLeather(newValue);
+                const newValue = callback(
+                  selectedCollarVariables.selectedLeather
+                );
+                setSelectedCollarVariables.setSelectedLeather(newValue);
               }}
             />
           </View>
@@ -202,8 +185,10 @@ const CustomFormCollar = () => {
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }
-              value={brodyrColor}
-              onChangeText={(text) => setBrodyrColor(text)}></TextInput>
+              value={selectedCollarVariables.brodyrColor}
+              onChangeText={(text) =>
+                setSelectedCollarVariables.setBrodyrColor(text)
+              }></TextInput>
           </View>
           <View style={{ zIndex: 10 }}>
             <Text style={{ color: themeColors.text }}>
@@ -211,7 +196,7 @@ const CustomFormCollar = () => {
             </Text>
             <DropDownPicker
               open={openMetal}
-              value={selectedMetal}
+              value={selectedCollarVariables.selectedMetal}
               items={metals}
               setOpen={setOpenMetal}
               setItems={setMetals}
@@ -219,8 +204,10 @@ const CustomFormCollar = () => {
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedMetal);
-                setSelectedMetal(newValue);
+                const newValue = callback(
+                  selectedCollarVariables.selectedMetal
+                );
+                setSelectedCollarVariables.setSelectedMetal(newValue);
               }}
             />
           </View>
@@ -233,8 +220,10 @@ const CustomFormCollar = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
             <TextInput
-              value={brodyrText}
-              onChangeText={(text) => setBrodyrText(text)}
+              value={selectedCollarVariables.brodyrText}
+              onChangeText={(text) =>
+                setSelectedCollarVariables.setBrodyrText(text)
+              }
               style={styleCoatForm.input}></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
               te.x. (AlViN)(alvin)
@@ -244,16 +233,16 @@ const CustomFormCollar = () => {
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
             <DropDownPicker
               open={openFont}
-              value={selectedFont}
-              items={chosenFont}
+              value={selectedCollarVariables.selectedFont}
+              items={selectedCollarVariables.chosenFont}
               setOpen={setOpenFont}
-              setItems={setChosenFonts}
+              setItems={setSelectedCollarVariables.setChosenFonts}
               placeholder="Välj font"
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedFont);
-                setSelectedFont(newValue);
+                const newValue = callback(selectedCollarVariables.selectedFont);
+                setSelectedCollarVariables.setSelectedFont(newValue);
               }}
             />
           </View>
@@ -264,8 +253,10 @@ const CustomFormCollar = () => {
           </Text>
           <TextInput
             multiline={true}
-            value={commentsCoat}
-            onChangeText={(text) => setCommentsCoat(text)}
+            value={selectedCollarVariables.commentsCollar}
+            onChangeText={(text) =>
+              setSelectedCollarVariables.setCommentsCollar(text)
+            }
             style={styleCoatForm.bigInput}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
@@ -274,9 +265,9 @@ const CustomFormCollar = () => {
       </View>
       <Pressable
         onPress={() => {
-          setStepThree(true);
-          setCollarForm(false);
-          setStepTwo(false);
+          setChosenStep.setStepThree(true);
+          setChosenForm.setCollarForm(false);
+          setChosenStep.setStepTwo(false);
         }}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>

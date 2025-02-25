@@ -22,48 +22,36 @@ import { formStore } from "../../../data/formStoreHooks";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const OrderScreen = () => {
   const {
-    setCoat,
-    coat,
-    coatForm,
-    setCoatForm,
-    collar,
-    setCollar,
-    collarForm,
-    setCollarForm,
-    other,
-    setOther,
-    otherForm,
-    setOtherForm,
-    warning,
-    setWarning,
-    warningmessage,
-    setWarningmessage,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    stepThree,
-    setStepThree,
-    stepFour,
+    chosenForm,
+    setChosenForm,
+    chosenProduct,
+    // setChosenProduct,
+    // warning,
+    // setWarning,
+    // warningmessage,
+    // setWarningmessage,
+
+    setChosenStep,
+    chosenStep,
   } = formStore();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
 
   const openCustomForm = () => {
-    if (coat) {
-      setCoatForm(true);
-      setStepOne(false);
-      setStepTwo(true);
-    } else if (collar) {
-      setCollarForm(true);
-      setStepOne(false);
-      setStepTwo(true);
-    } else if (other) {
-      setOtherForm(true);
-      setStepOne(false);
-      setStepTwo(true);
+    if (chosenProduct.coat) {
+      setChosenForm.setCoatForm(true);
+      setChosenStep.setStepOne(false);
+      setChosenStep.setStepTwo(true);
+    } else if (chosenProduct.collar) {
+      setChosenForm.setCollarForm(true);
+      setChosenStep.setStepOne(false);
+      setChosenStep.setStepTwo(true);
+    } else if (chosenProduct.other) {
+      setChosenForm.setOtherForm(true);
+      setChosenStep.setStepOne(false);
+      setChosenStep.setStepTwo(true);
     } else {
-      setWarning(true);
+      setChosenStep.setWarning(true);
       // setWarningmessage("Please check one of the boxes");
     }
   };
@@ -108,7 +96,7 @@ const OrderScreen = () => {
                     1. Vänligen välj vad du vill beställa
                   </Text>
                 </View>
-                {stepOne && (
+                {chosenStep.stepOne && (
                   <View>
                     <CheckBox />
                     <Pressable onPress={openCustomForm}>
@@ -134,11 +122,11 @@ const OrderScreen = () => {
                     2. Mått, färg och specifikationer.
                   </Text>
                 </View>
-                {stepTwo && (
+                {chosenStep.stepTwo && (
                   <View>
-                    {coatForm && <CustomFormCoat />}
-                    {collarForm && <CustomFormCollar />}
-                    {otherForm && <CustomFormOther />}
+                    {chosenForm.coatForm && <CustomFormCoat />}
+                    {chosenForm.collarForm && <CustomFormCollar />}
+                    {chosenForm.otherForm && <CustomFormOther />}
                   </View>
                 )}
 
@@ -153,7 +141,7 @@ const OrderScreen = () => {
                     3. Kontaktuppgifter.
                   </Text>
                 </View>
-                {stepThree && <ContactForm />}
+                {chosenStep.stepThree && <ContactForm />}
                 <View
                   style={[
                     checkboxStyle.blueSeperator,
@@ -165,7 +153,7 @@ const OrderScreen = () => {
                     4. Granska och skicka beställning.
                   </Text>
                 </View>
-                <View>{stepFour && <CompleteEmail />}</View>
+                <View>{chosenStep.stepFour && <CompleteEmail />}</View>
               </View>
             </SafeAreaView>
           </ScrollView>

@@ -5,12 +5,8 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import { formStore } from "../data/formStoreHooks";
 const CheckBox = () => {
   const {
-    coat,
-    setCoat,
-    collar,
-    setCollar,
-    other,
-    setOther,
+    chosenProduct,
+    setChosenProduct,
     setWarning,
     warningmessage,
     warning,
@@ -21,21 +17,21 @@ const CheckBox = () => {
 
   const handleCoat = () => {
     setWarning(false);
-    setCoat(!coat);
-    setCollar(false);
-    setOther(false);
+    setChosenProduct.setCoat(!chosenProduct.coat);
+    setChosenProduct.setCollar(false);
+    setChosenProduct.setOther(false);
   };
   const handleCollar = () => {
     setWarning(false);
-    setCoat(false);
-    setCollar(!collar);
-    setOther(false);
+    setChosenProduct.setCoat(false);
+    setChosenProduct.setCollar(!chosenProduct.collar);
+    setChosenProduct.setOther(false);
   };
   const handleOther = () => {
     setWarning(false);
-    setCoat(false);
-    setCollar(false);
-    setOther(!other);
+    setChosenProduct.setCoat(false);
+    setChosenProduct.setCollar(false);
+    setChosenProduct.setOther(!chosenProduct.other);
   };
   return (
     <View>
@@ -44,7 +40,7 @@ const CheckBox = () => {
           <Text style={{ color: themeColors.text }}>Täcke</Text>
           <Pressable onPress={handleCoat}>
             <Fontisto
-              name={coat ? "checkbox-active" : "checkbox-passive"}
+              name={chosenProduct.coat ? "checkbox-active" : "checkbox-passive"}
               size={24}
               color={themeColors.detail}
               style={{ alignSelf: "center" }}
@@ -55,7 +51,9 @@ const CheckBox = () => {
           <Text style={{ color: themeColors.text }}>Halsband</Text>
           <Pressable onPress={handleCollar}>
             <Fontisto
-              name={collar ? "checkbox-active" : "checkbox-passive"}
+              name={
+                chosenProduct.collar ? "checkbox-active" : "checkbox-passive"
+              }
               size={24}
               color={themeColors.detail}
               style={{ alignSelf: "center" }}
@@ -66,7 +64,9 @@ const CheckBox = () => {
           <Text style={{ color: themeColors.text }}>Annat</Text>
           <Pressable onPress={handleOther}>
             <Fontisto
-              name={other ? "checkbox-active" : "checkbox-passive"}
+              name={
+                chosenProduct.other ? "checkbox-active" : "checkbox-passive"
+              }
               size={24}
               color={themeColors.detail}
               style={{ alignSelf: "center" }}

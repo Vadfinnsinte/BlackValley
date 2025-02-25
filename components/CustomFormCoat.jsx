@@ -20,42 +20,17 @@ import { formStore } from "../data/formStoreHooks";
 
 const CustomFormCoat = () => {
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    setCoatForm,
-    selectedModelCoat,
-    setSelectedModelCoat,
-    selectedColor,
-    setSelectedColor,
-    selectedFont,
-    setSelectedFont,
+    selectedCoatVariables,
+    setSelectedCoatVariables,
     openCoatModel,
     setOpenCoatModel,
     openColor,
     setOpenColor,
     openFont,
     setOpenFont,
-    colorColar,
-    setColorColar,
-    chosenFont,
-    setChosenFont,
-    legString,
-    setLegString,
     setComingFromForm,
-    setMeasurementsCoat,
-    measurementsCoat,
-    cosyCollarColor,
-    setCosyCollarColor,
-    brodyrColor,
-    setBrodyrColor,
-    brodyrText,
-    setBrodyrText,
-    commentsCoat,
-    setCommentsCoat,
+    setChosenForm,
+    setChosenStep,
   } = formStore();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
@@ -85,12 +60,12 @@ const CustomFormCoat = () => {
   };
 
   useEffect(() => {
-    if (selectedModelCoat === "Cosy") {
-      setColorColar(true);
+    if (selectedCoatVariables.selectedModelCoat === "Cosy") {
+      setSelectedCoatVariables.setColorColar(true);
     } else {
-      setColorColar(false);
+      setSelectedCoatVariables.setColorColar(false);
     }
-  }, [selectedModelCoat]);
+  }, [selectedCoatVariables.selectedModelCoat]);
 
   useEffect(() => {
     fetchwoolColors();
@@ -102,9 +77,9 @@ const CustomFormCoat = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepOne(true);
-          setStepTwo(false);
-          setCoatForm(false);
+          setChosenStep.setStepOne(true);
+          setChosenStep.setStepTwo(false);
+          setChosenForm.setCoatForm(false);
         }}>
         <Text
           style={{
@@ -130,7 +105,7 @@ const CustomFormCoat = () => {
             <Text style={{ color: themeColors.text }}>Modell</Text>
             <DropDownPicker
               open={openCoatModel}
-              value={selectedModelCoat}
+              value={selectedCoatVariables.selectedModelCoat}
               items={models}
               setOpen={setOpenCoatModel}
               setItems={setModels}
@@ -138,16 +113,20 @@ const CustomFormCoat = () => {
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedModelCoat);
-                setSelectedModelCoat(newValue);
+                const newValue = callback(
+                  selectedCoatVariables.selectedModelCoat
+                );
+                setSelectedCoatVariables.setSelectedModelCoat(newValue);
               }}
             />
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Mått</Text>
             <TextInput
-              value={measurementsCoat}
-              onChangeText={(text) => setMeasurementsCoat(text)}
+              value={selectedCoatVariables.measurementsCoat}
+              onChangeText={(text) =>
+                setSelectedCoatVariables.setMeasurementsCoat(text)
+              }
               style={styleCoatForm.input}></TextInput>
           </View>
         </View>
@@ -160,7 +139,7 @@ const CustomFormCoat = () => {
             <Text style={{ color: themeColors.text }}>Önskad färg på tyg</Text>
             <DropDownPicker
               open={openColor}
-              value={selectedColor}
+              value={selectedCoatVariables.selectedColor}
               items={woolColors}
               setOpen={setOpenColor}
               setItems={setWoolColors}
@@ -168,19 +147,21 @@ const CustomFormCoat = () => {
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedColor);
-                setSelectedColor(newValue);
+                const newValue = callback(selectedCoatVariables.selectedColor);
+                setSelectedCoatVariables.setSelectedColor(newValue);
               }}
             />
           </View>
-          {colorColar && (
+          {selectedCoatVariables.colorColar && (
             <View>
               <Text style={{ color: themeColors.text }}>
                 Önskad färg på Cosy krage
               </Text>
               <TextInput
-                value={cosyCollarColor}
-                onChangeText={(text) => setCosyCollarColor(text)}
+                value={selectedCoatVariables.cosyCollarColor}
+                onChangeText={(text) =>
+                  setSelectedCoatVariables.setCosyCollarColor(text)
+                }
                 style={styleCoatForm.input}></TextInput>
             </View>
           )}
@@ -198,24 +179,26 @@ const CustomFormCoat = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Önskad Färg</Text>
             <TextInput
-              value={brodyrColor}
-              onChangeText={(text) => setBrodyrColor(text)}
+              value={selectedCoatVariables.brodyrColor}
+              onChangeText={(text) =>
+                setSelectedCoatVariables.setBrodyrColor(text)
+              }
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
             <DropDownPicker
               open={openFont}
-              value={selectedFont}
-              items={chosenFont}
+              value={selectedCoatVariables.selectedFont}
+              items={selectedCoatVariables.chosenFont}
               setOpen={setOpenFont}
-              setItems={setChosenFont}
+              setItems={setSelectedCoatVariables.setChosenFont}
               placeholder="Välj font"
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
-                const newValue = callback(selectedFont);
-                setSelectedFont(newValue);
+                const newValue = callback(selectedCoatVariables.selectedFont);
+                setSelectedCoatVariables.setSelectedFont(newValue);
               }}
             />
           </View>
@@ -228,8 +211,10 @@ const CustomFormCoat = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
             <TextInput
-              value={brodyrText}
-              onChangeText={(text) => setBrodyrText(text)}
+              value={selectedCoatVariables.brodyrText}
+              onChangeText={(text) =>
+                setSelectedCoatVariables.setBrodyrText(text)
+              }
               style={styleCoatForm.input}></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
               blir exakt som skrivet te.x. ALviN, alvin
@@ -253,10 +238,11 @@ const CustomFormCoat = () => {
                   className="m-2">
                   Ja
                 </Text>
-                <Pressable onPress={() => setLegString(true)}>
+                <Pressable
+                  onPress={() => setSelectedCoatVariables.setLegString(true)}>
                   <Fontisto
                     name={
-                      legString === true
+                      selectedCoatVariables.legString === true
                         ? "checkbox-active"
                         : "checkbox-passive"
                     }
@@ -267,10 +253,11 @@ const CustomFormCoat = () => {
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
-                <Pressable onPress={() => setLegString(false)}>
+                <Pressable
+                  onPress={() => setSelectedCoatVariables.setLegString(false)}>
                   <Fontisto
                     name={
-                      legString === false
+                      selectedCoatVariables.legString === false
                         ? "checkbox-active"
                         : "checkbox-passive"
                     }
@@ -288,8 +275,10 @@ const CustomFormCoat = () => {
           </Text>
           <TextInput
             multiline={true}
-            value={commentsCoat}
-            onChangeText={(text) => setCommentsCoat(text)}
+            value={selectedCoatVariables.commentsCoat}
+            onChangeText={(text) =>
+              setSelectedCoatVariables.setCommentsCoat(text)
+            }
             style={styleCoatForm.bigInput}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
@@ -298,9 +287,9 @@ const CustomFormCoat = () => {
       </View>
       <Pressable
         onPress={() => {
-          setStepThree(true);
-          setCoatForm(false);
-          setStepTwo(false);
+          setChosenStep.setStepThree(true);
+          setChosenForm.setCoatForm(false);
+          setChosenStep.setStepTwo(false);
         }}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>

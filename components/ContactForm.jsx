@@ -16,39 +16,30 @@ const ContactForm = ({}) => {
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
     comingFromForm,
-    setCollarForm,
-    setOtherForm,
-    setCoatForm,
-    setStepFour,
+    setChosenForm,
     setUserInformation,
     userInformation,
+    setChosenStep,
   } = formStore();
 
   const goBack = () => {
     if (comingFromForm === "Collar") {
-      setStepThree(false);
-      setStepTwo(true);
-      setCollarForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setCollarForm(true);
     }
     if (comingFromForm === "Coat") {
-      setStepThree(false);
-      setStepTwo(true);
-      setCoatForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setCoatForm(true);
     }
     if (comingFromForm === "Other") {
-      setStepThree(false);
-      setStepTwo(true);
-      setOtherForm(true);
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepTwo(true);
+      setChosenForm.setOtherForm(true);
     }
   };
-  console.log(userInformation.street);
 
   return (
     <View style={styleCoatForm.centerContent}>
@@ -143,8 +134,8 @@ const ContactForm = ({}) => {
         <Pressable
           style={checkboxStyle.button}
           onPress={() => {
-            setStepThree(false);
-            setStepFour(true);
+            setChosenStep.setStepThree(false);
+            setChosenStep.setStepFour(true);
           }}>
           <Text style={{ color: themeColors.detail }}>Granska</Text>
         </Pressable>

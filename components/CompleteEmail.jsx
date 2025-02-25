@@ -15,28 +15,17 @@ import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
 const CompleteEmail = () => {
   const {
     // Coat Form - Variables
-    selectedModelCoat,
-    measurementsCoat,
-    selectedColor,
-    cosyCollarColor,
-    brodyrColor,
-    selectedFont,
-    brodyrText,
-    legString, // if true YES.
-    commentsCoat,
+    selectedCollarVariables,
+    selectedCoatVariables,
+
     comingFromForm,
-    setStepFour,
-    setStepThree,
     //
     // Collar form - Variables
-    selectedModalCollar,
-    lengthCollar,
-    collarWidth,
-    selectedLeather,
-    selectedMetal,
+
     // Special order - variables
     specialOrder,
     userInformation,
+    setChosenStep,
   } = formStore();
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
@@ -50,28 +39,28 @@ const CompleteEmail = () => {
 
   if (comingFromForm === "Coat") {
     buyerObj = {
-      modell: selectedModelCoat,
-      measurement: measurementsCoat,
-      materialColor: selectedColor,
-      brodyrColour: brodyrColor,
-      font: selectedFont,
-      text: brodyrText,
-      legStrings: legString ? "Ja" : "Nej",
-      comment: commentsCoat,
+      modell: selectedCoatVariables.selectedModelCoat,
+      measurement: selectedCoatVariables.measurementsCoat,
+      materialColor: selectedCoatVariables.selectedColor,
+      brodyrColour: selectedCoatVariables.brodyrColor,
+      font: selectedCoatVariables.selectedFont,
+      text: selectedCoatVariables.brodyrText,
+      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
+      comment: selectedCoatVariables.commentsCoat,
     };
   }
   if (comingFromForm === "Collar") {
     buyerObj = {
-      modell: selectedModalCollar,
-      measurement: lengthCollar,
-      width: collarWidth,
-      materialColor: selectedLeather,
-      brodyrColour: brodyrColor,
-      metal: selectedMetal,
-      font: selectedFont,
-      text: brodyrText,
-      legStrings: legString ? "Ja" : "Nej",
-      comment: commentsCoat,
+      modell: selectedCollarVariables.selectedModalCollar,
+      measurement: selectedCollarVariables.lengthCollar,
+      width: selectedCollarVariables.collarWidth,
+      materialColor: selectedCollarVariables.selectedLeather,
+      brodyrColour: selectedCollarVariables.brodyrColor,
+      metal: selectedCollarVariables.selectedMetal,
+      font: selectedCollarVariables.selectedFont,
+      text: selectedCollarVariables.brodyrText,
+      // legStrings: legString ? "Ja" : "Nej",
+      comment: selectedCollarVariables.commentsCollar,
     };
   }
   if (comingFromForm === "Other") {
@@ -84,8 +73,8 @@ const CompleteEmail = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepThree(true);
-          setStepFour(false);
+          setChosenStep.setStepThree(true);
+          setChosenStep.setStepFour(false);
         }}>
         <Text
           style={{
@@ -223,7 +212,8 @@ const CompleteEmail = () => {
               Är du säker på att du vill avbryta beställningen?
             </Text>
             <Text style={stylesModalForm.modalText}>
-              Vill du ändra infromation välj istället gå tillbaka.
+              Vill du ändra infromation välj avbryt och klicka på gå
+              tillbaka(längst upp på granska).
             </Text>
             <Pressable onPress={() => setOpenCancel(false)}>
               <Text>Avbryt</Text>

@@ -6,17 +6,11 @@ import { Colors } from "../constants/Colors";
 
 const CustomFormOther = () => {
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    setOtherForm,
-    comingFromForm,
     setComingFromForm,
     specialOrder,
     setSpecialOrder,
+    setChosenForm,
+    setChosenStep,
   } = formStore();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -28,9 +22,9 @@ const CustomFormOther = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepOne(true);
-          setStepTwo(false);
-          setOtherForm(false);
+          setChosenStep.setStepOne(true);
+          setChosenStep.setStepTwo(false);
+          setChosenForm.setOtherForm(false);
         }}>
         <Text
           style={{
@@ -63,9 +57,9 @@ const CustomFormOther = () => {
       </View>
       <Pressable
         onPress={() => {
-          setStepThree(true);
-          setOtherForm(false);
-          setStepTwo(false);
+          setChosenStep.setStepThree(true);
+          setChosenForm.setOtherForm(false);
+          setChosenStep.setStepTwo(false);
         }}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>
