@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
+import GradientBackground from "../../../components/GradiantBackground";
 const MaterialScreenLeather = () => {
   const { width } = useWindowDimensions();
   const [listOfLeather, setlistOfLeather] = useState([]);
@@ -39,20 +40,24 @@ const MaterialScreenLeather = () => {
       style={styles.imageBackground}
       resizeMode="cover">
       <View style={themeColors.overlay}>
-        <SafeAreaView
-          style={{ backgroundColor: themeColors.background, flex: 1 }}
-          className="mx-3">
-          <View>
-            <Text className="text-center text-2xl">Läder till halsband</Text>
-          </View>
-          <FlatList
-            contentContainerStyle={styles.container}
-            data={listOfLeather}
-            numColumns={numberOfcolums}
-            key={numberOfcolums}
-            renderItem={({ item }) => (
-              <WoolColor image={item.url} color={item.color} width={width} />
-            )}></FlatList>
+        <SafeAreaView style={{ flex: 1 }} className="mx-3">
+          <GradientBackground>
+            <View>
+              <Text
+                style={{ color: themeColors.text }}
+                className="text-center text-2xl">
+                Läder till halsband
+              </Text>
+            </View>
+            <FlatList
+              contentContainerStyle={styles.container}
+              data={listOfLeather}
+              numColumns={numberOfcolums}
+              key={numberOfcolums}
+              renderItem={({ item }) => (
+                <WoolColor image={item.url} color={item.color} width={width} />
+              )}></FlatList>
+          </GradientBackground>
         </SafeAreaView>
       </View>
     </ImageBackground>
