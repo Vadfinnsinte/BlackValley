@@ -21,6 +21,7 @@ import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { FA5Style } from "@expo/vector-icons/build/FontAwesome5";
+// import SendEmail from "../../../functions/SendEmail";
 const OrderScreen = () => {
   const {
     chosenForm,
@@ -69,6 +70,7 @@ const OrderScreen = () => {
             <SafeAreaView
               style={{ backgroundColor: themeColors.background, flex: 1 }}
               className="mx-10">
+              {/* <SendEmail /> */}
               <View style={checkboxStyle.container}>
                 <View style={checkboxStyle.containerText}>
                   <Text

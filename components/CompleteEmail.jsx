@@ -11,22 +11,18 @@ import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
 import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
+import { sendEmail } from "../functions/sendOrderEmail";
 
 const CompleteEmail = () => {
   const {
-    // Coat Form - Variables
     selectedCollarVariables,
     selectedCoatVariables,
-
     comingFromForm,
-    //
-    // Collar form - Variables
-
-    // Special order - variables
     specialOrder,
     userInformation,
     setChosenStep,
   } = formStore();
+
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
   // colors and responsiv variables.
@@ -36,8 +32,10 @@ const CompleteEmail = () => {
   //
 
   let buyerObj = {};
+  let commingSwe;
 
   if (comingFromForm === "Coat") {
+    commingSwe = "Täcke";
     buyerObj = {
       modell: selectedCoatVariables.selectedModelCoat,
       measurement: selectedCoatVariables.measurementsCoat,
@@ -50,6 +48,7 @@ const CompleteEmail = () => {
     };
   }
   if (comingFromForm === "Collar") {
+    commingSwe = "Halsband";
     buyerObj = {
       modell: selectedCollarVariables.selectedModalCollar,
       measurement: selectedCollarVariables.lengthCollar,
@@ -64,10 +63,35 @@ const CompleteEmail = () => {
     };
   }
   if (comingFromForm === "Other") {
+    commingSwe = "Annat";
     if (item) {
       setItem(false);
     }
   }
+  let name = userInformation.name + "" + userInformation.surname;
+  let message = ` Beställarens informarion:
+  Namn:${name}
+  Telefonnummer: ${userInformation.phoneNumber}
+  Mailadress: ${userInformation.email}
+  Adress: ${userInformation.street}, ${userInformation.postalCode}.
+  Produkt information:
+  Modell: ${buyerObj.modell}
+  Mått: ${buyerObj.measurement && buyerObj.measurement}
+  Färg på ${commingSwe}: ${buyerObj.materialColor}
+  Brodyr Färg: ${buyerObj.brodyrColour}
+  Text (blir exakt som skrivet här): ${buyerObj.text}
+  Besnören: ${buyerObj.legStrings && buyerObj.legStrings}
+  Metall på ringar: ${buyerObj.metal && buyerObj.metal}
+  Kommentarer och önskemål: ${buyerObj.comment}
+  `;
+  let messageOther = `
+  Namn:${(userInformation.name, userInformation.surname)}
+  Telefonnummer: ${userInformation.phoneNumber}
+  Mailadress: ${userInformation.email}
+  Adress: ${userInformation.street}, ${userInformation.postalCode}.
+  specialbeställning: ${specialOrder}
+  `;
+
   return (
     <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
       <Pressable
@@ -139,7 +163,7 @@ const CompleteEmail = () => {
               </Text>
             )}
             <Text style={styleCoatForm.productText}>
-              Färg på {comingFromForm}: {buyerObj.materialColor}
+              Färg på {commingSwe}: {buyerObj.materialColor}
             </Text>
             <Text style={styleCoatForm.productText}>
               Brodyr Färg: {buyerObj.brodyrColour}
@@ -188,7 +212,9 @@ const CompleteEmail = () => {
               Avbryt
             </Text>
           </Pressable>
-          <Pressable>
+          <Pressable
+          //  onPress={sendEmail(message)}
+          >
             <Text
               style={[
                 stylesModalForm.buttons,
