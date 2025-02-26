@@ -1,12 +1,12 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
   useColorScheme,
   useWindowDimensions,
+  ScrollView,
   View,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import { Colors } from "@/constants/Colors";
 import InspoList from "../../../components/InspoList";
+import GradientBackground from "../../../components/GradiantBackground";
 
 const InspirationScreen = () => {
   const { width } = useWindowDimensions();
@@ -38,28 +39,36 @@ const InspirationScreen = () => {
       style={styles.imageBackground}
       resizeMode="cover">
       <View style={themeColors.overlay}>
-        <SafeAreaView
-          style={{
-            backgroundColor: themeColors.background,
-            flex: 1,
-            alignItems: "center",
-          }}
-          className="mx-10">
-          <View>
-            <Text
-              style={[styles.Text, { color: themeColors.text }]}
-              className="text-center ">
-              Inspiration
-            </Text>
-          </View>
-          <FlatList
-            numColumns={numberOfcolums}
-            data={inspirationList}
-            key={numberOfcolums}
-            renderItem={({ item }) => (
-              <InspoList image={item.url} name={item.name} width={width} />
-            )}></FlatList>
-        </SafeAreaView>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, overflow: "hidden" }}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+            }}
+            className="mx-10">
+            <GradientBackground>
+              <View style={{ alignItems: "center" }}>
+                <View>
+                  <Text
+                    style={[styles.Text, { color: themeColors.text }]}
+                    className="text-center ">
+                    Inspiration
+                  </Text>
+                </View>
+                <FlatList
+                  numColumns={numberOfcolums}
+                  data={inspirationList}
+                  key={numberOfcolums}
+                  renderItem={({ item }) => (
+                    <InspoList
+                      image={item.url}
+                      name={item.name}
+                      width={width}
+                    />
+                  )}></FlatList>
+              </View>
+            </GradientBackground>
+          </SafeAreaView>
+        </ScrollView>
       </View>
     </ImageBackground>
   );
@@ -79,13 +88,5 @@ const styles = StyleSheet.create({
 
   imageBackground: {
     flex: 1,
-  },
-  image: {
-    height: 200,
-    width: 200,
-  },
-  smallimage: {
-    height: 150,
-    width: 150,
   },
 });
