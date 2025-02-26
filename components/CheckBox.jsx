@@ -1,5 +1,5 @@
 import { Pressable, Text, useColorScheme, View } from "react-native";
-import { checkboxStyle } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { formStore } from "../data/formStoreHooks";
@@ -8,7 +8,7 @@ const CheckBox = () => {
     chosenProduct,
     setChosenProduct,
     setWarning,
-    warningmessage,
+    warningMessage,
     warning,
   } = formStore();
   const colorScheme = useColorScheme();
@@ -33,6 +33,7 @@ const CheckBox = () => {
     setChosenProduct.setCollar(false);
     setChosenProduct.setOther(!chosenProduct.other);
   };
+
   return (
     <View>
       <View style={checkboxStyle.containerCheck}>
@@ -75,10 +76,9 @@ const CheckBox = () => {
         </View>
       </View>
       <Text
-        className={`text-red-400 text-center -mb-2 mt-2 ${
-          !warning ? "invisible" : ""
-        }`}>
-        {warningmessage}
+        // className={` -mb-2 mt-2 ${!warning ? "invisible" : ""}`}
+        style={[styleCoatForm.redText, { opacity: warning ? 1 : 0 }]}>
+        {warningMessage}
       </Text>
     </View>
   );

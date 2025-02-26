@@ -123,6 +123,7 @@ const CustomFormCoat = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Mått</Text>
             <TextInput
+              // keyboardType="numeric"
               value={selectedCoatVariables.measurementsCoat}
               onChangeText={(text) =>
                 setSelectedCoatVariables.setMeasurementsCoat(text)

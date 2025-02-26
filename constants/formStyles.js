@@ -114,6 +114,12 @@ export const styleCoatForm = StyleSheet.create({
     margin: 6,
     fontSize: 16,
   },
+  redText: {
+    textAlign: "center",
+    color: "#f87171",
+    marginBottom: -2,
+    marginTop: -2,
+  },
 });
 export const stylesModalForm = StyleSheet.create({
   modalOverlay: {

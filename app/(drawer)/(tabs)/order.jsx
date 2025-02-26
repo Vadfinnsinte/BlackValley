@@ -20,17 +20,14 @@ import ContactForm from "../../../components/ContactForm";
 import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { FA5Style } from "@expo/vector-icons/build/FontAwesome5";
 const OrderScreen = () => {
   const {
     chosenForm,
     setChosenForm,
     chosenProduct,
-    // setChosenProduct,
-    // warning,
-    // setWarning,
-    // warningmessage,
-    // setWarningmessage,
-
+    setWarning,
+    setWarningMessage,
     setChosenStep,
     chosenStep,
   } = formStore();
@@ -51,8 +48,8 @@ const OrderScreen = () => {
       setChosenStep.setStepOne(false);
       setChosenStep.setStepTwo(true);
     } else {
-      setChosenStep.setWarning(true);
-      // setWarningmessage("Please check one of the boxes");
+      setWarningMessage("Please check one of the boxes");
+      setWarning(true);
     }
   };
 

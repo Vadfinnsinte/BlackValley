@@ -125,6 +125,7 @@ const CustomFormCollar = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Mått</Text>
             <TextInput
+              // keyboardType="numeric"
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }

@@ -91,6 +91,7 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
             <TextInput
+              keyboardType="phone-pad"
               value={userInformation.phoneNumber}
               onChangeText={(text) => setUserInformation.setPhoneNumber(text)}
               placeholder="070-1235678"
@@ -100,6 +101,7 @@ const ContactForm = ({}) => {
           <View>
             <Text style={{ color: themeColors.text }}>Mailadress</Text>
             <TextInput
+              keyboardType="email-address"
               value={userInformation.email}
               onChangeText={(text) => setUserInformation.setEmail(text)}
               placeholder="exemel@exempel.se"
@@ -137,7 +139,9 @@ const ContactForm = ({}) => {
             setChosenStep.setStepThree(false);
             setChosenStep.setStepFour(true);
           }}>
-          <Text style={{ color: themeColors.detail }}>Granska</Text>
+          <Text style={{ color: themeColors.detail, textAlign: "center" }}>
+            Granska
+          </Text>
         </Pressable>
       </View>
     </View>
