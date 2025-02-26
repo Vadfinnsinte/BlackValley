@@ -54,6 +54,8 @@ const formStore = () => {
   );
   const chosenProduct = formValuesStore((state) => state.chosenProduct);
   const setChosenProduct = formValuesStore((state) => state.setChosenProduct);
+  const orderMessage = formValuesStore((state) => state.orderMessage);
+  const setOrderMessage = formValuesStore((state) => state.setOrderMessage);
   const chosenForm = formValuesStore((state) => state.chosenForm);
   const setChosenForm = formValuesStore((state) => state.setChosenForm);
   const selectedCoatVariables = formValuesStore(
@@ -98,6 +100,8 @@ const formStore = () => {
     setComingFromForm,
     specialOrder,
     setSpecialOrder,
+    orderMessage,
+    setOrderMessage,
   };
 };
 

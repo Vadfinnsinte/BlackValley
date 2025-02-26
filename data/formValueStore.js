@@ -280,6 +280,21 @@ const formValuesStore = create((set) => ({
 
   specialOrder: "",
   setSpecialOrder: (value) => set({ specialOrder: value }),
+  orderMessage: { messageCoat: "", messageCollar: "", messageOther: "" },
+  setOrderMessage: {
+    setMessageCoat: (value) =>
+      set((state) => ({
+        orderMessage: { ...state.orderMessage, messageCoat: value },
+      })),
+    setMessageCollar: (value) =>
+      set((state) => ({
+        orderMessage: { ...state.orderMessage, messageCollar: value },
+      })),
+    setMessageOther: (value) =>
+      set((state) => ({
+        orderMessage: { ...state.orderMessage, messageOther: value },
+      })),
+  },
   userInformation: {
     name: "",
     surname: "",

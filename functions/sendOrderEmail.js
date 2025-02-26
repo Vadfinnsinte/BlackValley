@@ -3,10 +3,19 @@ import emailjs from "@emailjs/browser";
 import { formValuesStore } from "../data/formValueStore";
 import { publicKey, service, template } from "../firebaseConfigTwo";
 
-export const sendEmail = (message) => {
-  const { userInformation } = formValuesStore();
-  const nameOfSender = userInformation.name + " " + userInformation.surname;
+export const sendEmail = (userInformation, orderMessage) => {
+  // const { userInformation, orderMessage } = formValuesStore();
 
+  const nameOfSender = userInformation.name + " " + userInformation.surname;
+  const message =
+    `  Namn:${nameOfSender}
+  Telefonnummer: ${userInformation.phoneNumber}
+  Mailadress: ${userInformation.email}
+  Adress: ${userInformation.street}, ${userInformation.postalCode}.` +
+    orderMessage.messageCoat +
+    orderMessage.messageCollar +
+    orderMessage.messageCollar +
+    orderMessage.messageOther;
   const templateParams = {
     from_email: userInformation.email,
     message: message, // Meddelandetext

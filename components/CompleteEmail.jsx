@@ -1,4 +1,4 @@
-const {
+import {
   View,
   Text,
   Pressable,
@@ -6,7 +6,7 @@ const {
   useWindowDimensions,
   Modal,
   StyleSheet,
-} = require("react-native");
+} from "react-native";
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
@@ -21,6 +21,8 @@ const CompleteEmail = () => {
     specialOrder,
     userInformation,
     setChosenStep,
+    setOrderMessage,
+    orderMessage,
   } = formStore();
 
   const [item, setItem] = useState(true);
@@ -68,20 +70,17 @@ const CompleteEmail = () => {
       setItem(false);
     }
   }
+
   let name = userInformation.name + "" + userInformation.surname;
-  let message = ` Beställarens informarion:
-  Namn:${name}
-  Telefonnummer: ${userInformation.phoneNumber}
-  Mailadress: ${userInformation.email}
-  Adress: ${userInformation.street}, ${userInformation.postalCode}.
-  Produkt information:
+  let message = ` 
+  Produkt information: ${commingSwe}
   Modell: ${buyerObj.modell}
   Mått: ${buyerObj.measurement && buyerObj.measurement}
   Färg på ${commingSwe}: ${buyerObj.materialColor}
   Brodyr Färg: ${buyerObj.brodyrColour}
   Text (blir exakt som skrivet här): ${buyerObj.text}
-  Besnören: ${buyerObj.legStrings && buyerObj.legStrings}
-  Metall på ringar: ${buyerObj.metal && buyerObj.metal}
+  Besnören: ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
+  Metall på ringar: ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
   Kommentarer och önskemål: ${buyerObj.comment}
   `;
   let messageOther = `
@@ -92,6 +91,25 @@ const CompleteEmail = () => {
   specialbeställning: ${specialOrder}
   `;
 
+  const saveOrder = () => {
+    if (comingFromForm === "Coat") {
+      setOrderMessage.setMessageCoat(message);
+    }
+    if (comingFromForm === "Collar") {
+      setOrderMessage.setMessageCollar(message);
+    }
+    if (comingFromForm === "Other") {
+      setOrderMessage.setMessageOther(messageOther);
+    }
+    console.log(orderMessage.messageCoat);
+  };
+  const completeOrder = () => {
+    saveOrder();
+    sendEmail(userInformation, orderMessage);
+    setOrderMessage.setMessageCoat("");
+    setOrderMessage.setMessageCollar("");
+    setOrderMessage.setMessageOther("");
+  };
   return (
     <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
       <Pressable
@@ -212,9 +230,16 @@ const CompleteEmail = () => {
               Avbryt
             </Text>
           </Pressable>
-          <Pressable
-          //  onPress={sendEmail(message)}
-          >
+          <Pressable onPress={saveOrder}>
+            <Text
+              style={[
+                stylesModalForm.buttons,
+                { color: "#000", backgroundColor: themeColors.detail },
+              ]}>
+              Lägg till product.
+            </Text>
+          </Pressable>
+          <Pressable onPress={completeOrder}>
             <Text
               style={[
                 stylesModalForm.buttons,
