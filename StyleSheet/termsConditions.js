@@ -9,12 +9,14 @@ const Terms = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
   },
+
   container: {
     width: 350,
     gap: 20,
   },
   containerSmall: {
-    width: 200,
+    width: "100%",
+    maxWidth: 300,
     gap: 20,
   },
   heading: {
