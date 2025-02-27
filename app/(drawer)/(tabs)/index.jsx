@@ -1,31 +1,25 @@
 import {
   Image,
   StyleSheet,
-  Platform,
   SafeAreaView,
   View,
   Text,
-  Pressable,
   useColorScheme,
   ImageBackground,
   useWindowDimensions,
   ScrollView,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
-import { useNavigation } from "expo-router";
+import pictureOnMe from "../../../assets/images/Mig.jpg";
+import startPicture from "../../../assets/images/startPic.png";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground.jsx";
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
-  const bigger = width > 750;
-
-  const goToEngTabs = () => {
-    navigation.navigate("(engTabs)");
-  };
+  const bigger = width > 1000;
 
   return (
     <ImageBackground
@@ -60,15 +54,18 @@ const HomeScreen = () => {
                     bigger ? styles.placeholderBoxBig : styles.placeholderBox,
                     bigger && { order: -1 },
                   ]}>
-                  <Text>
-                    <Text className="text-black text-center mt-12">
-                      Picture!
-                    </Text>
-                  </Text>
+                  <Image
+                    style={{
+                      height: width > 385 ? 280 : 230,
+                      width: width > 385 ? 280 : 230,
+                    }}
+                    source={startPicture}
+                    resizeMode="contain"
+                  />
                 </View>
               </View>
               <View style={bigger && styles.layoutBig}>
-                <View style={styles.textContainer} className="ml-7">
+                <View style={styles.textContainer}>
                   <Text
                     style={{ color: themeColors.text }}
                     className={bigger ? "text-3xl mb-5" : " text-2xl mb-5"}>
@@ -92,7 +89,16 @@ const HomeScreen = () => {
                   style={
                     bigger ? styles.placeholderBoxBig : styles.placeholderBox
                   }>
-                  <Text className="text-black text-center mt-12">Picture!</Text>
+                  <Image
+                    style={{
+                      height: 350,
+                      width: width > 450 ? 265 : 230,
+                      marginTop: 10,
+                      borderRadius: 10,
+                    }}
+                    source={pictureOnMe}
+                    resizeMode="contain"
+                  />
                 </View>
               </View>
             </GradientBackground>
@@ -108,35 +114,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   placeholderBox: {
-    width: 200,
-    height: 150,
-    backgroundColor: "white",
     margin: 10,
+    alignItems: "center",
+    overflow: "hidden",
   },
 
   placeholderBoxBig: {
-    width: 450,
-    height: 350,
-    backgroundColor: "white",
+    overflow: "hidden",
   },
   layoutBig: {
     flexDirection: "row",
     flexWrap: "wrap",
-    margin: 20,
+    marginHorizontal: 20,
+    marginTop: 20,
     justifyContent: "space-around",
   },
   textContainer: {
     maxWidth: 550,
     alignSelf: "center",
+    padding: 10,
   },
 });
 
-{
-  /* <Pressable onPress={goToEngTabs}>
-<Text style={{ color: themeColors.text}}> 
-  Engelska! 
-</Text>
-
-</Pressable> */
-}
 export default HomeScreen;
