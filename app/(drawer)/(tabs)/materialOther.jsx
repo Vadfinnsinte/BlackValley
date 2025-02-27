@@ -74,8 +74,6 @@ const MaterialOther = () => {
               renderItem={({ item }) => (
                 <OtherList image={item.image} name={item.name} alt={item.alt} />
               )}></FlatList>
-
-            <View style={styles.container}></View>
           </GradientBackground>
         </SafeAreaView>
       </View>
