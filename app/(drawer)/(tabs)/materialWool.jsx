@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
@@ -14,6 +15,7 @@ import { fetchCollection } from "../../../functions/fetchCollection";
 import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
+import fontpic from "../../../assets/images/Typsnitt.png";
 
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();
@@ -65,7 +67,7 @@ const MaterialScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignContent: "center",
@@ -74,6 +76,14 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
+  },
+  image: {
+    height: 200,
+    width: 200,
+  },
+  smallimage: {
+    height: 150,
+    width: 150,
   },
 });
 
