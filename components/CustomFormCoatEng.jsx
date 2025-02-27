@@ -20,13 +20,6 @@ import { formStore } from "../data/formStoreHooks";
 
 const CustomFormCoatEng = () => {
   const {
-    stepThree,
-    setStepThree,
-    stepOne,
-    setStepOne,
-    stepTwo,
-    setStepTwo,
-    setCoatForm,
     selectedModelCoat,
     setSelectedModelCoat,
     selectedColor,
@@ -46,6 +39,8 @@ const CustomFormCoatEng = () => {
     legString,
     setLegString,
     setComingFromForm,
+    setChosenForm,
+    setChosenStep,
   } = formStore();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
@@ -93,9 +88,9 @@ const CustomFormCoatEng = () => {
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
-          setStepOne(true);
-          setStepTwo(false);
-          setCoatForm(false);
+          setChosenStep.setStepOne(true);
+          setChosenStep.setStepTwo(false);
+          setChosenForm.setCoatForm(false);
         }}>
         <Text
           style={{
@@ -278,9 +273,9 @@ const CustomFormCoatEng = () => {
       </View>
       <Pressable
         onPress={() => {
-          setStepThree(true);
-          setCoatForm(false);
-          setStepTwo(false);
+          setChosenStep.setStepThree(true);
+          setChosenForm.setCoatForm(false);
+          setChosenStep.setStepTwo(false);
         }}>
         <Text style={checkboxStyle.button}>Continue</Text>
       </Pressable>

@@ -83,6 +83,7 @@ export const styleCoatForm = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
+    padding: 4,
   },
   dropDown: {
     // zIndex: 1000,
@@ -97,10 +98,59 @@ export const styleCoatForm = StyleSheet.create({
     height: 40,
     minHeight: 40,
   },
-  // dropDownContainer: {
-  //   zIndex: 1000,
-  //   position: "absolute",
-  //   backgroundColor: "white",
-  //   top: 50,
-  // },
+  contactInfoConatainer: {
+    backgroundColor: "#82BCBD",
+    paddingLeft: 30,
+    paddingRight: 30,
+    alignSelf: "center",
+  },
+
+  contactText: {
+    color: "#000",
+    margin: 6,
+  },
+  productText: {
+    color: "#000",
+    margin: 6,
+    fontSize: 16,
+  },
+  redText: {
+    textAlign: "center",
+    color: "#f87171",
+    marginBottom: -2,
+    marginTop: -2,
+  },
+});
+export const stylesModalForm = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Mörk bakgrund
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    width: "60%", // Bestäm storlek på modalen
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5, // För Android-skugga
+  },
+  modalText: {
+    fontSize: 15,
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  buttons: {
+    padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 20,
+    textAlign: "center",
+    fontWeight: "600",
+    margin: 12,
+  },
 });

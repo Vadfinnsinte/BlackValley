@@ -48,6 +48,11 @@ const MaterialScreenLeather = () => {
                 className="text-center text-2xl">
                 Läder till halsband
               </Text>
+              <Text
+                style={{ color: themeColors.text }}
+                className="text-center ">
+                (Färgerna kan variera)
+              </Text>
             </View>
             <FlatList
               contentContainerStyle={styles.container}

@@ -1,46 +1,19 @@
 import { formValuesStore } from "./formValueStore";
 
 const formStore = () => {
-  const setCoat = formValuesStore((state) => state.setCoat);
-  const coat = formValuesStore((state) => state.coat);
-  const collar = formValuesStore((state) => state.collar);
-  const setCollar = formValuesStore((state) => state.setCollar);
-  const other = formValuesStore((state) => state.other);
-  const setOther = formValuesStore((state) => state.setOther);
-  const setCoatForm = formValuesStore((state) => state.setCoatForm);
-  const coatForm = formValuesStore((state) => state.coatForm);
-  const collarForm = formValuesStore((state) => state.collarForm);
-  const setCollarForm = formValuesStore((state) => state.setCollarForm);
-  const otherForm = formValuesStore((state) => state.otherForm);
-  const setOtherForm = formValuesStore((state) => state.setOtherForm);
+  // coat
+  const openCoatModel = formValuesStore((state) => state.openCoatModel);
+  const setOpenCoatModel = formValuesStore((state) => state.setOpenCoatModel);
+  const openColor = formValuesStore((state) => state.openColor);
+  const setOpenColor = formValuesStore((state) => state.setOpenColor);
 
-  const warning = formValuesStore((state) => state.warning);
-  const setWarning = formValuesStore((state) => state.setWarning);
-  const setWarningMessage = formValuesStore((state) => state.setWarningMessage);
-  const warningMessage = formValuesStore((state) => state.warningMessage);
-
-  const stepOne = formValuesStore((state) => state.stepOne);
-  const setStepOne = formValuesStore((state) => state.setStepOne);
-  const stepTwo = formValuesStore((state) => state.stepTwo);
-  const setStepTwo = formValuesStore((state) => state.setStepTwo);
-  const stepThree = formValuesStore((state) => state.stepThree);
-  const setStepThree = formValuesStore((state) => state.setStepThree);
-  const selectedModalCollar = formValuesStore(
-    (state) => state.selectedModalCollar
+  //collar
+  const selectedCollarVariables = formValuesStore(
+    (state) => state.selectedCollarVariables
   );
-  const setSelectedModalCollar = formValuesStore(
-    (state) => state.setSelectedModalCollar
+  const setSelectedCollarVariables = formValuesStore(
+    (state) => state.setSelectedCollarVariables
   );
-  const selectedWidth = formValuesStore((state) => state.selectedWidth);
-  const setSelectedWidth = formValuesStore((state) => state.setSelectedWidth);
-  const selectedLeather = formValuesStore((state) => state.selectedLeather);
-  const setSelectedLeather = formValuesStore(
-    (state) => state.setSelectedLeather
-  );
-  const selectedFont = formValuesStore((state) => state.selectedFont);
-  const setSelectedFont = formValuesStore((state) => state.setSelectedFont);
-  const selectedMetal = formValuesStore((state) => state.selectedMetal);
-  const setSelectedMetal = formValuesStore((state) => state.setSelectedMetal);
   const collarModelOpen = formValuesStore((state) => state.collarModelOpen);
   const setCollarModelOpen = formValuesStore(
     (state) => state.setCollarModelOpen
@@ -49,46 +22,60 @@ const formStore = () => {
   const setOpenWidth = formValuesStore((state) => state.setOpenWidth);
   const openLeather = formValuesStore((state) => state.openLeather);
   const setOpenLeather = formValuesStore((state) => state.setOpenLeather);
-  const openFont = formValuesStore((state) => state.openFont);
-  const setOpenFont = formValuesStore((state) => state.setOpenFont);
   const openMetal = formValuesStore((state) => state.openMetal);
   const setOpenMetal = formValuesStore((state) => state.setOpenMetal);
-  const selectedModelCoat = formValuesStore((state) => state.selectedModelCoat);
-  const setSelectedModelCoat = formValuesStore(
-    (state) => state.setSelectedModelCoat
-  );
-  const selectedColor = formValuesStore((state) => state.selectedColor);
-  const setSelectedColor = formValuesStore((state) => state.setSelectedColor);
-  // const selectedFont = formValuesStore((state) => state.selectedFont);
-  // const setSelectedFont = formValuesStore((state) => state.selectedFont);
-  const openCoatModel = formValuesStore((state) => state.openCoatModel);
-  const setOpenCoatModel = formValuesStore((state) => state.setOpenCoatModel);
-  const openColor = formValuesStore((state) => state.openColor);
-  const setOpenColor = formValuesStore((state) => state.setOpenColor);
-  const colorColar = formValuesStore((state) => state.colorColar);
-  const setColorColar = formValuesStore((state) => state.setColorColar);
-  const chosenFont = formValuesStore((state) => state.chosenFont);
-  const setChosenFont = formValuesStore((state) => state.setChosenFonts);
-  const legString = formValuesStore((state) => state.legString);
-  const setLegString = formValuesStore((state) => state.setLegString);
-  // const woolColors = formValuesStore((state) => state.woolColors);
-  // const setWoolColors = formValuesStore((state) => state.setWoolColors);
+
+  //other
+  const specialOrder = formValuesStore((state) => state.specialOrder);
+  const setSpecialOrder = formValuesStore((state) => state.setSpecialOrder);
+
+  //warningmessage
+  const warning = formValuesStore((state) => state.warning);
+  const setWarning = formValuesStore((state) => state.setWarning);
+  const setWarningMessage = formValuesStore((state) => state.setWarningMessage);
+  const warningMessage = formValuesStore((state) => state.warningMessage);
+
+  // steps
+  const chosenStep = formValuesStore((state) => state.chosenStep);
+  const setChosenStep = formValuesStore((state) => state.setChosenStep);
+
+  //Saving which form you are on
   const comingFromForm = formValuesStore((state) => state.comingFromForm);
   const setComingFromForm = formValuesStore((state) => state.setComingFromForm);
+
+  //States that we are using in both
+  const openFont = formValuesStore((state) => state.openFont);
+  const setOpenFont = formValuesStore((state) => state.setOpenFont);
+
+  // Contact info
+  const userInformation = formValuesStore((state) => state.userInformation);
+  const setUserInformation = formValuesStore(
+    (state) => state.setUserInformation
+  );
+  const chosenProduct = formValuesStore((state) => state.chosenProduct);
+  const setChosenProduct = formValuesStore((state) => state.setChosenProduct);
+  const orderMessage = formValuesStore((state) => state.orderMessage);
+  const setOrderMessage = formValuesStore((state) => state.setOrderMessage);
+  const chosenForm = formValuesStore((state) => state.chosenForm);
+  const setChosenForm = formValuesStore((state) => state.setChosenForm);
+  const selectedCoatVariables = formValuesStore(
+    (state) => state.selectedCoatVariables
+  );
+  const setSelectedCoatVariables = formValuesStore(
+    (state) => state.setSelectedCoatVariables
+  );
+
   return {
-    setCoat,
-    coat,
-    collar,
-    setCollar,
-    other,
-    setOther,
-    coat,
-    coatForm,
-    setCoatForm,
-    otherForm,
-    setOtherForm,
-    collarForm,
-    setCollarForm,
+    setUserInformation,
+    userInformation,
+    chosenProduct,
+    setChosenProduct,
+    chosenForm,
+    setChosenForm,
+    setChosenStep,
+    chosenStep,
+    selectedCoatVariables,
+    setSelectedCoatVariables,
     setOpenMetal,
     openMetal,
     openFont,
@@ -99,42 +86,22 @@ const formStore = () => {
     setOpenWidth,
     collarModelOpen,
     setCollarModelOpen,
-    setSelectedMetal,
-    selectedMetal,
-    selectedFont,
-    setSelectedFont,
-    setSelectedLeather,
-    selectedLeather,
-    selectedModalCollar,
-    setStepThree,
-    setSelectedWidth,
-    selectedWidth,
-    setSelectedModalCollar,
-    stepThree,
-    setStepTwo,
-    stepTwo,
-    setStepOne,
-    stepOne,
     setWarningMessage,
     warningMessage,
     setWarning,
     warning,
-    selectedModelCoat,
-    setSelectedModelCoat,
-    setSelectedColor,
-    selectedColor,
+    selectedCollarVariables,
+    setSelectedCollarVariables,
     openCoatModel,
     setOpenCoatModel,
     openColor,
     setOpenColor,
-    colorColar,
-    setColorColar,
-    chosenFont,
-    setChosenFont,
-    legString,
-    setLegString,
     comingFromForm,
     setComingFromForm,
+    specialOrder,
+    setSpecialOrder,
+    orderMessage,
+    setOrderMessage,
   };
 };
 
