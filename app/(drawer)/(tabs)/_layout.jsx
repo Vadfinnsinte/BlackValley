@@ -12,18 +12,17 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        // headerLeft: () => <DrawerToggleButton />,
         header: () => <Header title="Black Valley" data={navLinks} />,
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarBackground: TabBarBackground,
         tabBarStyle: { display: "none" },
       }}>
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: "Home",
         }}
-      />
+      /> */}
     </Tabs>
   );
 }

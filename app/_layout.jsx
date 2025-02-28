@@ -1,5 +1,3 @@
-import { Stack } from "expo-router";
-import { View } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { CustomDrawerContent } from "./(drawer)/_layout";
 // import woolBg from "../assets/images/woolImage.jpg";

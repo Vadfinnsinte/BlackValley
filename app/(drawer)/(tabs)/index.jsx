@@ -56,8 +56,8 @@ const HomeScreen = () => {
                   ]}>
                   <Image
                     style={{
-                      height: width > 385 ? 280 : 230,
-                      width: width > 385 ? 280 : 230,
+                      height: width > 1000 ? 350 : 230,
+                      width: width > 1000 ? 350 : 230,
                     }}
                     source={startPicture}
                     resizeMode="contain"
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginHorizontal: 20,
-    marginTop: 20,
+    // marginTop: 20,
     justifyContent: "space-around",
   },
   textContainer: {

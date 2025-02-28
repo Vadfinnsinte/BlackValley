@@ -26,6 +26,9 @@ const CollorModels = () => {
             <View style={{ alignItems: "center" }}>
               <Text style={{ color: themeColors.text }}>Halsband</Text>
             </View>
+            <View>
+              <Text></Text>
+            </View>
           </GradientBackground>
         </SafeAreaView>
       </View>
