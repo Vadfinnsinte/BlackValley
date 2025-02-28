@@ -22,7 +22,8 @@ const MaterialOther = () => {
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
 
-  const numberOfcolums = width > 800 ? 3 : 2;
+  const numberOfcolums =
+    width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
   const fetch = async () => {
     const response = await fetchCollection("other");
     const sortedList = response.sort((a, b) => a.group.localeCompare(b.group));
@@ -83,12 +84,12 @@ const MaterialOther = () => {
 
 const otherImageStyle = StyleSheet.create({
   image: {
-    height: 250,
-    width: 250,
-  },
-  smallimage: {
     height: 200,
     width: 200,
+  },
+  smallimage: {
+    height: 150,
+    width: 150,
   },
 });
 export default MaterialOther;
