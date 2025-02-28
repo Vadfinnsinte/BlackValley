@@ -21,6 +21,30 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "*Välj en",
   },
+  nameWarning: {
+    bool: false,
+    message: "*obligatorisk",
+  },
+  surnameWarning: {
+    bool: false,
+    message: "*Fyll i efternamn",
+  },
+  phoneWarning: {
+    bool: false,
+    message: "*Fyll i telefonnummer",
+  },
+  emailWarning: {
+    bool: false,
+    message: "*Fyll i mail",
+  },
+  streetWarning: {
+    bool: false,
+    message: "*Fyll i gata",
+  },
+  postalWarning: {
+    bool: false,
+    message: "*Fyll i postnummer",
+  },
 
   setWarnings: {
     setCheckbox: (value) =>
@@ -42,6 +66,30 @@ export const validateStore = create((set) => ({
     setLegStringWarning: (value) =>
       set((state) => ({
         legStringWarning: { ...state.legStringWarning, bool: value },
+      })),
+    setNameWarning: (value) =>
+      set((state) => ({
+        nameWarning: { ...state.nameWarning, bool: value },
+      })),
+    setSurNameWarning: (value) =>
+      set((state) => ({
+        surnameWarning: { ...state.surnameWarning, bool: value },
+      })),
+    setPhoneWarning: (value) =>
+      set((state) => ({
+        phoneWarning: { ...state.phoneWarning, bool: value },
+      })),
+    setEmailWarning: (value) =>
+      set((state) => ({
+        emailWarning: { ...state.emailWarning, bool: value },
+      })),
+    setStreetWarning: (value) =>
+      set((state) => ({
+        streetWarning: { ...state.streetWarning, bool: value },
+      })),
+    setPostalWarning: (value) =>
+      set((state) => ({
+        postalWarning: { ...state.postalWarning, bool: value },
       })),
   },
 }));

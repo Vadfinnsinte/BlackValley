@@ -9,6 +9,7 @@ import {
 import { Colors } from "../constants/Colors";
 import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { formStore } from "../data/formStoreHooks";
+import { validateStoreHooks } from "../data/validateStoreHooks";
 
 const ContactForm = ({}) => {
   // -- colors and responsiv variables --
@@ -22,6 +23,15 @@ const ContactForm = ({}) => {
     userInformation,
     setChosenStep,
   } = formStore();
+  const {
+    nameWarning,
+    setWarnings,
+    surnameWarning,
+    phoneWarning,
+    emailWarning,
+    streetWarning,
+    postalWarning,
+  } = validateStoreHooks();
 
   const goBack = () => {
     if (comingFromForm === "Collar") {
@@ -38,6 +48,37 @@ const ContactForm = ({}) => {
       setChosenStep.setStepThree(false);
       setChosenStep.setStepTwo(true);
       setChosenForm.setOtherForm(true);
+    }
+  };
+  const continueToNext = () => {
+    let warning = false;
+    if (userInformation.name == "") {
+      setWarnings.setNameWarning(true);
+      warning = true;
+    }
+    if (userInformation.surname == "") {
+      setWarnings.setSurNameWarning(true);
+      warning = true;
+    }
+    if (userInformation.phoneNumber == "") {
+      setWarnings.setPhoneWarning(true);
+      warning = true;
+    }
+    if (userInformation.email == "") {
+      setWarnings.setEmailWarning(true);
+      warning = true;
+    }
+    if (userInformation.street == "") {
+      setWarnings.setStreetWarning(true);
+      warning = true;
+    }
+    if (userInformation.postalCode == "") {
+      setWarnings.setPostalWarning(true);
+      warning = true;
+    } else if (!warning) {
+      setChosenStep.setStepThree(false);
+      setChosenStep.setStepFour(true);
+      warning = false;
     }
   };
 
@@ -65,19 +106,43 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Förnamn</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Förnamn</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: nameWarning.bool ? 1 : 0 },
+                ]}>
+                {nameWarning.message}
+              </Text>
+            </View>
             <TextInput
               value={userInformation.name}
-              onChangeText={(text) => setUserInformation.setName(text)}
+              onChangeText={(text) => {
+                setUserInformation.setName(text);
+                setWarnings.setNameWarning(false);
+              }}
               placeholder="Anna"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Efternamn</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Efternamn</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: surnameWarning.bool ? 1 : 0 },
+                ]}>
+                {surnameWarning.message}
+              </Text>
+            </View>
             <TextInput
               value={userInformation.suename}
-              onChangeText={(text) => setUserInformation.setSurname(text)}
+              onChangeText={(text) => {
+                setUserInformation.setSurname(text);
+                setWarnings.setSurNameWarning(false);
+              }}
               placeholder="Andersson"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -89,21 +154,45 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: phoneWarning.bool ? 1 : 0 },
+                ]}>
+                {phoneWarning.message}
+              </Text>
+            </View>
             <TextInput
               keyboardType="phone-pad"
               value={userInformation.phoneNumber}
-              onChangeText={(text) => setUserInformation.setPhoneNumber(text)}
+              onChangeText={(text) => {
+                setUserInformation.setPhoneNumber(text);
+                setWarnings.setPhoneWarning(false);
+              }}
               placeholder="070-1235678"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Mailadress</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Mailadress</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: emailWarning.bool ? 1 : 0 },
+                ]}>
+                {emailWarning.message}
+              </Text>
+            </View>
             <TextInput
               keyboardType="email-address"
               value={userInformation.email}
-              onChangeText={(text) => setUserInformation.setEmail(text)}
+              onChangeText={(text) => {
+                setUserInformation.setEmail(text);
+                setWarnings.setEmailWarning(false);
+              }}
               placeholder="exemel@exempel.se"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -115,19 +204,43 @@ const ContactForm = ({}) => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Gata</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Gata</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: streetWarning.bool ? 1 : 0 },
+                ]}>
+                {streetWarning.message}
+              </Text>
+            </View>
             <TextInput
               value={userInformation.street}
-              onChangeText={(text) => setUserInformation.setStreet(text)}
+              onChangeText={(text) => {
+                setUserInformation.setStreet(text);
+                setWarnings.setStreetWarning(false);
+              }}
               placeholder="Adressvägen 17"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Postnummer</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Postnummer</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: postalWarning.bool ? 1 : 0 },
+                ]}>
+                {postalWarning.message}
+              </Text>
+            </View>
             <TextInput
               value={userInformation.postalCode}
-              onChangeText={(text) => setUserInformation.setPostalCode(text)}
+              onChangeText={(text) => {
+                setUserInformation.setPostalCode(text);
+                setWarnings.setPostalWarning(false);
+              }}
               placeholder="233 33"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
@@ -136,8 +249,7 @@ const ContactForm = ({}) => {
         <Pressable
           style={checkboxStyle.button}
           onPress={() => {
-            setChosenStep.setStepThree(false);
-            setChosenStep.setStepFour(true);
+            continueToNext();
           }}>
           <Text style={{ color: themeColors.detail, textAlign: "center" }}>
             Granska

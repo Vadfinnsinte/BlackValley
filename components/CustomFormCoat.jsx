@@ -41,6 +41,7 @@ const CustomFormCoat = () => {
     legStringWarning,
   } = validateStoreHooks();
   // colors and responsiv variables.
+  const [openCozy, setOpenCosy] = useState(false);
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
@@ -52,6 +53,11 @@ const CustomFormCoat = () => {
     { label: "Limitless", value: "Limitless" },
     { label: "High-Neck", value: "High-Neck" },
     { label: "Swedish", value: "Swedish" },
+  ]);
+  const [krage, setKrage] = useState([
+    { label: "Svart", value: "Svart" },
+    { label: "Grå", value: "Grå" },
+    { label: "Brun", value: "Brun" },
   ]);
 
   const fetchwoolColors = async () => {
@@ -80,21 +86,27 @@ const CustomFormCoat = () => {
     setComingFromForm("Coat");
   }, []);
   const continueToNext = () => {
+    let warning = false;
     if (selectedCoatVariables.selectedModelCoat === null) {
       setWarnings.setModelWarningCoat(true);
+      warning = true;
     }
     if (selectedCoatVariables.measurementsCoat === "") {
       setWarnings.setMeasureWarning(true);
+      warning = true;
     }
     if (selectedCoatVariables.selectedColor === null) {
       setWarnings.setWoolWarning(true);
+      warning = true;
     }
     if (selectedCoatVariables.legString === null) {
       setWarnings.setLegStringWarning(true);
-    } else {
+      warning = true;
+    } else if (!warning) {
       setChosenStep.setStepThree(true);
       setChosenForm.setCoatForm(false);
       setChosenStep.setStepTwo(false);
+      warning = false;
     }
   };
 
@@ -214,14 +226,25 @@ const CustomFormCoat = () => {
           {selectedCoatVariables.colorColar && (
             <View>
               <Text style={{ color: themeColors.text }}>
-                Önskad färg på Cosy krage
+                Färg på Cosy krage
               </Text>
-              <TextInput
+              <DropDownPicker
+                open={openCozy}
                 value={selectedCoatVariables.cosyCollarColor}
-                onChangeText={(text) =>
-                  setSelectedCoatVariables.setCosyCollarColor(text)
-                }
-                style={styleCoatForm.input}></TextInput>
+                items={krage}
+                setOpen={setOpenCosy}
+                setItems={setKrage}
+                placeholder="Välj en färg"
+                style={styleCoatForm.dropDown}
+                dropDownContainerStyle={{ maxHeight: 150 }}
+                setValue={(callback) => {
+                  const newValue = callback(
+                    selectedCoatVariables.cosyCollarColor
+                  );
+                  setWarnings.setModelWarningCoat(false);
+                  setSelectedCoatVariables.setCosyCollarColor(newValue);
+                }}
+              />
             </View>
           )}
         </View>
