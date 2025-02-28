@@ -4,31 +4,34 @@ import { formValuesStore } from "../data/formValueStore";
 import { publicKey, service, template } from "../firebaseConfigTwo";
 
 export const sendEmail = (userInformation, orderMessage) => {
-  // const { userInformation, orderMessage } = formValuesStore();
+  const nameOfSender = `${userInformation.name} ${userInformation.surname}`;
+  console.log("sent email");
 
-  const nameOfSender = userInformation.name + " " + userInformation.surname;
-  const message =
-    `  Namn:${nameOfSender}
-  Telefonnummer: ${userInformation.phoneNumber}
-  Mailadress: ${userInformation.email}
-  Adress: ${userInformation.street}, ${userInformation.postalCode}.` +
-    orderMessage.messageCoat +
-    orderMessage.messageCollar +
-    orderMessage.messageCollar +
-    orderMessage.messageOther;
+  const formatMessageArray = (arr) => {
+    if (Array.isArray(arr) && arr.length > 0) {
+      return arr.map((item) => item).join("\n\n");
+    }
+    return "";
+  };
+  const message = `
+    Namn: ${nameOfSender}
+    Telefonnummer: ${userInformation.phoneNumber}
+    Mailadress: ${userInformation.email}
+    Adress: ${userInformation.street}, ${userInformation.postalCode}
+
+     Beställning:
+    ${formatMessageArray(orderMessage.messageCoat)}
+    ${formatMessageArray(orderMessage.messageCollar)}
+    ${formatMessageArray(orderMessage.messageOther)}
+  `;
   const templateParams = {
     from_email: userInformation.email,
-    message: message, // Meddelandetext
+    message: message,
     user_name: nameOfSender,
   };
 
   emailjs
-    .send(
-      service, // ditt Service ID
-      template, // Template ID
-      templateParams,
-      publicKey
-    )
+    .send(service, template, templateParams, publicKey)
     .then((response) => {
       Alert.alert("E-post skickad!", "Vi har tagit emot ditt meddelande.");
     })

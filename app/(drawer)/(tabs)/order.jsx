@@ -105,7 +105,7 @@ const OrderScreen = () => {
                       style={{ color: themeColors.text }}
                       className="text-center text-xs -mt-2">
                       Om du vill beställa flera produkter så finns det
-                      alternativet i nästa steg.
+                      alternativet i sista steget.
                     </Text>
                   </View>
                 )}

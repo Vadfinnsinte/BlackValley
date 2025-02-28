@@ -12,6 +12,10 @@ import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
 import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
 import { sendEmail } from "../functions/sendOrderEmail";
+import {
+  resetStoreVariables,
+  resetStoreVariablesHard,
+} from "../functions/resetStoreVariables";
 
 const CompleteEmail = () => {
   const {
@@ -23,16 +27,23 @@ const CompleteEmail = () => {
     setChosenStep,
     setOrderMessage,
     orderMessage,
+    setChosenForm,
+    setChosenProduct,
+    setSelectedCollarVariables,
+    setSelectedCoatVariables,
+    setSpecialOrder,
+    setUserInformation,
   } = formStore();
 
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
+  // const [keepSome, setKeepSome] = useState(true);
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
-
+  let keepSome = true;
   let buyerObj = {};
   let commingSwe;
 
@@ -60,7 +71,6 @@ const CompleteEmail = () => {
       metal: selectedCollarVariables.selectedMetal,
       font: selectedCollarVariables.selectedFont,
       text: selectedCollarVariables.brodyrText,
-      // legStrings: legString ? "Ja" : "Nej",
       comment: selectedCollarVariables.commentsCollar,
     };
   }
@@ -71,8 +81,8 @@ const CompleteEmail = () => {
     }
   }
 
-  let name = userInformation.name + "" + userInformation.surname;
   let message = ` 
+  
   Produkt information: ${commingSwe}
   Modell: ${buyerObj.modell}
   Mått: ${buyerObj.measurement && buyerObj.measurement}
@@ -83,6 +93,7 @@ const CompleteEmail = () => {
   Metall på ringar: ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
   Kommentarer och önskemål: ${buyerObj.comment}
   `;
+
   let messageOther = `
   Namn:${(userInformation.name, userInformation.surname)}
   Telefonnummer: ${userInformation.phoneNumber}
@@ -90,25 +101,58 @@ const CompleteEmail = () => {
   Adress: ${userInformation.street}, ${userInformation.postalCode}.
   specialbeställning: ${specialOrder}
   `;
-
+  const cancelOrder = () => {
+    keepSome = false;
+    setOpenCancel(false);
+    closeAllSteps();
+  };
+  const closeAllSteps = () => {
+    setChosenStep.setStepOne(true);
+    setChosenStep.setStepTwo(false);
+    setChosenStep.setStepThree(false);
+    setChosenStep.setStepFour(false);
+    if (keepSome) {
+      resetStoreVariables(
+        setChosenForm,
+        setChosenProduct,
+        setSelectedCollarVariables,
+        setSelectedCoatVariables,
+        setSpecialOrder
+      );
+    } else {
+      resetStoreVariablesHard(
+        setChosenForm,
+        setChosenProduct,
+        setSelectedCollarVariables,
+        setSelectedCoatVariables,
+        setSpecialOrder,
+        setUserInformation,
+        setOrderMessage
+      );
+      keepSome = true;
+    }
+  };
   const saveOrder = () => {
     if (comingFromForm === "Coat") {
-      setOrderMessage.setMessageCoat(message);
+      setOrderMessage.setMessageCoat([...orderMessage.messageCoat, message]);
+      closeAllSteps();
     }
     if (comingFromForm === "Collar") {
-      setOrderMessage.setMessageCollar(message);
+      setOrderMessage.setMessageCollar([
+        ...orderMessage.messageCollar,
+        message,
+      ]);
+      closeAllSteps();
     }
     if (comingFromForm === "Other") {
-      setOrderMessage.setMessageOther(messageOther);
+      setOrderMessage.setMessageOther([...orderMessage.messageOther, message]);
+      closeAllSteps();
     }
-    console.log(orderMessage.messageCoat);
   };
   const completeOrder = () => {
+    keepSome = false;
     saveOrder();
     sendEmail(userInformation, orderMessage);
-    setOrderMessage.setMessageCoat("");
-    setOrderMessage.setMessageCollar("");
-    setOrderMessage.setMessageOther("");
   };
   return (
     <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
@@ -221,6 +265,15 @@ const CompleteEmail = () => {
               ? { flexDirection: "row", justifyContent: "space-between" }
               : {}
           }>
+          <Pressable onPress={saveOrder}>
+            <Text
+              style={[
+                stylesModalForm.buttons,
+                { color: "#000", backgroundColor: themeColors.detail },
+              ]}>
+              Lägg till en produkt.
+            </Text>
+          </Pressable>
           <Pressable onPress={() => setOpenCancel(true)}>
             <Text
               style={[
@@ -228,15 +281,6 @@ const CompleteEmail = () => {
                 { backgroundColor: "#000", color: themeColors.detail },
               ]}>
               Avbryt
-            </Text>
-          </Pressable>
-          <Pressable onPress={saveOrder}>
-            <Text
-              style={[
-                stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
-              ]}>
-              Lägg till product.
             </Text>
           </Pressable>
           <Pressable onPress={completeOrder}>
@@ -269,7 +313,7 @@ const CompleteEmail = () => {
             <Pressable onPress={() => setOpenCancel(false)}>
               <Text>Avbryt</Text>
             </Pressable>
-            <Pressable onPress={() => setOpenCancel(false)}>
+            <Pressable onPress={cancelOrder}>
               <Text>Ta bort informationen</Text>
             </Pressable>
           </View>
