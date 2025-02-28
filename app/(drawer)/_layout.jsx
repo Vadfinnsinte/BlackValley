@@ -24,6 +24,7 @@ export const CustomDrawerContent = (props) => {
   const pathname = usePathname();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showSubMenuOrder, setShowSubMenuOrder] = useState(false);
+  const [showSubMenuHome, setShowSubMenuHome] = useState(false);
   const [eng, setEng] = useState(false);
 
   const [loaded] = useFonts({
@@ -61,20 +62,75 @@ export const CustomDrawerContent = (props) => {
                 : themeColors.hamburgerText,
           },
         ]}
-        style={{
-          backgroundColor:
-            pathname == "/" || pathname == "/indexEng"
-              ? "#333"
-              : themeColors.background,
-        }}
-        onPress={() => {
-          if (!eng) {
-            router.push("/");
-          } else {
-            router.push("/indexEng");
-          }
-        }}
+        // style={{
+        //   backgroundColor:
+        //     pathname == "/" || pathname == "/indexEng"
+        //       ? "#333"
+        //       : themeColors.background,
+        // }}
+        onPress={() => setShowSubMenuHome(!showSubMenuHome)}
+        // onPress={() => {
+        //   if (!eng) {
+        //     router.push("/");
+        //   } else {
+        //     router.push("/indexEng");
+        //   }
+        // }}
       />
+      {showSubMenuHome && (
+        <View>
+          <DrawerItem
+            label={!eng ? "Hem" : "Home"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/" || pathname == "/indexEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/" || pathname == "/indexEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/");
+              } else {
+                router.push("/indexEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={!eng ? "Kontakt" : "Contact"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/contact" || pathname == "/contactEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/contact" || pathname == "/contactEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/contact");
+              } else {
+                router.push("/contactEng");
+              }
+            }}
+          />
+        </View>
+      )}
       <DrawerItem
         label={!eng ? "Inspiration" : "Inspiration"}
         labelStyle={[
@@ -170,6 +226,32 @@ export const CustomDrawerContent = (props) => {
                 router.push("/materialLeather");
               } else {
                 router.push("/materialLeatherEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={!eng ? "Tillbehör och font" : "Fonts and add on"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/materialOther" ||
+                  pathname == "/materialOtherEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/materialOther" || pathname == "/materialOtherEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/materialOther");
+              } else {
+                router.push("/materialOtherEng");
               }
             }}
           />

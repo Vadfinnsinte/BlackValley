@@ -19,6 +19,7 @@ export const navLinks = [
     submenu: [
       { title: "Ull - Till täcke", path: "/materialWool" },
       { title: "Läder - Till halsband", path: "/materialLeather" },
+      { title: "Tillbehör och font", path: "/materialOther" },
     ],
   },
   {
