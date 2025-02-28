@@ -7,7 +7,15 @@ export const validateStore = create((set) => ({
   },
   modelWarningCoat: {
     bool: false,
-    message: "*Måste välja en modell.",
+    message: "*Måste välja en modell",
+  },
+  measureWarning: {
+    bool: false,
+    message: "*Vänlig skriv in mått",
+  },
+  woolWarning: {
+    bool: false,
+    message: "*Välj en färg",
   },
 
   setWarnings: {
@@ -18,6 +26,14 @@ export const validateStore = create((set) => ({
     setModelWarningCoat: (value) =>
       set((state) => ({
         modelWarningCoat: { ...state.modelWarningCoat, bool: value },
+      })),
+    setMeasureWarning: (value) =>
+      set((state) => ({
+        measureWarning: { ...state.measureWarning, bool: value },
+      })),
+    setWoolWarning: (value) =>
+      set((state) => ({
+        woolWarning: { ...state.woolWarning, bool: value },
       })),
   },
 }));
