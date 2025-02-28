@@ -17,6 +17,7 @@ import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { useEffect } from "react";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
+import { validateStoreHooks } from "../data/validateStoreHooks";
 
 const CustomFormCoat = () => {
   const {
@@ -32,6 +33,7 @@ const CustomFormCoat = () => {
     setChosenForm,
     setChosenStep,
   } = formStore();
+  const { setWarnings, modelWarningCoat } = validateStoreHooks();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -71,6 +73,16 @@ const CustomFormCoat = () => {
     fetchwoolColors();
     setComingFromForm("Coat");
   }, []);
+  const continueToNext = () => {
+    if (selectedCoatVariables.selectedModelCoat === null) {
+      setWarnings.setModelWarningCoat(true);
+      return;
+    } else {
+      setChosenStep.setStepThree(true);
+      setChosenForm.setCoatForm(false);
+      setChosenStep.setStepTwo(false);
+    }
+  };
 
   return (
     <View style={styleCoatForm.centerContent}>
@@ -102,7 +114,16 @@ const CustomFormCoat = () => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Modell</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Modell</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: modelWarningCoat.bool ? 1 : 0 },
+                ]}>
+                {modelWarningCoat.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openCoatModel}
               value={selectedCoatVariables.selectedModelCoat}
@@ -286,12 +307,7 @@ const CustomFormCoat = () => {
           </Text>
         </View>
       </View>
-      <Pressable
-        onPress={() => {
-          setChosenStep.setStepThree(true);
-          setChosenForm.setCoatForm(false);
-          setChosenStep.setStepTwo(false);
-        }}>
+      <Pressable onPress={continueToNext}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>
     </View>

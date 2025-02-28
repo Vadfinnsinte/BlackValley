@@ -3,32 +3,28 @@ import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { formStore } from "../data/formStoreHooks";
+import { validateStoreHooks } from "../data/validateStoreHooks";
 const CheckBox = () => {
-  const {
-    chosenProduct,
-    setChosenProduct,
-    setWarning,
-    warningMessage,
-    warning,
-  } = formStore();
+  const { chosenProduct, setChosenProduct, warningMessage } = formStore();
+  const { setWarnings, checkBoxWarnings } = validateStoreHooks();
   const colorScheme = useColorScheme();
 
   const themeColors = Colors[colorScheme] || Colors.light;
 
   const handleCoat = () => {
-    setWarning(false);
+    setWarnings.setCheckbox(false);
     setChosenProduct.setCoat(!chosenProduct.coat);
     setChosenProduct.setCollar(false);
     setChosenProduct.setOther(false);
   };
   const handleCollar = () => {
-    setWarning(false);
+    setWarnings.setCheckbox(false);
     setChosenProduct.setCoat(false);
     setChosenProduct.setCollar(!chosenProduct.collar);
     setChosenProduct.setOther(false);
   };
   const handleOther = () => {
-    setWarning(false);
+    setWarnings.setCheckbox(false);
     setChosenProduct.setCoat(false);
     setChosenProduct.setCollar(false);
     setChosenProduct.setOther(!chosenProduct.other);
@@ -76,9 +72,11 @@ const CheckBox = () => {
         </View>
       </View>
       <Text
-        // className={` -mb-2 mt-2 ${!warning ? "invisible" : ""}`}
-        style={[styleCoatForm.redText, { opacity: warning ? 1 : 0 }]}>
-        {warningMessage}
+        style={[
+          styleCoatForm.redText,
+          { opacity: checkBoxWarnings.bool ? 1 : 0 },
+        ]}>
+        {checkBoxWarnings.message}
       </Text>
     </View>
   );

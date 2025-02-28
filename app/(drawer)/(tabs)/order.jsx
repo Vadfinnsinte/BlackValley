@@ -21,17 +21,20 @@ import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { FA5Style } from "@expo/vector-icons/build/FontAwesome5";
+import { validateStoreHooks } from "../../../data/validateStoreHooks";
 // import SendEmail from "../../../functions/SendEmail";
 const OrderScreen = () => {
   const {
     chosenForm,
     setChosenForm,
     chosenProduct,
-    setWarning,
-    setWarningMessage,
+    // setWarnings,
+    // setWarningMessage,
     setChosenStep,
     chosenStep,
   } = formStore();
+  const { setWarnings } = validateStoreHooks();
+
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
 
@@ -49,8 +52,8 @@ const OrderScreen = () => {
       setChosenStep.setStepOne(false);
       setChosenStep.setStepTwo(true);
     } else {
-      setWarningMessage("Please check one of the boxes");
-      setWarning(true);
+      // setWarningMessage("Please check one of the boxes");
+      setWarnings.setCheckbox(true);
     }
   };
 
