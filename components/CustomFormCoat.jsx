@@ -33,8 +33,13 @@ const CustomFormCoat = () => {
     setChosenForm,
     setChosenStep,
   } = formStore();
-  const { setWarnings, modelWarningCoat, measureWarning, woolWarning } =
-    validateStoreHooks();
+  const {
+    setWarnings,
+    modelWarningCoat,
+    measureWarning,
+    woolWarning,
+    legStringWarning,
+  } = validateStoreHooks();
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
@@ -83,6 +88,9 @@ const CustomFormCoat = () => {
     }
     if (selectedCoatVariables.selectedColor === null) {
       setWarnings.setWoolWarning(true);
+    }
+    if (selectedCoatVariables.legString === null) {
+      setWarnings.setLegStringWarning(true);
     } else {
       setChosenStep.setStepThree(true);
       setChosenForm.setCoatForm(false);
@@ -229,15 +237,17 @@ const CustomFormCoat = () => {
           ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Önskad Färg</Text>
+
             <TextInput
               value={selectedCoatVariables.brodyrColor}
-              onChangeText={(text) =>
-                setSelectedCoatVariables.setBrodyrColor(text)
-              }
+              onChangeText={(text) => {
+                setSelectedCoatVariables.setBrodyrColor(text);
+              }}
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
+
             <DropDownPicker
               open={openFont}
               value={selectedCoatVariables.selectedFont}
@@ -274,48 +284,79 @@ const CustomFormCoat = () => {
 
           <View
             style={[
-              width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
-              { marginTop: 15, alignItems: "center" },
+              styleCoatForm.flexBoxSmall,
+              {
+                flex: 1,
+                alignSelf: "center",
+                alignItems: "center",
+              },
             ]}>
-            <Text style={{ color: themeColors.text }}>Bensnören? </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Bensnören? </Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: legStringWarning.bool ? 1 : 0 },
+                ]}>
+                {legStringWarning.message}
+              </Text>
+            </View>
             <View
               style={[
                 styleCoatForm.flexBox,
                 { alignSelf: "center", marginBottom: 0 },
               ]}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: 7,
+                  marginRight: 7,
+                }}>
                 <Text
                   style={{ color: themeColors.text, margin: 2 }}
                   className="m-2">
                   Ja
                 </Text>
-                <Pressable
-                  onPress={() => setSelectedCoatVariables.setLegString(true)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === true
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
-                </Pressable>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
-                <Pressable
-                  onPress={() => setSelectedCoatVariables.setLegString(false)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === false
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
-                </Pressable>
+                <View>
+                  <Pressable
+                    onPress={() => setSelectedCoatVariables.setLegString(true)}>
+                    <Fontisto
+                      name={
+                        selectedCoatVariables.legString === true
+                          ? "checkbox-active"
+                          : "checkbox-passive"
+                      }
+                      size={24}
+                      color={themeColors.detail}
+                    />
+                  </Pressable>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: 7,
+                    marginRight: 7,
+                  }}>
+                  <Text style={{ color: themeColors.text, margin: 2 }}>
+                    Nej
+                  </Text>
+                  <Pressable
+                    onPress={() =>
+                      setSelectedCoatVariables.setLegString(false)
+                    }>
+                    <Fontisto
+                      name={
+                        selectedCoatVariables.legString === false
+                          ? "checkbox-active"
+                          : "checkbox-passive"
+                      }
+                      size={24}
+                      color={themeColors.detail}
+                    />
+                  </Pressable>
+                </View>
               </View>
             </View>
           </View>

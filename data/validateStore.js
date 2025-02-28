@@ -17,6 +17,10 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "*Välj en färg",
   },
+  legStringWarning: {
+    bool: false,
+    message: "*Välj en",
+  },
 
   setWarnings: {
     setCheckbox: (value) =>
@@ -34,6 +38,10 @@ export const validateStore = create((set) => ({
     setWoolWarning: (value) =>
       set((state) => ({
         woolWarning: { ...state.woolWarning, bool: value },
+      })),
+    setLegStringWarning: (value) =>
+      set((state) => ({
+        legStringWarning: { ...state.legStringWarning, bool: value },
       })),
   },
 }));
