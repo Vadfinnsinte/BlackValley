@@ -73,7 +73,6 @@ const OrderScreen = () => {
             <SafeAreaView
               style={{ backgroundColor: themeColors.background, flex: 1 }}
               className="mx-10">
-              {/* <SendEmail /> */}
               <View style={checkboxStyle.container}>
                 <View style={checkboxStyle.containerText}>
                   <Text

@@ -221,7 +221,13 @@ const CustomFormCoat = () => {
             />
           </View>
           {selectedCoatVariables.colorColar && (
-            <View>
+            <View
+              style={[
+                width > 750
+                  ? styleCoatForm.flexBox
+                  : styleCoatForm.flexBoxSmall,
+                { zIndex: 8 },
+              ]}>
               <Text style={{ color: themeColors.text }}>
                 Färg på Cosy krage
               </Text>
@@ -301,14 +307,12 @@ const CustomFormCoat = () => {
               blir exakt som skrivet te.x. ALviN, alvin
             </Text>
           </View>
-
           <View
             style={[
               styleCoatForm.flexBoxSmall,
               {
-                flex: 1,
-                alignSelf: "center",
                 alignItems: "center",
+                justifyContent: "center",
               },
             ]}>
             <View style={{ flexDirection: "row" }}>
@@ -326,57 +330,39 @@ const CustomFormCoat = () => {
                 styleCoatForm.flexBox,
                 { alignSelf: "center", marginBottom: 0 },
               ]}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginLeft: 7,
-                  marginRight: 7,
-                }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text
                   style={{ color: themeColors.text, margin: 2 }}
                   className="m-2">
                   Ja
                 </Text>
-                <View>
-                  <Pressable
-                    onPress={() => setSelectedCoatVariables.setLegString(true)}>
-                    <Fontisto
-                      name={
-                        selectedCoatVariables.legString === true
-                          ? "checkbox-active"
-                          : "checkbox-passive"
-                      }
-                      size={24}
-                      color={themeColors.detail}
-                    />
-                  </Pressable>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginLeft: 7,
-                    marginRight: 7,
-                  }}>
-                  <Text style={{ color: themeColors.text, margin: 2 }}>
-                    Nej
-                  </Text>
-                  <Pressable
-                    onPress={() =>
-                      setSelectedCoatVariables.setLegString(false)
-                    }>
-                    <Fontisto
-                      name={
-                        selectedCoatVariables.legString === false
-                          ? "checkbox-active"
-                          : "checkbox-passive"
-                      }
-                      size={24}
-                      color={themeColors.detail}
-                    />
-                  </Pressable>
-                </View>
+                <Pressable
+                  onPress={() => setSelectedCoatVariables.setLegString(true)}>
+                  <Fontisto
+                    name={
+                      selectedCoatVariables.legString === true
+                        ? "checkbox-active"
+                        : "checkbox-passive"
+                    }
+                    size={24}
+                    color={themeColors.detail}
+                  />
+                </Pressable>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
+                <Pressable
+                  onPress={() => setSelectedCoatVariables.setLegString(false)}>
+                  <Fontisto
+                    name={
+                      selectedCoatVariables.legString === false
+                        ? "checkbox-active"
+                        : "checkbox-passive"
+                    }
+                    size={24}
+                    color={themeColors.detail}
+                  />
+                </Pressable>
               </View>
             </View>
           </View>

@@ -52,7 +52,7 @@ const CustomFormCollar = () => {
     { label: "Silver", value: "Silver" },
     { label: "Solid mässing (40:- extra)", value: "Solid mässing" },
   ]);
-  const [leathers, setLeathers] = useState(["loading"]);
+  const [leathers, setLeathers] = useState([]);
 
   const fetchLeatherColors = async () => {
     const response = await fetchCollection("leather");
