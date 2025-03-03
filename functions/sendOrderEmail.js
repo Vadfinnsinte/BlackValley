@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { formValuesStore } from "../data/formValueStore";
 import { publicKey, service, template } from "../firebaseConfigTwo";
 
-export const sendEmail = (userInformation, orderMessage) => {
+export const sendEmail = (userInformation, orderMessage, setSent) => {
   const nameOfSender = `${userInformation.name} ${userInformation.surname}`;
   console.log("sent email");
 
@@ -33,10 +33,14 @@ export const sendEmail = (userInformation, orderMessage) => {
   emailjs
     .send(service, template, templateParams, publicKey)
     .then((response) => {
-      Alert.alert("E-post skickad!", "Vi har tagit emot ditt meddelande.");
+      setSent("Vi har tagit emot ditt meddelande och hör av oss inom kort.");
+      console.log("E-post skickad!", "Vi har tagit emot ditt meddelande.");
     })
     .catch((error) => {
-      Alert.alert("Fel!", "Något gick fel, försök igen.");
+      setSent(
+        "Beställning misslyckad, försök igen senare eller hör av dig till: blackvalley.sheepfarm@outlook.com."
+      );
+      console.log("Fel!", "Något gick fel, försök igen.");
       console.error("EmailJS Error:", error);
     });
 };

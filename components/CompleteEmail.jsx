@@ -37,6 +37,10 @@ const CompleteEmail = () => {
 
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [sent, setSent] = useState("Skickar...");
+  const [openSent, setOpenSent] = useState(false);
+  const [onlySave, setOnlySave] = useState(true);
   // const [keepSome, setKeepSome] = useState(true);
   // colors and responsiv variables.
   const colorScheme = useColorScheme();
@@ -132,27 +136,38 @@ const CompleteEmail = () => {
       keepSome = true;
     }
   };
-  const saveOrder = () => {
+
+  const saveOrder = (shouldClose = true) => {
+    console.log(onlySave);
+
     if (comingFromForm === "Coat") {
       setOrderMessage.setMessageCoat([...orderMessage.messageCoat, message]);
-      closeAllSteps();
-    }
-    if (comingFromForm === "Collar") {
+    } else if (comingFromForm === "Collar") {
       setOrderMessage.setMessageCollar([
         ...orderMessage.messageCollar,
         message,
       ]);
-      closeAllSteps();
-    }
-    if (comingFromForm === "Other") {
+    } else if (comingFromForm === "Other") {
       setOrderMessage.setMessageOther([...orderMessage.messageOther, message]);
+    }
+
+    resetStoreVariables(
+      setChosenForm,
+      setChosenProduct,
+      setSelectedCollarVariables,
+      setSelectedCoatVariables,
+      setSpecialOrder
+    );
+
+    if (shouldClose) {
       closeAllSteps();
     }
   };
   const completeOrder = () => {
+    setOpenSent(true);
     keepSome = false;
     saveOrder();
-    sendEmail(userInformation, orderMessage);
+    sendEmail(userInformation, orderMessage, setSent);
   };
   return (
     <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
@@ -265,7 +280,11 @@ const CompleteEmail = () => {
               ? { flexDirection: "row", justifyContent: "space-between" }
               : {}
           }>
-          <Pressable onPress={saveOrder}>
+          <Pressable
+            onPress={() => {
+              // setOnlySave(true);
+              saveOrder(true);
+            }}>
             <Text
               style={[
                 stylesModalForm.buttons,
@@ -283,7 +302,12 @@ const CompleteEmail = () => {
               Avbryt
             </Text>
           </Pressable>
-          <Pressable onPress={completeOrder}>
+          <Pressable
+            onPress={() => {
+              // setOnlySave(false);
+              saveOrder(false);
+              setConfirm(true);
+            }}>
             <Text
               style={[
                 stylesModalForm.buttons,
@@ -310,11 +334,79 @@ const CompleteEmail = () => {
               Vill du ändra infromation välj avbryt och klicka på gå
               tillbaka(längst upp på granska).
             </Text>
-            <Pressable onPress={() => setOpenCancel(false)}>
-              <Text>Avbryt</Text>
-            </Pressable>
-            <Pressable onPress={cancelOrder}>
-              <Text>Ta bort informationen</Text>
+            <View style={{ flexDirection: width > 780 ? "row" : "column" }}>
+              <Pressable
+                style={[stylesModalForm.buttons, { backgroundColor: "#000" }]}
+                onPress={() => setOpenCancel(false)}>
+                <Text
+                  style={{ color: themeColors.detail, textAlign: "center" }}>
+                  Avbryt
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[
+                  stylesModalForm.buttons,
+                  {
+                    backgroundColor: themeColors.detail,
+                  },
+                ]}
+                onPress={cancelOrder}>
+                <Text style={{ color: "#000", textAlign: "center" }}>
+                  Radera information
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={confirm} transparent={true}>
+        <View style={stylesModalForm.modalOverlay}>
+          <View style={stylesModalForm.modalContent}>
+            {!openSent ? (
+              <View>
+                <Text style={stylesModalForm.modalText}>
+                  Skicka beställningen?
+                </Text>
+                <Pressable
+                  style={[stylesModalForm.buttons, { backgroundColor: "#000" }]}
+                  onPress={() => setConfirm(false)}>
+                  <Text
+                    style={{ color: themeColors.detail, textAlign: "center" }}>
+                    Nej
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    stylesModalForm.buttons,
+                    {
+                      backgroundColor: themeColors.detail,
+                    },
+                  ]}
+                  onPress={() => {
+                    completeOrder();
+                  }}>
+                  <Text>Ja</Text>
+                </Pressable>
+              </View>
+            ) : (
+              <Text>{sent}</Text>
+            )}
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={openSent} transparent={true}>
+        <View style={stylesModalForm.modalOverlay}>
+          <View style={stylesModalForm.modalContent}>
+            <Text>{sent}</Text>
+            <Pressable onPress={() => setOpenSent(false)}>
+              <Text
+                style={[
+                  stylesModalForm.buttons,
+                  { backgroundColor: "#000", color: themeColors.detail },
+                ]}>
+                Stäng
+              </Text>
             </Pressable>
           </View>
         </View>

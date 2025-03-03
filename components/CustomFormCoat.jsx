@@ -221,13 +221,7 @@ const CustomFormCoat = () => {
             />
           </View>
           {selectedCoatVariables.colorColar && (
-            <View
-              style={[
-                width > 750
-                  ? styleCoatForm.flexBox
-                  : styleCoatForm.flexBoxSmall,
-                { zIndex: 8 },
-              ]}>
+            <View style={{ zIndex: 8 }}>
               <Text style={{ color: themeColors.text }}>
                 Färg på Cosy krage
               </Text>
