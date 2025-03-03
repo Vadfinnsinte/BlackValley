@@ -13,6 +13,10 @@ export const validateStoreHooks = () => {
   const emailWarning = validateStore((state) => state.emailWarning);
   const streetWarning = validateStore((state) => state.streetWarning);
   const postalWarning = validateStore((state) => state.postalWarning);
+  const collarModelWarning = validateStore((state) => state.collarModelWarning);
+  const widthWarning = validateStore((state) => state.widthWarning);
+  const leatherWarning = validateStore((state) => state.leatherWarning);
+  const ringWarning = validateStore((state) => state.ringWarning);
 
   return {
     checkBoxWarnings,
@@ -27,5 +31,9 @@ export const validateStoreHooks = () => {
     emailWarning,
     streetWarning,
     postalWarning,
+    collarModelWarning,
+    widthWarning,
+    leatherWarning,
+    ringWarning,
   };
 };

@@ -45,12 +45,29 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "*Fyll i postnummer",
   },
+  collarModelWarning: {
+    bool: false,
+    message: "*Välj model",
+  },
+  widthWarning: {
+    bool: false,
+    message: "*Välj bredd",
+  },
+  leatherWarning: {
+    bool: false,
+    message: "*Välj färg",
+  },
+  ringWarning: {
+    bool: false,
+    message: "*Välj metal",
+  },
 
   setWarnings: {
     setCheckbox: (value) =>
       set((state) => ({
         checkBoxWarnings: { ...state.checkBoxWarnings, bool: value },
       })),
+
     setModelWarningCoat: (value) =>
       set((state) => ({
         modelWarningCoat: { ...state.modelWarningCoat, bool: value },
@@ -90,6 +107,22 @@ export const validateStore = create((set) => ({
     setPostalWarning: (value) =>
       set((state) => ({
         postalWarning: { ...state.postalWarning, bool: value },
+      })),
+    setCollarModelWarning: (value) =>
+      set((state) => ({
+        collarModelWarning: { ...state.collarModelWarning, bool: value },
+      })),
+    setWidthWarning: (value) =>
+      set((state) => ({
+        widthWarning: { ...state.widthWarning, bool: value },
+      })),
+    setLeatherWarning: (value) =>
+      set((state) => ({
+        leatherWarning: { ...state.leatherWarning, bool: value },
+      })),
+    setRingWarning: (value) =>
+      set((state) => ({
+        ringWarning: { ...state.ringWarning, bool: value },
       })),
   },
 }));

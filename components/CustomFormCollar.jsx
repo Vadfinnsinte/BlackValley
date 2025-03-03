@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
+import { validateStoreHooks } from "../data/validateStoreHooks";
 
 const CustomFormCollar = () => {
   // -- colors and responsiv variables --
@@ -36,6 +37,14 @@ const CustomFormCollar = () => {
     selectedCollarVariables,
     setSelectedCollarVariables,
   } = formStore();
+  const {
+    setWarnings,
+    measureWarning,
+    collarModelWarning,
+    widthWarning,
+    leatherWarning,
+    ringWarning,
+  } = validateStoreHooks();
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
     { label: "Halvstryp", value: "Halvstryp" },
@@ -72,6 +81,35 @@ const CustomFormCollar = () => {
     fetchLeatherColors();
     setComingFromForm("Collar");
   }, []);
+  const continueToNextCollar = () => {
+    let warning = false;
+
+    if (selectedCollarVariables.selectedModalCollar === null) {
+      setWarnings.setCollarModelWarning(true);
+      warning = true;
+    }
+    if (selectedCollarVariables.lengthCollar === "") {
+      setWarnings.setMeasureWarning(true);
+      warning = true;
+    }
+    if (selectedCollarVariables.selectedWidth === "") {
+      setWarnings.setWidthWarning(true);
+      warning = true;
+    }
+    if (selectedCollarVariables.selectedLeather === "") {
+      setWarnings.setLeatherWarning(true);
+      warning = true;
+    }
+    if (selectedCollarVariables.selectedMetal === "") {
+      setWarnings.setRingWarning(true);
+      warning = true;
+    } else if (!warning) {
+      setChosenStep.setStepThree(true);
+      setChosenForm.setCollarForm(false);
+      setChosenStep.setStepTwo(false);
+      warning = false;
+    }
+  };
 
   return (
     <View style={styleCoatForm.centerContent}>
@@ -103,7 +141,16 @@ const CustomFormCollar = () => {
             { zIndex: 10 },
           ]}>
           <View style={{ zIndex: 13 }}>
-            <Text style={{ color: themeColors.text }}>Modell</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Modell</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: collarModelWarning.bool ? 1 : 0 },
+                ]}>
+                {collarModelWarning.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={collarModelOpen}
               onRequestClose={() => setCollarModelOpen(false)}
@@ -114,6 +161,7 @@ const CustomFormCollar = () => {
                 const newValue = callback(
                   selectedCollarVariables.selectedModalCollar
                 );
+                setWarnings.setCollarModelWarning(false);
                 setSelectedCollarVariables.setSelectedModalCollar(newValue);
               }}
               setItems={setModels}
@@ -123,19 +171,38 @@ const CustomFormCollar = () => {
             />
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Mått</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Mått</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: measureWarning.bool ? 1 : 0 },
+                ]}>
+                {measureWarning.message}
+              </Text>
+            </View>
             <TextInput
               // keyboardType="numeric"
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }
               value={selectedCollarVariables.lengthCollar}
-              onChangeText={(text) =>
-                setSelectedCollarVariables.setLengthCollar(text)
-              }></TextInput>
+              onChangeText={(text) => {
+                setSelectedCollarVariables.setLengthCollar(text);
+                setWarnings.setMeasureWarning(false);
+              }}></TextInput>
           </View>
           <View style={{ zIndex: 11 }}>
-            <Text style={{ color: themeColors.text }}>Bredd</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Bredd</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: widthWarning.bool ? 1 : 0 },
+                ]}>
+                {widthWarning.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openWidth}
               value={selectedCollarVariables.selectedWidth}
@@ -149,6 +216,7 @@ const CustomFormCollar = () => {
                 const newValue = callback(
                   setSelectedCollarVariables.selectedWidth
                 );
+                setWarnings.setWidthWarning(false);
                 setSelectedCollarVariables.setSelectedWidth(newValue);
               }}
             />
@@ -160,9 +228,18 @@ const CustomFormCollar = () => {
             { zIndex: 9 },
           ]}>
           <View style={{ zIndex: 11 }}>
-            <Text style={{ color: themeColors.text }}>
-              Önskad färg på skinn
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>
+                Önskad färg på skinn
+              </Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: leatherWarning.bool ? 1 : 0 },
+                ]}>
+                {leatherWarning.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openLeather}
               value={selectedCollarVariables.selectedLeather}
@@ -176,12 +253,14 @@ const CustomFormCollar = () => {
                 const newValue = callback(
                   selectedCollarVariables.selectedLeather
                 );
+                setWarnings.setLeatherWarning(false);
                 setSelectedCollarVariables.setSelectedLeather(newValue);
               }}
             />
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Färg på brodyr</Text>
+
             <TextInput
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
@@ -192,9 +271,18 @@ const CustomFormCollar = () => {
               }></TextInput>
           </View>
           <View style={{ zIndex: 10 }}>
-            <Text style={{ color: themeColors.text }}>
-              Önskad metall på ring
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>
+                Önskad metall på ring
+              </Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: ringWarning.bool ? 1 : 0 },
+                ]}>
+                {ringWarning.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openMetal}
               value={selectedCollarVariables.selectedMetal}
@@ -208,6 +296,7 @@ const CustomFormCollar = () => {
                 const newValue = callback(
                   selectedCollarVariables.selectedMetal
                 );
+                setWarnings.setRingWarning(false);
                 setSelectedCollarVariables.setSelectedMetal(newValue);
               }}
             />
@@ -264,12 +353,7 @@ const CustomFormCollar = () => {
           </Text>
         </View>
       </View>
-      <Pressable
-        onPress={() => {
-          setChosenStep.setStepThree(true);
-          setChosenForm.setCollarForm(false);
-          setChosenStep.setStepTwo(false);
-        }}>
+      <Pressable onPress={continueToNextCollar}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>
     </View>
