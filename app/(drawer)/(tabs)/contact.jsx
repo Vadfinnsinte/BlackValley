@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  Pressable,
 } from "react-native";
 import contactPic from "../../../assets/images/tre-circlar.png";
 import insta from "../../../assets/images/instagram_icon.png";
@@ -17,8 +18,11 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { contact } from "../../../StyleSheet/ContactInfo";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import LoginPage from "../../../components/Login";
 
 const ContactScreen = () => {
+  const { setLoginModalOpen, loginModalOpen } = adminHooks();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
@@ -108,6 +112,12 @@ const ContactScreen = () => {
                 />
               </View>
             </View>
+            <Pressable
+              style={{ alignSelf: "flex-end", paddingRight: 3 }}
+              onPress={() => setLoginModalOpen(true)}>
+              <Text>Admin</Text>
+            </Pressable>
+            {loginModalOpen && <LoginPage />}
           </GradientBackground>
         </SafeAreaView>
       </View>
