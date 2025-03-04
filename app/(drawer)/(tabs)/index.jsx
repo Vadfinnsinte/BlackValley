@@ -56,8 +56,8 @@ const HomeScreen = () => {
                   ]}>
                   <Image
                     style={{
-                      height: width > 1000 ? 350 : 230,
-                      width: width > 1000 ? 350 : 230,
+                      height: width > 1000 ? 340 : 230,
+                      width: width > 1000 ? 340 : 230,
                     }}
                     source={startPicture}
                     resizeMode="contain"
@@ -65,7 +65,7 @@ const HomeScreen = () => {
                 </View>
               </View>
               <View style={bigger && styles.layoutBig}>
-                <View style={styles.textContainer}>
+                <View style={[styles.textContainer, { paddingRight: 35 }]}>
                   <Text
                     style={{ color: themeColors.text }}
                     className={bigger ? "text-3xl mb-5" : " text-2xl mb-5"}>

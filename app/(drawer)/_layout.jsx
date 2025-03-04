@@ -25,6 +25,7 @@ export const CustomDrawerContent = (props) => {
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showSubMenuOrder, setShowSubMenuOrder] = useState(false);
   const [showSubMenuHome, setShowSubMenuHome] = useState(false);
+  const [showSubMenuModels, setShowSubMenuModels] = useState(false);
   const [eng, setEng] = useState(false);
 
   const [loaded] = useFonts({
@@ -259,7 +260,7 @@ export const CustomDrawerContent = (props) => {
       )}
 
       <DrawerItem
-        label={!eng ? "Produkt" : "Product"}
+        label={!eng ? "Modeller" : "Models"}
         labelStyle={[
           styles.navItemLabel,
           {
@@ -275,14 +276,65 @@ export const CustomDrawerContent = (props) => {
               ? "#333"
               : themeColors.background,
         }}
-        onPress={() => {
-          if (!eng) {
-            router.push("/product");
-          } else {
-            router.push("/productEng");
-          }
-        }}
+        onPress={() => setShowSubMenuModels(!showSubMenuModels)}
       />
+      {showSubMenuModels && (
+        <View>
+          <DrawerItem
+            label={!eng ? "Halsband och koppel" : "Collar"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/collarLeashModels" ||
+                  pathname == "/collarModelsEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/collarLeashModels" ||
+                pathname == "/collarModelsEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/collarLeashModels");
+              } else {
+                router.push("/collarModelsEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={!eng ? "Täcken" : "Coats"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/coatModels" || pathname == "/coatModelsEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/coatModels" || pathname == "/coatModelsEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/coatModels");
+              } else {
+                router.push("/coatModelsEng");
+              }
+            }}
+          />
+        </View>
+      )}
+
       <DrawerItem
         label={!eng ? "Beställ" : "Order"}
         labelStyle={[

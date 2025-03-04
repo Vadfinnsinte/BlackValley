@@ -9,7 +9,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-const CoatModelList = ({ images, name, info, important, price }) => {
+const ModelList = ({ images, name, info, important, price }) => {
   const { width } = useWindowDimensions();
   const [mainImage, setMainImage] = useState(images[0]);
   const [thumbImages, setThumbImages] = useState(images.slice(1));
@@ -68,15 +68,16 @@ const CoatModelList = ({ images, name, info, important, price }) => {
       </View>
       <View style={CoatStyle.info}>
         <View>
+          <Text style={{ color: "#ECEDEE" }}>Pris:</Text>
           <Text style={{ color: "#ECEDEE" }}>{price}</Text>
         </View>
         <View>
+          <Text style={{ color: "#ECEDEE" }}>Info:</Text>
           <Text style={{ color: "#ECEDEE" }}>{info}</Text>
         </View>
         <View style={{ flexGrow: 1 }}>
-          <Text style={{ color: "#ECEDEE", marginTop: "auto" }}>
-            {important}
-          </Text>
+          <Text style={{ color: "#ECEDEE", marginTop: "auto" }}>VIKTIGT:</Text>
+          <Text style={{ color: "#ECEDEE" }}>{important}</Text>
         </View>
       </View>
     </View>
@@ -119,4 +120,4 @@ const CoatStyle = StyleSheet.create({
   },
 });
 
-export default CoatModelList;
+export default ModelList;
