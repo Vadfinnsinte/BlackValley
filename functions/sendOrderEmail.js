@@ -1,11 +1,9 @@
 import { View, TextInput, Button, Alert } from "react-native";
 import emailjs from "@emailjs/browser";
-import { formValuesStore } from "../data/formValueStore";
 import { publicKey, service, template } from "../firebaseConfigTwo";
 
 export const sendEmail = (userInformation, orderMessage, setSent) => {
   const nameOfSender = `${userInformation.name} ${userInformation.surname}`;
-  console.log("sent email");
 
   const formatMessageArray = (arr) => {
     if (Array.isArray(arr) && arr.length > 0) {
@@ -33,7 +31,7 @@ export const sendEmail = (userInformation, orderMessage, setSent) => {
   emailjs
     .send(service, template, templateParams, publicKey)
     .then((response) => {
-      setSent("Vi har tagit emot ditt meddelande och hör av oss inom kort.");
+      setSent("Vi har tagit emot din beställning och hör av oss inom kort.");
       console.log("E-post skickad!", "Vi har tagit emot ditt meddelande.");
     })
     .catch((error) => {

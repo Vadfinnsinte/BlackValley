@@ -33,16 +33,15 @@ const CompleteEmail = () => {
     setSelectedCoatVariables,
     setSpecialOrder,
     setUserInformation,
+    setOpenSent,
+    sent,
+    setSent,
   } = formStore();
 
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const [sent, setSent] = useState("Skickar...");
-  const [openSent, setOpenSent] = useState(false);
   const [onlySave, setOnlySave] = useState(true);
-  // const [keepSome, setKeepSome] = useState(true);
-  // colors and responsiv variables.
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
@@ -164,10 +163,11 @@ const CompleteEmail = () => {
     }
   };
   const completeOrder = () => {
-    setOpenSent(true);
     keepSome = false;
     saveOrder();
     sendEmail(userInformation, orderMessage, setSent);
+
+    setOpenSent(true);
   };
   return (
     <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
@@ -363,11 +363,15 @@ const CompleteEmail = () => {
       <Modal visible={confirm} transparent={true}>
         <View style={stylesModalForm.modalOverlay}>
           <View style={stylesModalForm.modalContent}>
-            {!openSent ? (
-              <View>
-                <Text style={stylesModalForm.modalText}>
-                  Skicka beställningen?
-                </Text>
+            <View>
+              <Text style={stylesModalForm.modalText}>
+                Skicka beställningen?
+              </Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: width > 780 ? "row" : "column",
+                }}>
                 <Pressable
                   style={[stylesModalForm.buttons, { backgroundColor: "#000" }]}
                   onPress={() => setConfirm(false)}>
@@ -389,25 +393,7 @@ const CompleteEmail = () => {
                   <Text>Ja</Text>
                 </Pressable>
               </View>
-            ) : (
-              <Text>{sent}</Text>
-            )}
-          </View>
-        </View>
-      </Modal>
-      <Modal visible={openSent} transparent={true}>
-        <View style={stylesModalForm.modalOverlay}>
-          <View style={stylesModalForm.modalContent}>
-            <Text>{sent}</Text>
-            <Pressable onPress={() => setOpenSent(false)}>
-              <Text
-                style={[
-                  stylesModalForm.buttons,
-                  { backgroundColor: "#000", color: themeColors.detail },
-                ]}>
-                Stäng
-              </Text>
-            </Pressable>
+            </View>
           </View>
         </View>
       </Modal>

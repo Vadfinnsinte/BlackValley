@@ -64,6 +64,10 @@ const formStore = () => {
   const setSelectedCoatVariables = formValuesStore(
     (state) => state.setSelectedCoatVariables
   );
+  const openSent = formValuesStore((state) => state.openSent);
+  const setOpenSent = formValuesStore((state) => state.setOpenSent);
+  const sent = formValuesStore((state) => state.sent);
+  const setSent = formValuesStore((state) => state.setSent);
 
   return {
     setUserInformation,
@@ -102,6 +106,10 @@ const formStore = () => {
     setSpecialOrder,
     orderMessage,
     setOrderMessage,
+    openSent,
+    setOpenSent,
+    sent,
+    setSent,
   };
 };
 

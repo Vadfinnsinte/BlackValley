@@ -312,7 +312,10 @@ const formValuesStore = create((set) => ({
   //States that we are using in both
   openFont: false,
   setOpenFont: (value) => set({ openFont: value }),
-
+  openSent: false,
+  setOpenSent: (value) => set({ openSent: value }),
+  sent: "Skickar...",
+  setSent: (value) => set({ sent: value }),
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),

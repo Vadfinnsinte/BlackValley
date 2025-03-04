@@ -2,6 +2,7 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import {
   ImageBackground,
   KeyboardAvoidingView,
+  Modal,
   Platform,
   Pressable,
   SafeAreaView,
@@ -10,7 +11,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { checkboxStyle } from "../../../constants/formStyles";
+import { checkboxStyle, stylesModalForm } from "../../../constants/formStyles";
 import { Colors } from "@/constants/Colors";
 import CustomFormCoat from "../../../components/CustomFormCoat";
 import CustomFormCollar from "../../../components/CustomFormCollar";
@@ -19,8 +20,6 @@ import CheckBox from "../../../components/CheckBox";
 import ContactForm from "../../../components/ContactForm";
 import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { FA5Style } from "@expo/vector-icons/build/FontAwesome5";
 import { validateStoreHooks } from "../../../data/validateStoreHooks";
 // import SendEmail from "../../../functions/SendEmail";
 const OrderScreen = () => {
@@ -28,10 +27,11 @@ const OrderScreen = () => {
     chosenForm,
     setChosenForm,
     chosenProduct,
-    // setWarnings,
-    // setWarningMessage,
     setChosenStep,
     chosenStep,
+    openSent,
+    setOpenSent,
+    sent,
   } = formStore();
   const { setWarnings } = validateStoreHooks();
 
@@ -156,6 +156,27 @@ const OrderScreen = () => {
                 </View>
                 <View>{chosenStep.stepFour && <CompleteEmail />}</View>
               </View>
+              <Modal visible={openSent} transparent={true}>
+                <View style={stylesModalForm.modalOverlay}>
+                  <View
+                    style={[stylesModalForm.modalContent, { maxWidth: 350 }]}>
+                    <Text style={{ padding: 10, margin: 10 }}>{sent}</Text>
+                    <Pressable onPress={() => setOpenSent(false)}>
+                      <Text
+                        style={[
+                          stylesModalForm.buttons,
+                          {
+                            backgroundColor: "#000",
+
+                            color: themeColors.detail,
+                          },
+                        ]}>
+                        Stäng
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </Modal>
             </SafeAreaView>
           </ScrollView>
         </View>
