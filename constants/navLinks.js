@@ -11,6 +11,7 @@ export const navLinks = [
     submenu: [
       { title: "Halsband", path: "/collarLeashModels" },
       { title: "Täcke", path: "/coatModels" },
+      { title: "Instruktioner", path: "/instructions" },
     ],
   },
   {

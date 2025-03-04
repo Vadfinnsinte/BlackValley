@@ -16,13 +16,6 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarBackground: TabBarBackground,
         tabBarStyle: { display: "none" },
-      }}>
-      {/* <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-        }}
-      /> */}
-    </Tabs>
+      }}></Tabs>
   );
 }
