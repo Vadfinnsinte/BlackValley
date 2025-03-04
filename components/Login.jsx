@@ -94,7 +94,7 @@ export default LoginPage;
 
 const styles = StyleSheet.create({
   modalContent: {
-    width: "40%",
+    width: "55%",
     backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
-    width: "70%",
+    width: 200,
     height: 40,
     backgroundColor: "#D9D9D9",
     borderRadius: 10,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   //   inputSmall: {
-  //     width: "70%",
+  //     width: "100%",
   //     height: 40,
   //     backgroundColor: "#D9D9D9",
   //     borderRadius: 10,
