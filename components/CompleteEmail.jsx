@@ -12,6 +12,11 @@ import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
 import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
 import { sendEmail } from "../functions/sendOrderEmail";
+import {
+  resetStoreVariables,
+  resetStoreVariablesHard,
+} from "../functions/resetStoreVariables";
+import { measure } from "react-native-reanimated";
 
 const CompleteEmail = () => {
   const {
@@ -23,16 +28,27 @@ const CompleteEmail = () => {
     setChosenStep,
     setOrderMessage,
     orderMessage,
+    setChosenForm,
+    setChosenProduct,
+    setSelectedCollarVariables,
+    setSelectedCoatVariables,
+    setSpecialOrder,
+    setUserInformation,
+    setOpenSent,
+    sent,
+    setSent,
   } = formStore();
 
   const [item, setItem] = useState(true);
   const [openCancel, setOpenCancel] = useState(false);
-  // colors and responsiv variables.
+  const [confirm, setConfirm] = useState(false);
+  const [onlySave, setOnlySave] = useState(true);
+
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   //
-
+  let keepSome = true;
   let buyerObj = {};
   let commingSwe;
 
@@ -60,19 +76,40 @@ const CompleteEmail = () => {
       metal: selectedCollarVariables.selectedMetal,
       font: selectedCollarVariables.selectedFont,
       text: selectedCollarVariables.brodyrText,
-      // legStrings: legString ? "Ja" : "Nej",
       comment: selectedCollarVariables.commentsCollar,
     };
   }
   if (comingFromForm === "Other") {
     commingSwe = "Annat";
-    if (item) {
-      setItem(false);
-    }
+    buyerObj = {
+      modell: "inte aplicerbart",
+      measurement: "inte aplicerbart",
+      width: "inte aplicerbart",
+      materialColor: "inte aplicerbart",
+      brodyrColour: "inte aplicerbart",
+      metal: "inte aplicerbart",
+      font: "inte aplicerbart",
+      text: "inte aplicerbart",
+      comment: specialOrder,
+    };
   }
+  let prevOrder = {
+    messageCoat:
+      orderMessage?.messageCoat?.length > 0
+        ? orderMessage.messageCoat.join("\n\n")
+        : "",
+    messageCollar:
+      orderMessage?.messageCollar?.length > 0
+        ? orderMessage.messageCollar.join("\n\n")
+        : "",
+    messageOther:
+      orderMessage?.messageOther?.length > 0
+        ? orderMessage.messageOther.join("\n\n")
+        : "",
+  };
 
-  let name = userInformation.name + "" + userInformation.surname;
   let message = ` 
+  
   Produkt information: ${commingSwe}
   Modell: ${buyerObj.modell}
   Mått: ${buyerObj.measurement && buyerObj.measurement}
@@ -83,40 +120,88 @@ const CompleteEmail = () => {
   Metall på ringar: ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
   Kommentarer och önskemål: ${buyerObj.comment}
   `;
-  let messageOther = `
-  Namn:${(userInformation.name, userInformation.surname)}
-  Telefonnummer: ${userInformation.phoneNumber}
-  Mailadress: ${userInformation.email}
-  Adress: ${userInformation.street}, ${userInformation.postalCode}.
-  specialbeställning: ${specialOrder}
-  `;
+  if (!item) {
+    message = "";
+  }
 
-  const saveOrder = () => {
+  const cancelOrder = () => {
+    setItem(true);
+    keepSome = false;
+    setOpenCancel(false);
+    closeAllSteps();
+  };
+  const closeAllSteps = () => {
+    setChosenStep.setStepOne(true);
+    setChosenStep.setStepTwo(false);
+    setChosenStep.setStepThree(false);
+    setChosenStep.setStepFour(false);
+    if (keepSome) {
+      resetStoreVariables(
+        setChosenForm,
+        setChosenProduct,
+        setSelectedCollarVariables,
+        setSelectedCoatVariables,
+        setSpecialOrder
+      );
+    } else {
+      resetStoreVariablesHard(
+        setChosenForm,
+        setChosenProduct,
+        setSelectedCollarVariables,
+        setSelectedCoatVariables,
+        setSpecialOrder,
+        setUserInformation,
+        setOrderMessage
+      );
+      keepSome = true;
+    }
+  };
+
+  const saveOrder = (shouldClose = true) => {
+    console.log(onlySave);
+
     if (comingFromForm === "Coat") {
-      setOrderMessage.setMessageCoat(message);
+      setOrderMessage.setMessageCoat([...orderMessage.messageCoat, message]);
+    } else if (comingFromForm === "Collar") {
+      setOrderMessage.setMessageCollar([
+        ...orderMessage.messageCollar,
+        message,
+      ]);
+    } else if (comingFromForm === "Other") {
+      setOrderMessage.setMessageOther([...orderMessage.messageOther, message]);
     }
-    if (comingFromForm === "Collar") {
-      setOrderMessage.setMessageCollar(message);
+
+    resetStoreVariables(
+      setChosenForm,
+      setChosenProduct,
+      setSelectedCollarVariables,
+      setSelectedCoatVariables,
+      setSpecialOrder
+    );
+
+    if (shouldClose) {
+      closeAllSteps();
     }
-    if (comingFromForm === "Other") {
-      setOrderMessage.setMessageOther(messageOther);
-    }
-    console.log(orderMessage.messageCoat);
   };
   const completeOrder = () => {
+    keepSome = false;
     saveOrder();
-    sendEmail(userInformation, orderMessage);
-    setOrderMessage.setMessageCoat("");
-    setOrderMessage.setMessageCollar("");
-    setOrderMessage.setMessageOther("");
+    sendEmail(userInformation, orderMessage, setSent);
+
+    setOpenSent(true);
   };
   return (
-    <View style={[styleCoatForm.centerContent, { backgroundColor: "#D9D9D9" }]}>
+    <View
+      style={[
+        styleCoatForm.centerContent,
+        { backgroundColor: "#D9D9D9", padding: 10 },
+      ]}>
       <Pressable
         style={{ alignSelf: "flex-end" }}
         onPress={() => {
           setChosenStep.setStepThree(true);
           setChosenStep.setStepFour(false);
+          setItem(true);
         }}>
         <Text
           style={{
@@ -161,66 +246,41 @@ const CompleteEmail = () => {
             </Text>
           </View>
         </View>
-        {item ? (
-          <View
-            style={
-              width > 780
-                ? { maxWidth: 450, margin: 10, minWidth: 400 }
-                : { margin: 10 }
-            }>
-            <Text
-              style={{ fontSize: 23, marginBottom: 10, textAlign: "center" }}>
-              Produkt information:
-            </Text>
-            <Text style={styleCoatForm.productText}>
-              Modell: {buyerObj.modell}
-            </Text>
-            {buyerObj.measurement && (
-              <Text style={styleCoatForm.productText}>
-                Mått: {buyerObj.measurement}
-              </Text>
-            )}
-            <Text style={styleCoatForm.productText}>
-              Färg på {commingSwe}: {buyerObj.materialColor}
-            </Text>
-            <Text style={styleCoatForm.productText}>
-              Brodyr Färg: {buyerObj.brodyrColour}
-            </Text>
-            <Text style={styleCoatForm.productText}>Font: {buyerObj.font}</Text>
-            <Text style={styleCoatForm.productText}>
-              Text (blir exakt som skrivet här): {buyerObj.text}
-            </Text>
-            {buyerObj.legStrings && (
-              <Text style={styleCoatForm.productText}>
-                Besnören: {buyerObj.legStrings}
-              </Text>
-            )}
-            {buyerObj.metal && (
-              <Text style={styleCoatForm.productText}>
-                Metall på ringar: {buyerObj.metal}
-              </Text>
-            )}
-            <Text style={styleCoatForm.productText}>
-              Kommentarer och önskemål: {buyerObj.comment}
-            </Text>
-          </View>
-        ) : (
-          <View>
-            <Text style={styleCoatForm.productText}>
-              Ditt meddelande: {specialOrder}
-            </Text>
-            <Text style={styleCoatForm.productText}>
-              Vi kommer att höra av oss till dig med pris och om vi behöver
-              förtydliganden.
-            </Text>
-          </View>
-        )}
+
+        <View
+          style={
+            width > 780
+              ? { maxWidth: 600, margin: 10, minWidth: 400 }
+              : { margin: 10 }
+          }>
+          <Text style={{ fontSize: 18 }}>
+            {/* Produkt information: */}
+            {message}
+          </Text>
+          <Text style={{ fontSize: 18 }}>{prevOrder.messageCoat}</Text>
+          <Text style={{ fontSize: 18 }}>{prevOrder.messageCollar}</Text>
+          <Text style={{ fontSize: 18 }}>{prevOrder.messageOther}</Text>
+        </View>
+
         <View
           style={
             width > 780
               ? { flexDirection: "row", justifyContent: "space-between" }
               : {}
           }>
+          <Pressable
+            onPress={() => {
+              // setOnlySave(true);
+              saveOrder(true);
+            }}>
+            <Text
+              style={[
+                stylesModalForm.buttons,
+                { color: "#000", backgroundColor: themeColors.detail },
+              ]}>
+              Lägg till en produkt
+            </Text>
+          </Pressable>
           <Pressable onPress={() => setOpenCancel(true)}>
             <Text
               style={[
@@ -230,16 +290,12 @@ const CompleteEmail = () => {
               Avbryt
             </Text>
           </Pressable>
-          <Pressable onPress={saveOrder}>
-            <Text
-              style={[
-                stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
-              ]}>
-              Lägg till product.
-            </Text>
-          </Pressable>
-          <Pressable onPress={completeOrder}>
+          <Pressable
+            onPress={() => {
+              setItem(false);
+              saveOrder(false);
+              setConfirm(true);
+            }}>
             <Text
               style={[
                 stylesModalForm.buttons,
@@ -266,12 +322,74 @@ const CompleteEmail = () => {
               Vill du ändra infromation välj avbryt och klicka på gå
               tillbaka(längst upp på granska).
             </Text>
-            <Pressable onPress={() => setOpenCancel(false)}>
-              <Text>Avbryt</Text>
-            </Pressable>
-            <Pressable onPress={() => setOpenCancel(false)}>
-              <Text>Ta bort informationen</Text>
-            </Pressable>
+            <View
+              style={{
+                justifyContent: "center",
+                flexDirection: width > 780 ? "row" : "column",
+              }}>
+              <Pressable
+                style={[stylesModalForm.buttons, { backgroundColor: "#000" }]}
+                onPress={() => setOpenCancel(false)}>
+                <Text
+                  style={{ color: themeColors.detail, textAlign: "center" }}>
+                  Avbryt
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[
+                  stylesModalForm.buttons,
+                  {
+                    backgroundColor: themeColors.detail,
+                  },
+                ]}
+                onPress={cancelOrder}>
+                <Text style={{ color: "#000", textAlign: "center" }}>
+                  Radera information
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={confirm} transparent={true}>
+        <View style={stylesModalForm.modalOverlay}>
+          <View style={[stylesModalForm.modalContent, { maxWidth: 300 }]}>
+            <View>
+              <Text style={stylesModalForm.modalText}>
+                Skicka beställningen?
+              </Text>
+              <View
+                style={{
+                  flexDirection: width > 780 ? "row" : "column",
+                  justifyContent: "space-between",
+                }}>
+                <Pressable
+                  style={[
+                    stylesModalForm.buttons,
+                    { backgroundColor: "#000", minWidth: 50 },
+                  ]}
+                  onPress={() => setConfirm(false)}>
+                  <Text
+                    style={{ color: themeColors.detail, textAlign: "center" }}>
+                    Nej
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    stylesModalForm.buttons,
+                    {
+                      backgroundColor: themeColors.detail,
+                      minWidth: 50,
+                    },
+                  ]}
+                  onPress={() => {
+                    completeOrder();
+                  }}>
+                  <Text style={{ color: "#000", textAlign: "center" }}>Ja</Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
         </View>
       </Modal>

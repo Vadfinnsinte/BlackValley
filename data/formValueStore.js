@@ -20,6 +20,10 @@ const formValuesStore = create((set) => ({
       set((state) => ({
         chosenProduct: { ...state.chosenProduct, other: value },
       })),
+    setAllChosenProducts: () =>
+      set(() => ({
+        chosenProduct: { coat: false, collar: false, other: false },
+      })),
   },
 
   chosenForm: {
@@ -39,6 +43,10 @@ const formValuesStore = create((set) => ({
     setOtherForm: (value) =>
       set((state) => ({
         chosenForm: { ...state.chosenForm, otherForm: value },
+      })),
+    setAllChosen: () =>
+      set(() => ({
+        chosenForm: { coatForm: false, collarForm: false, otherForm: false },
       })),
   },
 
@@ -132,6 +140,21 @@ const formValuesStore = create((set) => ({
         selectedCollarVariables: {
           ...state.selectedCollarVariables,
           commentsCollar: value,
+        },
+      })),
+    setAllValuesCollar: () =>
+      set(() => ({
+        selectedCollarVariables: {
+          selectedModalCollar: null,
+          selectedWidth: "",
+          selectedLeather: "",
+          selectedMetal: "",
+          selectedFont: "",
+          lengthCollar: "",
+          brodyrColor: "",
+          brodyrText: "",
+          chosenFont: fontItems,
+          commentsCollar: "",
         },
       })),
   },
@@ -268,19 +291,38 @@ const formValuesStore = create((set) => ({
           selectedFont: value,
         },
       })),
+    setAllValuesCoat: () =>
+      set(() => ({
+        selectedCoatVariables: {
+          selectedModelCoat: null,
+          selectedColor: null,
+          colorColar: false,
+          chosenFont: fontItems,
+          selectedFont: "",
+          legString: null,
+          measurementsCoat: "",
+          cosyCollarColor: "",
+          brodyrColor: "",
+          brodyrText: "",
+          commentsCoat: "",
+        },
+      })),
   },
 
   //States that we are using in both
   openFont: false,
   setOpenFont: (value) => set({ openFont: value }),
-
+  openSent: false,
+  setOpenSent: (value) => set({ openSent: value }),
+  sent: "Skickar...",
+  setSent: (value) => set({ sent: value }),
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),
 
   specialOrder: "",
   setSpecialOrder: (value) => set({ specialOrder: value }),
-  orderMessage: { messageCoat: "", messageCollar: "", messageOther: "" },
+  orderMessage: { messageCoat: [], messageCollar: [], messageOther: [] },
   setOrderMessage: {
     setMessageCoat: (value) =>
       set((state) => ({
@@ -301,7 +343,7 @@ const formValuesStore = create((set) => ({
     phoneNumber: "",
     email: "",
     street: "",
-    postalCode: 0,
+    postalCode: "",
   },
   setUserInformation: {
     setName: (value) =>
@@ -327,6 +369,17 @@ const formValuesStore = create((set) => ({
     setPostalCode: (value) =>
       set((state) => ({
         userInformation: { ...state.userInformation, postalCode: value },
+      })),
+    setResetAll: () =>
+      set(() => ({
+        userInformation: {
+          name: "",
+          surname: "",
+          phoneNumber: "",
+          email: "",
+          street: "",
+          postalCode: "",
+        },
       })),
   },
 }));

@@ -3,11 +3,8 @@ import {
   Text,
   TextInput,
   View,
-  StyleSheet,
   useColorScheme,
   useWindowDimensions,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
@@ -17,6 +14,7 @@ import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
 import { useEffect } from "react";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
+import { validateStoreHooks } from "../data/validateStoreHooks";
 
 const CustomFormCoat = () => {
   const {
@@ -32,7 +30,15 @@ const CustomFormCoat = () => {
     setChosenForm,
     setChosenStep,
   } = formStore();
+  const {
+    setWarnings,
+    modelWarningCoat,
+    measureWarning,
+    woolWarning,
+    legStringWarning,
+  } = validateStoreHooks();
   // colors and responsiv variables.
+  const [openCozy, setOpenCosy] = useState(false);
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
@@ -44,6 +50,11 @@ const CustomFormCoat = () => {
     { label: "Limitless", value: "Limitless" },
     { label: "High-Neck", value: "High-Neck" },
     { label: "Swedish", value: "Swedish" },
+  ]);
+  const [krage, setKrage] = useState([
+    { label: "Svart", value: "Svart" },
+    { label: "Grå", value: "Grå" },
+    { label: "Brun", value: "Brun" },
   ]);
 
   const fetchwoolColors = async () => {
@@ -71,6 +82,30 @@ const CustomFormCoat = () => {
     fetchwoolColors();
     setComingFromForm("Coat");
   }, []);
+  const continueToNext = () => {
+    let warning = false;
+    if (selectedCoatVariables.selectedModelCoat === null) {
+      setWarnings.setModelWarningCoat(true);
+      warning = true;
+    }
+    if (selectedCoatVariables.measurementsCoat === "") {
+      setWarnings.setMeasureWarning(true);
+      warning = true;
+    }
+    if (selectedCoatVariables.selectedColor === null) {
+      setWarnings.setWoolWarning(true);
+      warning = true;
+    }
+    if (selectedCoatVariables.legString === null) {
+      setWarnings.setLegStringWarning(true);
+      warning = true;
+    } else if (!warning) {
+      setChosenStep.setStepThree(true);
+      setChosenForm.setCoatForm(false);
+      setChosenStep.setStepTwo(false);
+      warning = false;
+    }
+  };
 
   return (
     <View style={styleCoatForm.centerContent}>
@@ -102,7 +137,16 @@ const CustomFormCoat = () => {
             { zIndex: 10 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Modell</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Modell</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: modelWarningCoat.bool ? 1 : 0 },
+                ]}>
+                {modelWarningCoat.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openCoatModel}
               value={selectedCoatVariables.selectedModelCoat}
@@ -116,18 +160,29 @@ const CustomFormCoat = () => {
                 const newValue = callback(
                   selectedCoatVariables.selectedModelCoat
                 );
+                setWarnings.setModelWarningCoat(false);
                 setSelectedCoatVariables.setSelectedModelCoat(newValue);
               }}
             />
           </View>
           <View>
-            <Text style={{ color: themeColors.text }}>Mått</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Mått</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: measureWarning.bool ? 1 : 0 },
+                ]}>
+                {measureWarning.message}
+              </Text>
+            </View>
             <TextInput
               // keyboardType="numeric"
               value={selectedCoatVariables.measurementsCoat}
-              onChangeText={(text) =>
-                setSelectedCoatVariables.setMeasurementsCoat(text)
-              }
+              onChangeText={(text) => {
+                setSelectedCoatVariables.setMeasurementsCoat(text);
+                setWarnings.setMeasureWarning(false);
+              }}
               style={styleCoatForm.input}></TextInput>
           </View>
         </View>
@@ -137,7 +192,18 @@ const CustomFormCoat = () => {
             { zIndex: 9 },
           ]}>
           <View>
-            <Text style={{ color: themeColors.text }}>Önskad färg på tyg</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>
+                Önskad färg på tyg
+              </Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: woolWarning.bool ? 1 : 0 },
+                ]}>
+                {woolWarning.message}
+              </Text>
+            </View>
             <DropDownPicker
               open={openColor}
               value={selectedCoatVariables.selectedColor}
@@ -150,20 +216,32 @@ const CustomFormCoat = () => {
               setValue={(callback) => {
                 const newValue = callback(selectedCoatVariables.selectedColor);
                 setSelectedCoatVariables.setSelectedColor(newValue);
+                setWarnings.setWoolWarning(false);
               }}
             />
           </View>
           {selectedCoatVariables.colorColar && (
-            <View>
+            <View style={{ zIndex: 8 }}>
               <Text style={{ color: themeColors.text }}>
-                Önskad färg på Cosy krage
+                Färg på Cosy krage
               </Text>
-              <TextInput
+              <DropDownPicker
+                open={openCozy}
                 value={selectedCoatVariables.cosyCollarColor}
-                onChangeText={(text) =>
-                  setSelectedCoatVariables.setCosyCollarColor(text)
-                }
-                style={styleCoatForm.input}></TextInput>
+                items={krage}
+                setOpen={setOpenCosy}
+                setItems={setKrage}
+                placeholder="Välj en färg"
+                style={styleCoatForm.dropDown}
+                dropDownContainerStyle={{ maxHeight: 150 }}
+                setValue={(callback) => {
+                  const newValue = callback(
+                    selectedCoatVariables.cosyCollarColor
+                  );
+                  setWarnings.setModelWarningCoat(false);
+                  setSelectedCoatVariables.setCosyCollarColor(newValue);
+                }}
+              />
             </View>
           )}
         </View>
@@ -179,15 +257,17 @@ const CustomFormCoat = () => {
           ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Önskad Färg</Text>
+
             <TextInput
               value={selectedCoatVariables.brodyrColor}
-              onChangeText={(text) =>
-                setSelectedCoatVariables.setBrodyrColor(text)
-              }
+              onChangeText={(text) => {
+                setSelectedCoatVariables.setBrodyrColor(text);
+              }}
               style={styleCoatForm.input}></TextInput>
           </View>
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
+
             <DropDownPicker
               open={openFont}
               value={selectedCoatVariables.selectedFont}
@@ -221,13 +301,24 @@ const CustomFormCoat = () => {
               blir exakt som skrivet te.x. ALviN, alvin
             </Text>
           </View>
-
           <View
             style={[
-              width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
-              { marginTop: 15, alignItems: "center" },
+              styleCoatForm.flexBoxSmall,
+              {
+                alignItems: "center",
+                justifyContent: "center",
+              },
             ]}>
-            <Text style={{ color: themeColors.text }}>Bensnören? </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Bensnören? </Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: legStringWarning.bool ? 1 : 0 },
+                ]}>
+                {legStringWarning.message}
+              </Text>
+            </View>
             <View
               style={[
                 styleCoatForm.flexBox,
@@ -280,18 +371,16 @@ const CustomFormCoat = () => {
             onChangeText={(text) =>
               setSelectedCoatVariables.setCommentsCoat(text)
             }
-            style={styleCoatForm.bigInput}></TextInput>
+            style={[
+              styleCoatForm.bigInput,
+              { textAlignVertical: "top" },
+            ]}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
           </Text>
         </View>
       </View>
-      <Pressable
-        onPress={() => {
-          setChosenStep.setStepThree(true);
-          setChosenForm.setCoatForm(false);
-          setChosenStep.setStepTwo(false);
-        }}>
+      <Pressable onPress={continueToNext}>
         <Text style={checkboxStyle.button}>Gå vidare</Text>
       </Pressable>
     </View>

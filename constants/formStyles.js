@@ -120,6 +120,10 @@ export const styleCoatForm = StyleSheet.create({
     marginBottom: -2,
     marginTop: -2,
   },
+  warning: {
+    color: "#f87171",
+    fontSize: 13,
+  },
 });
 export const stylesModalForm = StyleSheet.create({
   modalOverlay: {
