@@ -52,7 +52,6 @@ const OrderScreen = () => {
       setChosenStep.setStepOne(false);
       setChosenStep.setStepTwo(true);
     } else {
-      // setWarningMessage("Please check one of the boxes");
       setWarnings.setCheckbox(true);
     }
   };

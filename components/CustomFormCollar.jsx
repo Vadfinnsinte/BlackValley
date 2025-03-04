@@ -347,7 +347,10 @@ const CustomFormCollar = () => {
             onChangeText={(text) =>
               setSelectedCollarVariables.setCommentsCollar(text)
             }
-            style={styleCoatForm.bigInput}></TextInput>
+            style={[
+              styleCoatForm.bigInput,
+              { textAlignVertical: "top" },
+            ]}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
           </Text>

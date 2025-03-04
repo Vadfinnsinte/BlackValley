@@ -371,7 +371,10 @@ const CustomFormCoat = () => {
             onChangeText={(text) =>
               setSelectedCoatVariables.setCommentsCoat(text)
             }
-            style={styleCoatForm.bigInput}></TextInput>
+            style={[
+              styleCoatForm.bigInput,
+              { textAlignVertical: "top" },
+            ]}></TextInput>
           <Text style={{ color: themeColors.text }} className="text-sm">
             (symboler, andra färger?)
           </Text>

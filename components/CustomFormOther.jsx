@@ -48,7 +48,10 @@ const CustomFormOther = () => {
         </Text>
         <TextInput
           multiline={true}
-          style={[styleCoatForm.bigInput, { height: 160 }]}
+          style={[
+            styleCoatForm.bigInput,
+            { textAlignVertical: "top", height: 160 },
+          ]}
           value={specialOrder}
           onChangeText={(text) => setSpecialOrder(text)}></TextInput>
         <Text style={{ color: themeColors.text }} className="text-sm">
