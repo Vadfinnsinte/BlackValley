@@ -405,12 +405,12 @@ export const CustomDrawerContent = (props) => {
         </View>
       )}
       <DrawerItem
-        label={!eng ? "Eng" : "Swe"}
+        label={!eng ? "Mätinstruktioner" : "Swe"}
         labelStyle={[styles.navItemLabel, { color: themeColors.hamburgerText }]}
         onPress={() => {
           if (!eng) {
             setEng(true);
-            router.push("/indexEng");
+            router.push("/instructions");
           } else {
             setEng(false);
             router.push("/");

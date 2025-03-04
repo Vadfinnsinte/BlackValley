@@ -7,12 +7,12 @@ import {
   ScrollView,
   ImageBackground,
   useWindowDimensions,
+  FlatList,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native-web";
 
 import { fetchCollection } from "../../../functions/fetchCollection";
 import ModelList from "../../../components/ModelsList";
