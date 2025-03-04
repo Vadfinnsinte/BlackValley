@@ -32,6 +32,9 @@ const ContactForm = ({}) => {
     streetWarning,
     postalWarning,
   } = validateStoreHooks();
+  const phonePattern = /^[0-9]{3}-[0-9]{7}$/;
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const postalPattern = /^[0-9]{3}\s?[0-9]{2}\s?[a-zA-ZåäöÅÄÖ]*$/;
 
   const goBack = () => {
     if (comingFromForm === "Collar") {
@@ -63,9 +66,17 @@ const ContactForm = ({}) => {
     if (userInformation.phoneNumber == "") {
       setWarnings.setPhoneWarning(true);
       warning = true;
+    } else if (!phonePattern.test(userInformation.phoneNumber)) {
+      setWarnings.setPhoneWarning(true);
+      setWarnings.setPhoneWarningMessage("*Ogiltigt telefonnummer");
+      warning = true;
     }
     if (userInformation.email == "") {
       setWarnings.setEmailWarning(true);
+      warning = true;
+    } else if (!emailPattern.test(userInformation.email)) {
+      setWarnings.setEmailWarning(true);
+      setWarnings.setEmailWarningMessage("*Ogiltig e-postadress.");
       warning = true;
     }
     if (userInformation.street == "") {
@@ -74,6 +85,10 @@ const ContactForm = ({}) => {
     }
     if (userInformation.postalCode == "") {
       setWarnings.setPostalWarning(true);
+      warning = true;
+    } else if (!postalPattern.test(userInformation.postalCode)) {
+      setWarnings.setPostalWarning(true);
+      setWarnings.setPostalWarningMessage("*Ogiltigt postnummer.");
       warning = true;
     } else if (!warning) {
       setChosenStep.setStepThree(false);

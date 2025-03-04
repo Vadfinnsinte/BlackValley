@@ -96,9 +96,17 @@ export const validateStore = create((set) => ({
       set((state) => ({
         phoneWarning: { ...state.phoneWarning, bool: value },
       })),
+    setPhoneWarningMessage: (value) =>
+      set((state) => ({
+        phoneWarning: { ...state.phoneWarning, message: value },
+      })),
     setEmailWarning: (value) =>
       set((state) => ({
         emailWarning: { ...state.emailWarning, bool: value },
+      })),
+    setEmailWarningMessage: (value) =>
+      set((state) => ({
+        emailWarning: { ...state.emailWarning, message: value },
       })),
     setStreetWarning: (value) =>
       set((state) => ({
@@ -107,6 +115,10 @@ export const validateStore = create((set) => ({
     setPostalWarning: (value) =>
       set((state) => ({
         postalWarning: { ...state.postalWarning, bool: value },
+      })),
+    setPostalWarningMessage: (value) =>
+      set((state) => ({
+        postalWarning: { ...state.postalWarning, message: value },
       })),
     setCollarModelWarning: (value) =>
       set((state) => ({
