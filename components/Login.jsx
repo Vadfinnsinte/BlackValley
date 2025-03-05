@@ -117,12 +117,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  //   inputSmall: {
-  //     width: "100%",
-  //     height: 40,
-  //     backgroundColor: "#D9D9D9",
-  //     borderRadius: 10,
-  //     borderColor: "black",
-  //     borderWidth: 1,
-  //   },
 });
