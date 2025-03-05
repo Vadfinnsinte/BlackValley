@@ -332,6 +332,33 @@ export const CustomDrawerContent = (props) => {
               }
             }}
           />
+          <DrawerItem
+            label={!eng ? "Mätinstruktioner" : "Swe"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/instructions" || pathname == "/swe"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/instructions" || pathname == "/swe"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                setEng(true);
+                router.push("/instructions");
+              } else {
+                setEng(false);
+                router.push("/");
+              }
+            }}
+          />
         </View>
       )}
 
@@ -404,19 +431,6 @@ export const CustomDrawerContent = (props) => {
           />
         </View>
       )}
-      <DrawerItem
-        label={!eng ? "Mätinstruktioner" : "Swe"}
-        labelStyle={[styles.navItemLabel, { color: themeColors.hamburgerText }]}
-        onPress={() => {
-          if (!eng) {
-            setEng(true);
-            router.push("/instructions");
-          } else {
-            setEng(false);
-            router.push("/");
-          }
-        }}
-      />
     </DrawerContentScrollView>
   );
 };

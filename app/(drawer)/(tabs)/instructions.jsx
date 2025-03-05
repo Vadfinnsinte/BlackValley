@@ -52,14 +52,12 @@ const InstructionScreen = () => {
                     { height: width > 800 ? 450 : 200 },
                   ]}>
                   {Platform.OS === "web" ? (
-                    // WebView för att visa videon på webben
                     <iframe
                       src="https://dl.dropboxusercontent.com/scl/fi/ygtheui1ernr9r7emszqh/M-tinstruktion-t-cke.mp4?rlkey=b07clvo60i3gjjtho0soy2iqv&st=3wp5gi04"
                       style={{ width: "100%", height: "100%" }}
                       allowFullScreen
                     />
                   ) : (
-                    // Använd Video för mobil
                     <Video
                       ref={videoRef}
                       source={{
