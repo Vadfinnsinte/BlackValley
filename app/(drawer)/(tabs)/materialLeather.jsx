@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,13 +16,23 @@ import { fetchCollection } from "../../../functions/fetchCollection";
 import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import { auth } from "../../../firebaseConfigTwo";
+import { checkboxStyle } from "../../../constants/formStyles";
+import AddModal from "../../../components/AddWoolProduct";
 const MaterialScreenLeather = () => {
   const { width } = useWindowDimensions();
   const [listOfLeather, setlistOfLeather] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const { openAddWool, setOpenAddWool, openAddLeather, setOpenAddLeather } =
+    adminHooks();
+
   const numberOfcolums =
     width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
+
   const fetchProducts = async () => {
     const snapshot = await fetchCollection("leather");
     const sortedList = snapshot.sort((a, b) =>
@@ -30,6 +41,10 @@ const MaterialScreenLeather = () => {
     setlistOfLeather(sortedList);
     console.log(listOfLeather);
   };
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+  }, [auth.currentUser]);
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -53,6 +68,13 @@ const MaterialScreenLeather = () => {
                 className="text-center ">
                 (Färgerna kan variera)
               </Text>
+              {loggedIn && (
+                <Pressable onPress={() => setOpenAddLeather(true)}>
+                  <Text style={checkboxStyle.button}>Lägg till</Text>
+                </Pressable>
+              )}
+
+              {openAddLeather && <AddModal from="leather" />}
             </View>
             <FlatList
               contentContainerStyle={styles.container}

@@ -5,5 +5,18 @@ export const adminHooks = () => {
   const setLoginModalOpen = adminStore((state) => state.setLoginModalOpen);
   const userId = adminStore((state) => state.userId);
   const setUserId = adminStore((state) => state.setUserId);
-  return { loginModalOpen, setLoginModalOpen, userId, setUserId };
+  const openAddWool = adminStore((state) => state.openAddWool);
+  const setOpenAddWool = adminStore((state) => state.setOpenAddWool);
+  const openAddLeather = adminStore((state) => state.openAddLeather);
+  const setOpenAddLeather = adminStore((state) => state.setOpenAddLeather);
+  return {
+    loginModalOpen,
+    setLoginModalOpen,
+    userId,
+    setUserId,
+    openAddWool,
+    setOpenAddWool,
+    openAddLeather,
+    setOpenAddLeather,
+  };
 };

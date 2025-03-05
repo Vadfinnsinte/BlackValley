@@ -6,4 +6,8 @@ export const adminStore = create((set) => ({
 
   userId: "",
   setUserId: (value) => set({ userId: value }),
+  openAddWool: false,
+  setOpenAddWool: (value) => set({ openAddWool: value }),
+  openAddLeather: false,
+  setOpenAddLeather: (value) => set({ openAddLeather: value }),
 }));

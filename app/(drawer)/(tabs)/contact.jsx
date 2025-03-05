@@ -20,11 +20,15 @@ import { Colors } from "@/constants/Colors";
 import { contact } from "../../../StyleSheet/ContactInfo";
 import { adminHooks } from "../../../data/adminStoreHooks";
 import LoginPage from "../../../components/Login";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebaseConfigTwo";
+import { useEffect, useState } from "react";
 
 const ContactScreen = () => {
   const { setLoginModalOpen, loginModalOpen } = adminHooks();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
+  const [loggedIn, setLoggedIn] = useState(false);
   const { width } = useWindowDimensions();
 
   const openInstagram = () => {
@@ -36,7 +40,18 @@ const ContactScreen = () => {
   const openFacebook = () => {
     Linking.openURL("https://www.facebook.com/blackvalleysheepfarm");
   };
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+  }, [auth.currentUser]);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("Användaren har loggats ut");
+    } catch (error) {
+      console.error("Fel vid utloggning: ", error);
+    }
+  };
   return (
     <ImageBackground source={woolBg} style={{ flex: 1 }} resizeMode="cover">
       <View style={themeColors.overlay}>
@@ -112,6 +127,11 @@ const ContactScreen = () => {
                 />
               </View>
             </View>
+            {loggedIn && (
+              <Pressable onPress={handleLogout}>
+                <Text>Logga ut</Text>
+              </Pressable>
+            )}
             <Pressable
               style={{ alignSelf: "flex-end", paddingRight: 3 }}
               onPress={() => setLoginModalOpen(true)}>
