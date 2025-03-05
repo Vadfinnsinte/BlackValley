@@ -25,8 +25,7 @@ const MaterialScreenLeather = () => {
   const [listOfLeather, setlistOfLeather] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const { openAddWool, setOpenAddWool, openAddLeather, setOpenAddLeather } =
-    adminHooks();
+  const { openAddLeather, setOpenAddLeather } = adminHooks();
 
   const numberOfcolums =
     width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
@@ -39,7 +38,6 @@ const MaterialScreenLeather = () => {
       a.colorGroup.localeCompare(b.colorGroup)
     );
     setlistOfLeather(sortedList);
-    console.log(listOfLeather);
   };
   useEffect(() => {
     setLoggedIn(!!auth.currentUser);

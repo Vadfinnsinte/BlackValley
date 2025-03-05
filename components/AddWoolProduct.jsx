@@ -43,7 +43,6 @@ const AddModal = ({ from }) => {
         setOpenAddWool(false);
         setOpenAddLeather(false);
       } catch (error) {
-        console.log("Something went wrong: ", error);
         setWarning(true);
         setWarningMessage(
           "Fel med databasen, försök igen senare. Eller kontakta support om felet kvarstår"

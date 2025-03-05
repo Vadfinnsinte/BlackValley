@@ -45,7 +45,6 @@ const MaterialScreen = () => {
       a.colorGroup.localeCompare(b.colorGroup)
     );
     setListofWools(sortedList);
-    console.log(listOfWools);
   };
   useEffect(() => {
     fetchProducts();

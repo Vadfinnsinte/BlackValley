@@ -26,7 +26,7 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("loged in : ", auth.currentUser);
+
       setLoginModalOpen(false);
     } catch (error) {
       console.log("something went wrong with error: ", error);

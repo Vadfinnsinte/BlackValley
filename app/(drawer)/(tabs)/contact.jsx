@@ -48,7 +48,6 @@ const ContactScreen = () => {
     try {
       await signOut(auth);
       setLoggedIn(false);
-      console.log("Användaren har loggats ut");
     } catch (error) {
       console.error("Fel vid utloggning: ", error);
     }
