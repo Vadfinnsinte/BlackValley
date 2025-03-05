@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -16,14 +17,27 @@ import WoolColor from "../../../components/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
 import fontpic from "../../../assets/images/Typsnitt.png";
+import { auth } from "../../../firebaseConfigTwo";
+import { checkboxStyle } from "../../../constants/formStyles";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import AddModal from "../../../components/AddWoolProduct";
 
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();
   const [listOfWools, setListofWools] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const { openAddWool, setOpenAddWool } = adminHooks();
+
   const numberOfcolums =
     width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
+
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+  }, [auth.currentUser]);
 
   const fetchProducts = async () => {
     const snapshot = await fetchCollection("wool");
@@ -31,7 +45,6 @@ const MaterialScreen = () => {
       a.colorGroup.localeCompare(b.colorGroup)
     );
     setListofWools(sortedList);
-    console.log(listOfWools);
   };
   useEffect(() => {
     fetchProducts();
@@ -51,7 +64,14 @@ const MaterialScreen = () => {
                 className="text-center text-2xl">
                 Ull till täcken
               </Text>
+              {loggedIn && (
+                <Pressable onPress={() => setOpenAddWool(true)}>
+                  <Text style={checkboxStyle.button}>Lägg till</Text>
+                </Pressable>
+              )}
             </View>
+            {openAddWool && <AddModal from="wool" />}
+
             <FlatList
               contentContainerStyle={styles.container}
               data={listOfWools}

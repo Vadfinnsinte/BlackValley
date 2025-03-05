@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  Pressable,
 } from "react-native";
 import contactPic from "../../../assets/images/tre-circlar.png";
 import insta from "../../../assets/images/instagram_icon.png";
@@ -17,10 +18,17 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { contact } from "../../../StyleSheet/ContactInfo";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import LoginPage from "../../../components/Login";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebaseConfigTwo";
+import { useEffect, useState } from "react";
 
 const ContactScreen = () => {
+  const { setLoginModalOpen, loginModalOpen } = adminHooks();
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
+  const [loggedIn, setLoggedIn] = useState(false);
   const { width } = useWindowDimensions();
 
   const openInstagram = () => {
@@ -32,7 +40,18 @@ const ContactScreen = () => {
   const openFacebook = () => {
     Linking.openURL("https://www.facebook.com/blackvalleysheepfarm");
   };
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+  }, [auth.currentUser]);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setLoggedIn(false);
+    } catch (error) {
+      console.error("Fel vid utloggning: ", error);
+    }
+  };
   return (
     <ImageBackground source={woolBg} style={{ flex: 1 }} resizeMode="cover">
       <View style={themeColors.overlay}>
@@ -108,6 +127,21 @@ const ContactScreen = () => {
                 />
               </View>
             </View>
+
+            {!loggedIn ? (
+              <Pressable
+                style={{ alignSelf: "flex-end", paddingRight: 3 }}
+                onPress={() => setLoginModalOpen(true)}>
+                <Text>Admin</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={{ alignSelf: "flex-end", paddingRight: 3 }}
+                onPress={handleLogout}>
+                <Text>Logga ut</Text>
+              </Pressable>
+            )}
+            {loginModalOpen && <LoginPage />}
           </GradientBackground>
         </SafeAreaView>
       </View>
