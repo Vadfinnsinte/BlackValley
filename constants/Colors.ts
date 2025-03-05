@@ -3,24 +3,46 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorLight = "#82BCBD";
+const tintColorDark = "#fff";
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: "#11181C",
+    background: "#C0C0C0",
+    // coatBackground: "#515151",
+    // coatText: "#ECEDEE",
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: "#687076",
+    tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
+    overlay: {
+      flex: 1,
+      backgroundColor: "rgba(255, 255, 255, 0.4)",
+    },
+    hamburgerIcon: "#11181C",
+    backgorundActive: "#515151",
+    hamburgerTextActive: "#fff",
+    hamburgerText: "#000",
+    detail: "#82BCBD",
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: "#ECEDEE",
+    background: "#515151",
+    // coatBackground: "#515151",
+    // coatText: "#11181C",
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: "#9BA1A6",
+    tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
+    overlay: {
+      flex: 1,
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+    },
+    hamburgerIcon: "#11181C",
+    backgorundActive: "#C0C0C0",
+    hamburgerText: "#fff",
+    hamburgerTextActive: "#fff",
+    detail: "#82BCBD",
   },
 };
