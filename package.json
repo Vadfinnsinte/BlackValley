@@ -2,6 +2,7 @@
   "name": "blackvalley",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "homepage": "https://vadfinnsinte.github.io/BlackValley/",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -10,7 +11,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "deploy": "gh-pages --nojekyll -d dist",
+    "deploy": "gh-pages --nojekyll -d dist && cp dist/index.html dist/404.html",
     "predeploy": "expo export -p web"
   },
   "jest": {
