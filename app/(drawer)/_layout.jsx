@@ -25,6 +25,7 @@ export const CustomDrawerContent = (props) => {
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [showSubMenuOrder, setShowSubMenuOrder] = useState(false);
   const [showSubMenuHome, setShowSubMenuHome] = useState(false);
+  const [showSubMenuModels, setShowSubMenuModels] = useState(false);
   const [eng, setEng] = useState(false);
 
   const [loaded] = useFonts({
@@ -259,7 +260,7 @@ export const CustomDrawerContent = (props) => {
       )}
 
       <DrawerItem
-        label={!eng ? "Produkt" : "Product"}
+        label={!eng ? "Modeller" : "Models"}
         labelStyle={[
           styles.navItemLabel,
           {
@@ -275,14 +276,92 @@ export const CustomDrawerContent = (props) => {
               ? "#333"
               : themeColors.background,
         }}
-        onPress={() => {
-          if (!eng) {
-            router.push("/product");
-          } else {
-            router.push("/productEng");
-          }
-        }}
+        onPress={() => setShowSubMenuModels(!showSubMenuModels)}
       />
+      {showSubMenuModels && (
+        <View>
+          <DrawerItem
+            label={!eng ? "Halsband och koppel" : "Collar"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/collarLeashModels" ||
+                  pathname == "/collarModelsEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/collarLeashModels" ||
+                pathname == "/collarModelsEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/collarLeashModels");
+              } else {
+                router.push("/collarModelsEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={!eng ? "Täcken" : "Coats"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/coatModels" || pathname == "/coatModelsEng"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/coatModels" || pathname == "/coatModelsEng"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                router.push("/coatModels");
+              } else {
+                router.push("/coatModelsEng");
+              }
+            }}
+          />
+          <DrawerItem
+            label={!eng ? "Mätinstruktioner" : "Swe"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/instructions" || pathname == "/swe"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/instructions" || pathname == "/swe"
+                  ? "#333"
+                  : themeColors.background,
+            }}
+            onPress={() => {
+              if (!eng) {
+                setEng(true);
+                router.push("/instructions");
+              } else {
+                setEng(false);
+                router.push("/");
+              }
+            }}
+          />
+        </View>
+      )}
+
       <DrawerItem
         label={!eng ? "Beställ" : "Order"}
         labelStyle={[
@@ -352,19 +431,6 @@ export const CustomDrawerContent = (props) => {
           />
         </View>
       )}
-      <DrawerItem
-        label={!eng ? "Eng" : "Swe"}
-        labelStyle={[styles.navItemLabel, { color: themeColors.hamburgerText }]}
-        onPress={() => {
-          if (!eng) {
-            setEng(true);
-            router.push("/indexEng");
-          } else {
-            setEng(false);
-            router.push("/");
-          }
-        }}
-      />
     </DrawerContentScrollView>
   );
 };

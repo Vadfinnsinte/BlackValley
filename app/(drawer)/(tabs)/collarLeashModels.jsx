@@ -4,6 +4,7 @@ import {
   View,
   useColorScheme,
   StyleSheet,
+  ScrollView,
   ImageBackground,
   useWindowDimensions,
   FlatList,
@@ -12,27 +13,29 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { useEffect, useState } from "react";
-// import { FlatList } from "react-native-web";
 
 import { fetchCollection } from "../../../functions/fetchCollection";
 import ModelList from "../../../components/ModelsList";
 
-const CoatModels = () => {
+const CollorLeashModels = () => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
-  const [coatModelList, setCoatModelList] = useState([]);
+  const [modelList, setModelList] = useState([]);
   const { width } = useWindowDimensions();
   const numberOfcolums =
     width > 1700 ? 2 : width > 1140 ? 2 : width > 925 ? 1 : 1;
 
   const fetchModels = async () => {
-    const response = await fetchCollection("modelsCoat");
-    setCoatModelList(response);
-    console.log(coatModelList);
+    const response = await fetchCollection("modelsCollorAndLeash");
+    const sortedList = response.sort((a, b) =>
+      a.modelGroup.localeCompare(b.modelGroup)
+    );
+    setModelList(sortedList);
+    console.log(modelList);
   };
   useEffect(() => {
     fetchModels();
-    console.log(coatModelList);
+    console.log(modelList);
   }, []);
 
   return (
@@ -52,13 +55,13 @@ const CoatModels = () => {
                   fontWeight: "600",
                   margin: 10,
                 }}>
-                Täcken
+                Halsband och koppel
               </Text>
             </View>
 
             <FlatList
               contentContainerStyle={styles.container}
-              data={coatModelList}
+              data={modelList}
               numColumns={numberOfcolums}
               key={numberOfcolums}
               renderItem={({ item }) => (
@@ -86,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoatModels;
+export default CollorLeashModels;

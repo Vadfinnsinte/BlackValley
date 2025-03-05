@@ -9,8 +9,9 @@ export const navLinks = [
   {
     title: "Modeller",
     submenu: [
-      { title: "Halsband", path: "/collarModels" },
+      { title: "Halsband", path: "/collarLeashModels" },
       { title: "Täcke", path: "/coatModels" },
+      { title: "Instruktioner", path: "/instructions" },
     ],
   },
   {
