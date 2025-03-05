@@ -10,7 +10,8 @@ import {
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
 import { Colors } from "../constants/Colors";
-import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
+import { styleCoatForm, stylesModalForm } from "../StyleSheet/formStyles";
+
 import { sendEmail } from "../functions/sendOrderEmail";
 import {
   resetStoreVariables,

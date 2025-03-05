@@ -1,6 +1,5 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
   Pressable,
   SafeAreaView,
@@ -13,7 +12,7 @@ import {
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
-import WoolColor from "../../../components/MaterialColor";
+import WoolColor from "../../../components/List/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
 import { adminHooks } from "../../../data/adminStoreHooks";

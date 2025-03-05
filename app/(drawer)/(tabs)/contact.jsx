@@ -3,7 +3,6 @@ import {
   Text,
   View,
   useColorScheme,
-  ScrollView,
   ImageBackground,
   useWindowDimensions,
   TouchableOpacity,

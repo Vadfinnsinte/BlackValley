@@ -10,7 +10,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { useEffect } from "react";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";

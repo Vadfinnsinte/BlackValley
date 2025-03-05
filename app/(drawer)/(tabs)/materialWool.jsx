@@ -1,6 +1,5 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
   Pressable,
   SafeAreaView,
@@ -13,14 +12,15 @@ import {
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
-import WoolColor from "../../../components/MaterialColor";
+import WoolColor from "../../../components/List/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
+import { checkboxStyle } from "../../../StyleSheet/formStyles";
 import fontpic from "../../../assets/images/Typsnitt.png";
 import { auth } from "../../../firebaseConfigTwo";
-import { checkboxStyle } from "../../../constants/formStyles";
 import { adminHooks } from "../../../data/adminStoreHooks";
 import AddModal from "../../../components/AddWoolProduct";
+
 
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();

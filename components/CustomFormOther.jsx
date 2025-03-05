@@ -1,5 +1,5 @@
 import { Pressable, Text, TextInput, useColorScheme, View } from "react-native";
-import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { formStore } from "../data/formStoreHooks";
 import { useEffect } from "react";
 import { Colors } from "../constants/Colors";

@@ -13,7 +13,6 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { styles } from "./materialWool";
-import fontpic from "../../../assets/images/Typsnitt.png";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import { useEffect, useState } from "react";
 const MaterialOther = () => {

@@ -12,10 +12,8 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { useEffect, useState } from "react";
-// import { FlatList } from "react-native-web";
-
 import { fetchCollection } from "../../../functions/fetchCollection";
-import ModelList from "../../../components/ModelsList";
+import ModelList from "../../../components/List/ModelsList";
 
 const CoatModels = () => {
   const colorScheme = useColorScheme();
@@ -28,11 +26,9 @@ const CoatModels = () => {
   const fetchModels = async () => {
     const response = await fetchCollection("modelsCoat");
     setCoatModelList(response);
-    console.log(coatModelList);
   };
   useEffect(() => {
     fetchModels();
-    console.log(coatModelList);
   }, []);
 
   return (
