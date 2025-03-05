@@ -13,7 +13,7 @@ import React, { useRef } from "react";
 import { Video } from "expo-av";
 import { Colors } from "@/constants/Colors";
 import woolBg from "../../../assets/images/woolImage.jpg";
-import { checkboxStyle } from "../../../constants/formStyles";
+import { checkboxStyle } from "../../../StyleSheet/formStyles.js";
 import GradientBackground from "../../../components/GradiantBackground.jsx";
 import { InstructionsStyles } from "../../../StyleSheet/Styles.js";
 import measure from "../../../assets/images/mata-hund.png";
@@ -32,8 +32,7 @@ const InstructionScreen = () => {
       <View style={themeColors.overlay}>
         <ScrollView contentContainerStyle={{ flexGrow: 1, overflow: "hidden" }}>
           <SafeAreaView
-            style={{ flex: 1, marginHorizontal: width > 450 ? 40 : 10 }}
-            className="mx-10">
+            style={{ flex: 1, marginHorizontal: width > 450 ? 40 : 10 }}>
             <GradientBackground>
               <View style={{ alignItems: "center" }}>
                 <Text

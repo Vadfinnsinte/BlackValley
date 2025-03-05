@@ -11,12 +11,13 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { checkboxStyle, stylesModalForm } from "../../../constants/formStyles";
+import { checkboxStyle, stylesModalForm } from "../../../StyleSheet/formStyles";
 import { Colors } from "@/constants/Colors";
 import CustomFormCoat from "../../../components/CustomFormCoat";
 import CustomFormCollar from "../../../components/CustomFormCollar";
 import CustomFormOther from "../../../components/CustomFormOther";
 import CheckBox from "../../../components/CheckBox";
+import GradientBackground from "../../../components/GradiantBackground";
 import ContactForm from "../../../components/ContactForm";
 import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
@@ -72,110 +73,112 @@ const OrderScreen = () => {
             <SafeAreaView
               style={{ backgroundColor: themeColors.background, flex: 1 }}
               className="mx-10">
-              <View style={checkboxStyle.container}>
-                <View style={checkboxStyle.containerText}>
-                  <Text
-                    className="text-2xl mb-3"
-                    style={{ color: themeColors.text }}>
-                    Här kan du lägga din beställnig
-                  </Text>
-                  <Text style={{ color: themeColors.text }}>
-                    Skicka en beställning/förfrågan så återkommer vi med
-                    prisinformation. Vänligen läs igenom våra köpvillkor (ADD
-                    MODAL), dessa godkänner du genom att beställa.
-                  </Text>
-                </View>
-                <View
-                  style={[
-                    checkboxStyle.blueSeperator,
-                    { backgroundColor: themeColors.detail },
-                  ]}>
-                  <Text
-                    className="text-xl text-center"
-                    style={{ color: "#11181C" }}>
-                    1. Vänligen välj vad du vill beställa
-                  </Text>
-                </View>
-                {chosenStep.stepOne && (
-                  <View>
-                    <CheckBox />
-                    <Pressable onPress={openCustomForm}>
-                      <Text style={checkboxStyle.button}>Gå vidare</Text>
-                    </Pressable>
+              <GradientBackground>
+                <View style={checkboxStyle.container}>
+                  <View style={checkboxStyle.containerText}>
                     <Text
-                      style={{ color: themeColors.text }}
-                      className="text-center text-xs -mt-2">
-                      Om du vill beställa flera produkter så finns det
-                      alternativet i sista steget.
+                      className="text-2xl mb-3"
+                      style={{ color: themeColors.text }}>
+                      Här kan du lägga din beställnig
+                    </Text>
+                    <Text style={{ color: themeColors.text }}>
+                      Skicka en beställning/förfrågan så återkommer vi med
+                      prisinformation. Vänligen läs igenom våra köpvillkor (ADD
+                      MODAL), dessa godkänner du genom att beställa.
                     </Text>
                   </View>
-                )}
-
-                <View
-                  style={[
-                    checkboxStyle.blueSeperator,
-                    { backgroundColor: themeColors.detail },
-                  ]}>
-                  <Text
-                    className="text-xl text-center"
-                    style={{ color: "#11181C" }}>
-                    2. Mått, färg och specifikationer.
-                  </Text>
-                </View>
-                {chosenStep.stepTwo && (
-                  <View>
-                    {chosenForm.coatForm && <CustomFormCoat />}
-                    {chosenForm.collarForm && <CustomFormCollar />}
-                    {chosenForm.otherForm && <CustomFormOther />}
-                  </View>
-                )}
-
-                <View
-                  style={[
-                    checkboxStyle.blueSeperator,
-                    { backgroundColor: themeColors.detail },
-                  ]}>
-                  <Text
-                    className="text-xl text-center"
-                    style={{ color: "#11181C" }}>
-                    3. Kontaktuppgifter.
-                  </Text>
-                </View>
-                {chosenStep.stepThree && <ContactForm />}
-                <View
-                  style={[
-                    checkboxStyle.blueSeperator,
-                    { backgroundColor: themeColors.detail },
-                  ]}>
-                  <Text
-                    className="text-xl text-center"
-                    style={{ color: "#11181C" }}>
-                    4. Granska och skicka beställning.
-                  </Text>
-                </View>
-                <View>{chosenStep.stepFour && <CompleteEmail />}</View>
-              </View>
-              <Modal visible={openSent} transparent={true}>
-                <View style={stylesModalForm.modalOverlay}>
                   <View
-                    style={[stylesModalForm.modalContent, { maxWidth: 350 }]}>
-                    <Text style={{ padding: 10, margin: 10 }}>{sent}</Text>
-                    <Pressable onPress={() => setOpenSent(false)}>
-                      <Text
-                        style={[
-                          stylesModalForm.buttons,
-                          {
-                            backgroundColor: "#000",
-
-                            color: themeColors.detail,
-                          },
-                        ]}>
-                        Stäng
-                      </Text>
-                    </Pressable>
+                    style={[
+                      checkboxStyle.blueSeperator,
+                      { backgroundColor: themeColors.detail },
+                    ]}>
+                    <Text
+                      className="text-xl text-center"
+                      style={{ color: "#11181C" }}>
+                      1. Vänligen välj vad du vill beställa
+                    </Text>
                   </View>
+                  {chosenStep.stepOne && (
+                    <View>
+                      <CheckBox />
+                      <Pressable onPress={openCustomForm}>
+                        <Text style={checkboxStyle.button}>Gå vidare</Text>
+                      </Pressable>
+                      <Text
+                        style={{ color: themeColors.text }}
+                        className="text-center text-xs -mt-2">
+                        Om du vill beställa flera produkter så finns det
+                        alternativet i sista steget.
+                      </Text>
+                    </View>
+                  )}
+
+                  <View
+                    style={[
+                      checkboxStyle.blueSeperator,
+                      { backgroundColor: themeColors.detail },
+                    ]}>
+                    <Text
+                      className="text-xl text-center"
+                      style={{ color: "#11181C" }}>
+                      2. Mått, färg och specifikationer.
+                    </Text>
+                  </View>
+                  {chosenStep.stepTwo && (
+                    <View>
+                      {chosenForm.coatForm && <CustomFormCoat />}
+                      {chosenForm.collarForm && <CustomFormCollar />}
+                      {chosenForm.otherForm && <CustomFormOther />}
+                    </View>
+                  )}
+
+                  <View
+                    style={[
+                      checkboxStyle.blueSeperator,
+                      { backgroundColor: themeColors.detail },
+                    ]}>
+                    <Text
+                      className="text-xl text-center"
+                      style={{ color: "#11181C" }}>
+                      3. Kontaktuppgifter.
+                    </Text>
+                  </View>
+                  {chosenStep.stepThree && <ContactForm />}
+                  <View
+                    style={[
+                      checkboxStyle.blueSeperator,
+                      { backgroundColor: themeColors.detail },
+                    ]}>
+                    <Text
+                      className="text-xl text-center"
+                      style={{ color: "#11181C" }}>
+                      4. Granska och skicka beställning.
+                    </Text>
+                  </View>
+                  <View>{chosenStep.stepFour && <CompleteEmail />}</View>
                 </View>
-              </Modal>
+                <Modal visible={openSent} transparent={true}>
+                  <View style={stylesModalForm.modalOverlay}>
+                    <View
+                      style={[stylesModalForm.modalContent, { maxWidth: 350 }]}>
+                      <Text style={{ padding: 10, margin: 10 }}>{sent}</Text>
+                      <Pressable onPress={() => setOpenSent(false)}>
+                        <Text
+                          style={[
+                            stylesModalForm.buttons,
+                            {
+                              backgroundColor: "#000",
+
+                              color: themeColors.detail,
+                            },
+                          ]}>
+                          Stäng
+                        </Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                </Modal>
+              </GradientBackground>
             </SafeAreaView>
           </ScrollView>
         </View>

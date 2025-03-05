@@ -31,5 +31,4 @@ export const navLinks = [
     ],
   },
   { title: "Inspiration", path: "/inspiration" },
-  { title: "Eng", path: "(engTabs)" },
 ];

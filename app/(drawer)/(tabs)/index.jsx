@@ -8,18 +8,25 @@ import {
   ImageBackground,
   useWindowDimensions,
   ScrollView,
+  Linking,
+  TouchableOpacity,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import pictureOnMe from "../../../assets/images/Mig.jpg";
 import startPicture from "../../../assets/images/startPic.png";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground.jsx";
+import ModinBed from "../../../assets/images/modinBed.png";
 
 const HomeScreen = () => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
   const bigger = width > 1000;
+
+  const openModinBed = () => {
+    Linking.openURL("https://modinbed.se/hundmadrasser");
+  };
 
   return (
     <ImageBackground
@@ -28,9 +35,10 @@ const HomeScreen = () => {
       resizeMode="cover">
       <View style={themeColors.overlay}>
         <ScrollView contentContainerStyle={{ flexGrow: 1, overflow: "hidden" }}>
-          <SafeAreaView style={{ flex: 1 }} className="mx-10">
+          <SafeAreaView
+            style={{ flex: 1, marginHorizontal: width > 450 ? 40 : 10 }}>
             <GradientBackground>
-              <View style={bigger && styles.layoutBig}>
+              <View style={[bigger && styles.layoutBig, { marginTop: 20 }]}>
                 <View style={styles.textContainer}>
                   <Text
                     style={{ color: themeColors.text }}
@@ -101,6 +109,45 @@ const HomeScreen = () => {
                   />
                 </View>
               </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: width > 682 ? "row" : "column",
+                    marginBottom: 20,
+                  }}
+                  onPress={openModinBed}>
+                  <Text
+                    style={{
+                      color: themeColors.text,
+                    }}>
+                    I samarbete med Modin Bed
+                  </Text>
+                  <Text
+                    style={{
+                      color: themeColors.text,
+                      display: width > 510 ? "block" : "none",
+                    }}>
+                    -Tåliga hundmadrasser med smarta lösningar{" "}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={openModinBed}>
+                  <Image
+                    style={{
+                      width: width > 400 ? 100 : 80,
+                      height: 100,
+                      margin: width > 400 ? 20 : 10,
+                    }}
+                    source={ModinBed}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </View>
             </GradientBackground>
           </SafeAreaView>
         </ScrollView>
@@ -126,7 +173,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginHorizontal: 20,
-    // marginTop: 20,
     justifyContent: "space-around",
   },
   textContainer: {

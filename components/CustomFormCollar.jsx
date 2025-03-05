@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { Colors } from "../constants/Colors";
 import { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";

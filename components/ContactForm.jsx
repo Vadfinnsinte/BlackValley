@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../constants/Colors";
-import { checkboxStyle, styleCoatForm } from "../constants/formStyles";
+import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";
 

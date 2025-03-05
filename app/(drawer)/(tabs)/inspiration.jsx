@@ -13,7 +13,7 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import { Colors } from "@/constants/Colors";
-import InspoList from "../../../components/InspoList";
+import InspoList from "../../../components/List/InspoList";
 import GradientBackground from "../../../components/GradiantBackground";
 
 const InspirationScreen = () => {

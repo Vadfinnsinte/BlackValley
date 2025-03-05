@@ -10,7 +10,7 @@ import {
 import Terms from "../../../StyleSheet/termsConditions.js";
 import { Colors } from "@/constants/Colors";
 import woolBg from "../../../assets/images/woolImage.jpg";
-import { checkboxStyle } from "../../../constants/formStyles";
+import { checkboxStyle } from "../../../StyleSheet/formStyles";
 import GradientBackground from "../../../components/GradiantBackground.jsx";
 
 const TermsConditions = () => {

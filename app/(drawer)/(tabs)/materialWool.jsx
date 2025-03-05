@@ -1,6 +1,5 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
@@ -12,10 +11,9 @@ import {
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
 import { fetchCollection } from "../../../functions/fetchCollection";
-import WoolColor from "../../../components/MaterialColor";
+import WoolColor from "../../../components/List/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
-import fontpic from "../../../assets/images/Typsnitt.png";
 
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();
@@ -31,7 +29,6 @@ const MaterialScreen = () => {
       a.colorGroup.localeCompare(b.colorGroup)
     );
     setListofWools(sortedList);
-    console.log(listOfWools);
   };
   useEffect(() => {
     fetchProducts();

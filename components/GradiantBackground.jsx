@@ -19,8 +19,6 @@ const GradientBackground = ({ children }) => {
       end={{ x: 1, y: 1 }}
       style={{
         flex: 1,
-        // alignItems: "center",
-
         backgroundColor: themeColors.background,
       }}>
       {children}

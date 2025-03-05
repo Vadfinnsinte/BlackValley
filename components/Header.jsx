@@ -1,4 +1,3 @@
-// import { navLinks } from "../constants/navLinks";
 import {
   ImageBackground,
   SafeAreaView,

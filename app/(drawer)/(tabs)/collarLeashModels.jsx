@@ -4,7 +4,6 @@ import {
   View,
   useColorScheme,
   StyleSheet,
-  ScrollView,
   ImageBackground,
   useWindowDimensions,
   FlatList,
@@ -13,9 +12,8 @@ import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
 import { Colors } from "@/constants/Colors";
 import { useEffect, useState } from "react";
-
 import { fetchCollection } from "../../../functions/fetchCollection";
-import ModelList from "../../../components/ModelsList";
+import ModelList from "../../../components/List/ModelsList";
 
 const CollorLeashModels = () => {
   const colorScheme = useColorScheme();
@@ -31,11 +29,9 @@ const CollorLeashModels = () => {
       a.modelGroup.localeCompare(b.modelGroup)
     );
     setModelList(sortedList);
-    console.log(modelList);
   };
   useEffect(() => {
     fetchModels();
-    console.log(modelList);
   }, []);
 
   return (
