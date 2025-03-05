@@ -7,9 +7,10 @@ import {
   ScrollView,
   useWindowDimensions,
   Image,
+  Platform,
 } from "react-native";
-import React from "react";
-import Video from "react-native-video";
+import React, { useRef } from "react";
+import { Video } from "expo-av";
 import { Colors } from "@/constants/Colors";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { checkboxStyle } from "../../../constants/formStyles";
@@ -21,6 +22,7 @@ const InstructionScreen = () => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
+  const videoRef = useRef(null);
 
   return (
     <ImageBackground
@@ -49,14 +51,25 @@ const InstructionScreen = () => {
                     { width: width > 800 ? 700 : 300 },
                     { height: width > 800 ? 450 : 200 },
                   ]}>
-                  <Video
-                    source={{
-                      uri: "https://dl.dropboxusercontent.com/scl/fi/ygtheui1ernr9r7emszqh/M-tinstruktion-t-cke.mp4?rlkey=b07clvo60i3gjjtho0soy2iqv&st=3wp5gi04",
-                    }}
-                    resizeMode="contain"
-                    controls={true}
-                    paused={true}
-                  />
+                  {Platform.OS === "web" ? (
+                    // WebView för att visa videon på webben
+                    <iframe
+                      src="https://dl.dropboxusercontent.com/scl/fi/ygtheui1ernr9r7emszqh/M-tinstruktion-t-cke.mp4?rlkey=b07clvo60i3gjjtho0soy2iqv&st=3wp5gi04"
+                      style={{ width: "100%", height: "100%" }}
+                      allowFullScreen
+                    />
+                  ) : (
+                    // Använd Video för mobil
+                    <Video
+                      ref={videoRef}
+                      source={{
+                        uri: "https://dl.dropboxusercontent.com/scl/fi/ygtheui1ernr9r7emszqh/M-tinstruktion-t-cke.mp4?rlkey=b07clvo60i3gjjtho0soy2iqv&st=3wp5gi04",
+                      }}
+                      useNativeControls
+                      resizeMode="contain"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  )}
                 </View>
                 <View style={{ marginTop: -70 }}>
                   <Image

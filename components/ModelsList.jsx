@@ -45,6 +45,7 @@ const ModelList = ({ images, name, info, important, price }) => {
             width: width > 580 ? 470 : 200,
             height: width > 580 ? 300 : 180,
             alignSelf: width > 580 ? "center" : "auto",
+            marginLeft: width > 580 ? 0 : 16.5,
           },
         ]}
         source={{ uri: mainImage }}
@@ -105,7 +106,7 @@ const CoatStyle = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-    marginLeft: 10,
+    marginLeft: 7,
   },
   smallImage: {
     borderRadius: 10,
@@ -114,7 +115,7 @@ const CoatStyle = StyleSheet.create({
     margin: 10,
   },
   info: {
-    marginLeft: 20,
+    marginLeft: 15,
     gap: 20,
     flex: 1,
   },
