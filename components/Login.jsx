@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { styleCoatForm, stylesModalForm } from "../constants/formStyles";
+import { styleCoatForm, stylesModalForm } from "../StyleSheet/formStyles";
 import { adminHooks } from "../data/adminStoreHooks";
 import { auth } from "../firebaseConfigTwo";
 import { useState } from "react";

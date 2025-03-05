@@ -17,7 +17,7 @@ import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
 import { adminHooks } from "../../../data/adminStoreHooks";
 import { auth } from "../../../firebaseConfigTwo";
-import { checkboxStyle } from "../../../constants/formStyles";
+import { checkboxStyle } from "../../../StyleSheet/formStyles";
 import AddModal from "../../../components/AddWoolProduct";
 const MaterialScreenLeather = () => {
   const { width } = useWindowDimensions();

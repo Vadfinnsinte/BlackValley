@@ -4,7 +4,7 @@ import {
   checkboxStyle,
   styleCoatForm,
   stylesModalForm,
-} from "../constants/formStyles";
+} from "../StyleSheet/formStyles";
 import { TextInput } from "react-native-web";
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
