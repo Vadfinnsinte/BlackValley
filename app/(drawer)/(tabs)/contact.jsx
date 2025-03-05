@@ -47,6 +47,7 @@ const ContactScreen = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      setLoggedIn(false);
       console.log("Användaren har loggats ut");
     } catch (error) {
       console.error("Fel vid utloggning: ", error);
@@ -127,16 +128,20 @@ const ContactScreen = () => {
                 />
               </View>
             </View>
-            {loggedIn && (
-              <Pressable onPress={handleLogout}>
+
+            {!loggedIn ? (
+              <Pressable
+                style={{ alignSelf: "flex-end", paddingRight: 3 }}
+                onPress={() => setLoginModalOpen(true)}>
+                <Text>Admin</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={{ alignSelf: "flex-end", paddingRight: 3 }}
+                onPress={handleLogout}>
                 <Text>Logga ut</Text>
               </Pressable>
             )}
-            <Pressable
-              style={{ alignSelf: "flex-end", paddingRight: 3 }}
-              onPress={() => setLoginModalOpen(true)}>
-              <Text>Admin</Text>
-            </Pressable>
             {loginModalOpen && <LoginPage />}
           </GradientBackground>
         </SafeAreaView>

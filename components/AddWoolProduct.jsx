@@ -51,18 +51,16 @@ const AddModal = ({ from }) => {
       }
     }
   };
+  let material = from === "wool" ? "ull" : "läder";
 
   return (
     <View>
-      {/* <Pressable onPress={handleLogout}>
-        <Text>Logga ut</Text>
-      </Pressable> */}
       <Modal
         visible={from === "wool" ? openAddWool : openAddLeather}
         transparent={true}>
         <View style={stylesModalForm.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text>{from}</Text>
+            <Text style={{ textAlign: "center" }}>Lägg till {material}</Text>
             <View style={{ margin: 10 }}>
               <Text>Färg: </Text>
               <TextInput
@@ -94,9 +92,6 @@ const AddModal = ({ from }) => {
               </Text>
             )}
             <View style={{ flexDirection: "row", margin: 10 }}>
-              <Pressable onPress={handleAddWool}>
-                <Text style={styles.button}>Lägg till</Text>
-              </Pressable>
               <Pressable
                 onPress={() =>
                   from === "wool"
@@ -104,6 +99,9 @@ const AddModal = ({ from }) => {
                     : setOpenAddLeather(false)
                 }>
                 <Text style={checkboxStyle.button}>Avbryt</Text>
+              </Pressable>
+              <Pressable onPress={handleAddWool}>
+                <Text style={styles.button}>Lägg till</Text>
               </Pressable>
             </View>
           </View>
