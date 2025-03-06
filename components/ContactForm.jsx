@@ -187,7 +187,7 @@ const ContactForm = ({}) => {
                 setUserInformation.setPhoneNumber(text);
                 setWarnings.setPhoneWarning(false);
               }}
-              placeholder="070-1235678"
+              placeholder="0701235678"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>

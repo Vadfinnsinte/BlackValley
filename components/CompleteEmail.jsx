@@ -5,7 +5,6 @@ import {
   useColorScheme,
   useWindowDimensions,
   Modal,
-  StyleSheet,
 } from "react-native";
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
@@ -17,7 +16,6 @@ import {
   resetStoreVariables,
   resetStoreVariablesHard,
 } from "../functions/resetStoreVariables";
-import { measure } from "react-native-reanimated";
 
 const CompleteEmail = () => {
   const {
@@ -111,15 +109,15 @@ const CompleteEmail = () => {
 
   let message = ` 
   
-  Produkt information: ${commingSwe}
-  Modell: ${buyerObj.modell}
-  Mått: ${buyerObj.measurement && buyerObj.measurement}
-  Färg på ${commingSwe}: ${buyerObj.materialColor}
-  Brodyr Färg: ${buyerObj.brodyrColour}
-  Text (blir exakt som skrivet här): ${buyerObj.text}
-  Besnören: ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
-  Metall på ringar: ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
-  Kommentarer och önskemål: ${buyerObj.comment}
+Produkt information:  ${commingSwe}
+Modell:  ${buyerObj.modell}
+Mått:  ${buyerObj.measurement && buyerObj.measurement}
+Färg på ${commingSwe}:  ${buyerObj.materialColor}
+Brodyr Färg:  ${buyerObj.brodyrColour}
+Text (blir exakt som skrivet här):  ${buyerObj.text}
+Besnören:  ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
+Metall på ringar:  ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
+Kommentarer och önskemål:  ${buyerObj.comment}
   `;
   if (!item) {
     message = "";
@@ -195,7 +193,7 @@ const CompleteEmail = () => {
     <View
       style={[
         styleCoatForm.centerContent,
-        { backgroundColor: "#D9D9D9", padding: 10 },
+        { backgroundColor: "#D9D9D9", padding: width > 500 ? 10 : 0 },
       ]}>
       <Pressable
         style={{ alignSelf: "flex-end" }}
@@ -213,7 +211,7 @@ const CompleteEmail = () => {
           Tillbaka till kontakt.
         </Text>
       </Pressable>
-      <View style={{ margin: 20 }}>
+      <View style={{ margin: width > 500 ? 20 : 5 }}>
         <Text
           style={{
             color: "#000",
@@ -254,7 +252,8 @@ const CompleteEmail = () => {
               ? { maxWidth: 600, margin: 10, minWidth: 400 }
               : { margin: 10 }
           }>
-          <Text style={{ fontSize: 18 }}>
+          <Text
+            style={{ fontSize: 18, flexWrap: "wrap", wordBreak: "break-word" }}>
             {/* Produkt information: */}
             {message}
           </Text>

@@ -1,8 +1,8 @@
 import { Pressable, Text, useColorScheme, View } from "react-native";
 import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { Colors } from "@/constants/Colors";
-import Fontisto from "@expo/vector-icons/Fontisto";
-import { BiCheckSquare, BiCheckbox } from "react-icons/bi";
+// import Fontisto from "@expo/vector-icons/Fontisto";
+import { BiCheckSquare } from "react-icons/bi";
 
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";

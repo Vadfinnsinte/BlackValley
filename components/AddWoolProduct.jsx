@@ -1,11 +1,18 @@
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+} from "react-native";
 import { adminHooks } from "../data/adminStoreHooks";
 import {
   checkboxStyle,
   styleCoatForm,
   stylesModalForm,
 } from "../StyleSheet/formStyles";
-import { TextInput } from "react-native-web";
+// import { TextInput } from "react-native-web";
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
