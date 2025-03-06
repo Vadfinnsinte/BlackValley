@@ -118,6 +118,7 @@ Text (blir exakt som skrivet här):  ${buyerObj.text}
 Besnören:  ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
 Metall på ringar:  ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
 Kommentarer och önskemål:  ${buyerObj.comment}
+Detta är under Test så orden kommer EJ bli uppfyld.
   `;
   if (!item) {
     message = "";
@@ -221,6 +222,7 @@ Kommentarer och önskemål:  ${buyerObj.comment}
           }}>
           Beställning till Black Valley.
         </Text>
+        <Text>Test fas, orden kommer EJ bli uppfylld.</Text>
         <View style={styleCoatForm.contactInfoConatainer}>
           <View style={{ alignSelf: "center" }}>
             <Text
