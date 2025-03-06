@@ -17,6 +17,8 @@ import startPicture from "../../../assets/images/startPic.png";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground.jsx";
 import ModinBed from "../../../assets/images/modinBed.png";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
 const HomeScreen = () => {
   const colorScheme = useColorScheme();

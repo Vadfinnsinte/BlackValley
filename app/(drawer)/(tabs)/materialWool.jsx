@@ -21,7 +21,6 @@ import { auth } from "../../../firebaseConfigTwo";
 import { adminHooks } from "../../../data/adminStoreHooks";
 import AddModal from "../../../components/AddWoolProduct";
 
-
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();
   const [listOfWools, setListofWools] = useState([]);
