@@ -152,6 +152,7 @@ const CustomFormCollar = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={collarModelOpen}
               onRequestClose={() => setCollarModelOpen(false)}
               items={models}
@@ -204,6 +205,7 @@ const CustomFormCollar = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openWidth}
               value={selectedCollarVariables.selectedWidth}
               items={collarWidth}
@@ -241,6 +243,7 @@ const CustomFormCollar = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openLeather}
               value={selectedCollarVariables.selectedLeather}
               items={leathers}
@@ -284,6 +287,7 @@ const CustomFormCollar = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openMetal}
               value={selectedCollarVariables.selectedMetal}
               items={metals}
@@ -322,6 +326,7 @@ const CustomFormCollar = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
             <DropDownPicker
+              showArrowIcon={false}
               open={openFont}
               value={selectedCollarVariables.selectedFont}
               items={selectedCollarVariables.chosenFont}

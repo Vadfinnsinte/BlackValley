@@ -15,6 +15,8 @@ import { useEffect } from "react";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";
+import { BiCheckSquare } from "react-icons/bi";
+import { BiRectangle } from "react-icons/bi";
 
 const CustomFormCoat = () => {
   const {
@@ -148,6 +150,7 @@ const CustomFormCoat = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openCoatModel}
               value={selectedCoatVariables.selectedModelCoat}
               items={models}
@@ -205,6 +208,7 @@ const CustomFormCoat = () => {
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openColor}
               value={selectedCoatVariables.selectedColor}
               items={woolColors}
@@ -226,6 +230,7 @@ const CustomFormCoat = () => {
                 Färg på Cosy krage
               </Text>
               <DropDownPicker
+                showArrowIcon={false}
                 open={openCozy}
                 value={selectedCoatVariables.cosyCollarColor}
                 items={krage}
@@ -269,6 +274,7 @@ const CustomFormCoat = () => {
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
 
             <DropDownPicker
+              showArrowIcon={false}
               open={openFont}
               value={selectedCoatVariables.selectedFont}
               items={selectedCoatVariables.chosenFont}
@@ -332,30 +338,46 @@ const CustomFormCoat = () => {
                 </Text>
                 <Pressable
                   onPress={() => setSelectedCoatVariables.setLegString(true)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === true
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
+                  {selectedCoatVariables.legString === true ? (
+                    <BiCheckSquare
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  ) : (
+                    <BiRectangle
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  )}
                 </Pressable>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
                 <Pressable
                   onPress={() => setSelectedCoatVariables.setLegString(false)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === false
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
+                  {selectedCoatVariables.legString === false ? (
+                    <BiCheckSquare
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  ) : (
+                    <BiRectangle
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  )}
                 </Pressable>
               </View>
             </View>
