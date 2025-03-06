@@ -138,7 +138,7 @@ const CustomFormCoat = () => {
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
             { zIndex: 10 },
           ]}>
-          <View>
+          <View style={{ zIndex: 11 }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Modell</Text>
               <Text

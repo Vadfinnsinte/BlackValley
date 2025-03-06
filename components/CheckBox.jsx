@@ -55,7 +55,7 @@ const CheckBox = () => {
     <View>
       <View style={checkboxStyle.containerCheck}>
         <View>
-          <Text style={{ color: themeColors.text }}>Täcke</Text>
+          <Text style={{ color: themeColors.text, fontSize: 16 }}>Täcke</Text>
           <Pressable onPress={handleCoat}>
             {chosenProduct.coat ? (
               <BiCheckSquare
@@ -80,6 +80,7 @@ const CheckBox = () => {
           <Text
             style={{
               color: themeColors.text,
+              fontSize: 16,
             }}>
             Halsband
           </Text>
@@ -104,7 +105,7 @@ const CheckBox = () => {
           </Pressable>
         </View>
         <View>
-          <Text style={{ color: themeColors.text }}>Koppel</Text>
+          <Text style={{ color: themeColors.text, fontSize: 16 }}>Koppel</Text>
           <Pressable onPress={handleOther}>
             {otherother ? (
               <BiCheckSquare
@@ -127,7 +128,7 @@ const CheckBox = () => {
         </View>
 
         <View>
-          <Text style={{ color: themeColors.text }}>Annat</Text>
+          <Text style={{ color: themeColors.text, fontSize: 16 }}>Annat</Text>
           <Pressable onPress={handleOtherOther}>
             {other ? (
               <BiCheckSquare

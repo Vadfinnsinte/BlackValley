@@ -90,7 +90,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
@@ -106,7 +106,7 @@ const OrderScreen = () => {
                       </Pressable>
                       <Text
                         style={{ color: themeColors.text }}
-                        className="text-center text-xs -mt-2">
+                        className="text-center text-s -mt-2">
                         Om du vill beställa flera produkter så finns det
                         alternativet i sista steget.
                       </Text>
@@ -116,7 +116,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
@@ -135,7 +135,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
@@ -147,7 +147,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"

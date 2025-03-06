@@ -32,7 +32,8 @@ const ContactForm = ({}) => {
     streetWarning,
     postalWarning,
   } = validateStoreHooks();
-  const phonePattern = /^[0-9]{3}-[0-9]{7}$/;
+  const phonePattern = /^[0-9]{10}$/;
+
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const postalPattern = /^[0-9]{3}\s?[0-9]{2}\s?[a-zA-ZåäöÅÄÖ]*$/;
 

@@ -47,13 +47,15 @@ const HomeScreen = () => {
                     className={bigger ? "text-4xl my-5" : " text-2xl my-5"}>
                     Välkommen till Black Valley
                   </Text>
-                  <Text style={{ color: themeColors.text }}>
+                  <Text style={{ color: themeColors.text, fontSize: 16 }}>
                     På den här sidan hittar du massa inspiration om du är ute
                     efter skräddarsydda produkter till din hund. Jag syr främst
                     ulltäcken och halsband i svenskt skinn, men älskar även
                     specialbeställningar.
                   </Text>
-                  <Text className={"mt-5"} style={{ color: themeColors.text }}>
+                  <Text
+                    className={"mt-5"}
+                    style={{ color: themeColors.text, fontSize: 16 }}>
                     Välkommen att kika runt! Beställer gör du enligt
                     instruktioner under fliken ”Beställ här”. Har du frågor,
                     tveka inte att kontakta mig.
@@ -81,13 +83,15 @@ const HomeScreen = () => {
                     className={bigger ? "text-3xl mb-5" : " text-2xl mb-5"}>
                     Om mig
                   </Text>
-                  <Text style={{ color: themeColors.text }}>
+                  <Text style={{ color: themeColors.text, fontSize: 16 }}>
                     Therese heter jag och jag driver firman Black Valley. Jag
                     har alltid brunnit för djur och natur, är uppvuxen på
                     bondgård och har präglats av att man tar tillvara på och
                     lever nära jorden.{" "}
                   </Text>
-                  <Text className={"mt-5"} style={{ color: themeColors.text }}>
+                  <Text
+                    className={"mt-5"}
+                    style={{ color: themeColors.text, fontSize: 16 }}>
                     Under flera år har jag bott på Tjörn, men har nu återvänt
                     till gården jag växt upp på, där vi bedriver lammuppfödning
                     i liten skala. Att känna till ursprunget på allt från det

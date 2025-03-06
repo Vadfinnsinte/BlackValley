@@ -24,7 +24,7 @@ export const Colors = {
     backgorundActive: "#515151",
     hamburgerTextActive: "#fff",
     hamburgerText: "#000",
-    detail: "#82BCBD",
+    detail: "#378182",
   },
   dark: {
     text: "#ECEDEE",
