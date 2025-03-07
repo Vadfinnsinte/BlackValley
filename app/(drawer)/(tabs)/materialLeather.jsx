@@ -63,7 +63,7 @@ const MaterialScreenLeather = () => {
               <Text
                 style={{ color: themeColors.text }}
                 className="text-center ">
-                (Färgerna kan variera)
+                (Färgerna kan avvika från verkligheten)
               </Text>
               {loggedIn && (
                 <Pressable onPress={() => setOpenAddLeather(true)}>

@@ -69,16 +69,18 @@ const ModelList = ({ images, name, info, important, price }) => {
       </View>
       <View style={CoatStyle.info}>
         <View>
-          <Text style={{ color: "#ECEDEE" }}>Pris:</Text>
-          <Text style={{ color: "#ECEDEE" }}>{price}</Text>
+          <Text style={{ color: "#ECEDEE", fontSize: 16 }}>Pris:</Text>
+          <Text style={{ color: "#ECEDEE", fontSize: 16 }}>{price}</Text>
         </View>
         <View>
-          <Text style={{ color: "#ECEDEE" }}>Info:</Text>
-          <Text style={{ color: "#ECEDEE" }}>{info}</Text>
+          <Text style={{ color: "#ECEDEE", fontSize: 16 }}>Info:</Text>
+          <Text style={{ color: "#ECEDEE", fontSize: 16 }}>{info}</Text>
         </View>
         <View style={{ flexGrow: 1 }}>
-          <Text style={{ color: "#ECEDEE", marginTop: "auto" }}>VIKTIGT:</Text>
-          <Text style={{ color: "#ECEDEE" }}>{important}</Text>
+          <Text style={{ color: "#ECEDEE", marginTop: "auto", fontSize: 16 }}>
+            VIKTIGT:
+          </Text>
+          <Text style={{ color: "#ECEDEE", fontSize: 16 }}>{important}</Text>
         </View>
       </View>
     </View>

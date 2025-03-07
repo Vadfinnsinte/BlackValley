@@ -4,24 +4,24 @@ import {
   View,
   Text,
   Pressable,
-  useColorScheme,
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Colors } from "@/constants/Colors";
+// import { Colors } from "@/constants/Colors";
 import Navstyles from "../StyleSheet/Navbar";
 import wool from "../assets/images/woolImage.jpg";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import blackValleylogo from "../assets/images/BlackValleylogo.png";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Header({ data }) {
   const { width } = useWindowDimensions();
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   const navigation = useNavigation();
-  const themeColors = Colors[colorScheme] || Colors.light;
+  // const themeColors = Colors[colorScheme] || Colors.light;
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -103,7 +103,8 @@ export default function Header({ data }) {
           <TouchableOpacity
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             style={Navstyles.menuButton}>
-            <Ionicons name="menu" size={40} color={themeColors.hamburgerIcon} />
+            {/* <Ionicons name="menu" size={40} color={themeColors.hamburgerIcon} /> */}
+            <RxHamburgerMenu style={{ fontSize: 35 }} />
           </TouchableOpacity>
           <ImageBackground
             source={blackValleylogo}

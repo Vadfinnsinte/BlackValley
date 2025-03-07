@@ -16,11 +16,9 @@ import WoolColor from "../../../components/List/MaterialColor";
 import { Colors } from "@/constants/Colors";
 import GradientBackground from "../../../components/GradiantBackground";
 import { checkboxStyle } from "../../../StyleSheet/formStyles";
-import fontpic from "../../../assets/images/Typsnitt.png";
 import { auth } from "../../../firebaseConfigTwo";
 import { adminHooks } from "../../../data/adminStoreHooks";
 import AddModal from "../../../components/AddWoolProduct";
-
 
 const MaterialScreen = () => {
   const { width } = useWindowDimensions();

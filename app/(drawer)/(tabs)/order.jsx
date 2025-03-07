@@ -9,6 +9,7 @@ import {
   ScrollView,
   Text,
   useColorScheme,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { checkboxStyle, stylesModalForm } from "../../../StyleSheet/formStyles";
@@ -22,6 +23,7 @@ import ContactForm from "../../../components/ContactForm";
 import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 import { validateStoreHooks } from "../../../data/validateStoreHooks";
+import { Link } from "expo-router";
 // import SendEmail from "../../../functions/SendEmail";
 const OrderScreen = () => {
   const {
@@ -38,7 +40,7 @@ const OrderScreen = () => {
 
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
-
+  const { width } = useWindowDimensions();
   const openCustomForm = () => {
     if (chosenProduct.coat) {
       setChosenForm.setCoatForm(true);
@@ -68,11 +70,17 @@ const OrderScreen = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}>
         <View style={themeColors.overlay}>
           <ScrollView
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{
+              // paddingBottom: 50,
+              flexGrow: 1,
+            }}
             keyboardShouldPersistTaps="handled">
             <SafeAreaView
-              style={{ backgroundColor: themeColors.background, flex: 1 }}
-              className="mx-10">
+              style={{
+                backgroundColor: themeColors.background,
+                flexGrow: 1,
+                marginHorizontal: width > 500 ? 40 : 20,
+              }}>
               <GradientBackground>
                 <View style={checkboxStyle.container}>
                   <View style={checkboxStyle.containerText}>
@@ -83,19 +91,27 @@ const OrderScreen = () => {
                     </Text>
                     <Text style={{ color: themeColors.text }}>
                       Skicka en beställning/förfrågan så återkommer vi med
-                      prisinformation. Vänligen läs igenom våra köpvillkor (ADD
-                      MODAL), dessa godkänner du genom att beställa.
+                      prisinformation. Vänligen läs igenom våra{" "}
+                      <Link
+                        href="/termsConditions"
+                        style={{
+                          color: themeColors.text,
+                          textDecorationLine: "underline",
+                        }}>
+                        köpvillkor
+                      </Link>{" "}
+                      dessa godkänner du genom att beställa.
                     </Text>
                   </View>
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
                       style={{ color: "#11181C" }}>
-                      1. Vänligen välj vad du vill beställa
+                      1. Välj vad du vill beställa.
                     </Text>
                   </View>
                   {chosenStep.stepOne && (
@@ -106,7 +122,7 @@ const OrderScreen = () => {
                       </Pressable>
                       <Text
                         style={{ color: themeColors.text }}
-                        className="text-center text-xs -mt-2">
+                        className="text-center text-s -mt-2">
                         Om du vill beställa flera produkter så finns det
                         alternativet i sista steget.
                       </Text>
@@ -116,7 +132,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
@@ -135,7 +151,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
@@ -147,7 +163,7 @@ const OrderScreen = () => {
                   <View
                     style={[
                       checkboxStyle.blueSeperator,
-                      { backgroundColor: themeColors.detail },
+                      { backgroundColor: "#82BCBD" },
                     ]}>
                     <Text
                       className="text-xl text-center"
