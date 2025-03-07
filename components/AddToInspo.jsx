@@ -16,7 +16,7 @@ import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
 
-const AddToInspo = () => {
+const AddToInspo = ({ fetchInspo }) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [warning, setWarning] = useState(false);
@@ -41,6 +41,7 @@ const AddToInspo = () => {
         setName("");
         setUrl("");
         setOpenAddInspo(false);
+        fetchInspo();
       } catch (error) {
         setWarning(true);
         setWarningMessage(

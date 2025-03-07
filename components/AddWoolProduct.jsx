@@ -17,7 +17,7 @@ import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
 
-const AddModal = ({ from }) => {
+const AddModal = ({ from, fetchProducts }) => {
   const [color, setColor] = useState("");
   // const [status, setStatus] = useState(true)
   const [colorGroup, setColorGroup] = useState("");
@@ -49,6 +49,8 @@ const AddModal = ({ from }) => {
         setUrl("");
         setOpenAddWool(false);
         setOpenAddLeather(false);
+
+        fetchProducts();
       } catch (error) {
         setWarning(true);
         setWarningMessage(

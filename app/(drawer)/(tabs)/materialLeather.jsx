@@ -71,7 +71,9 @@ const MaterialScreenLeather = () => {
                 </Pressable>
               )}
 
-              {openAddLeather && <AddModal from="leather" />}
+              {openAddLeather && (
+                <AddModal from="leather" fetchProducts={fetchProducts} />
+              )}
             </View>
             <FlatList
               contentContainerStyle={styles.container}

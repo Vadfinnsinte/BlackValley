@@ -70,7 +70,7 @@ const InspirationScreen = () => {
                     </Pressable>
                   )}
                 </View>
-                {openAddInspo && <AddToInspo />}
+                {openAddInspo && <AddToInspo fetchInspo={fetchInspo} />}
                 <FlatList
                   numColumns={numberOfcolums}
                   data={inspirationList}

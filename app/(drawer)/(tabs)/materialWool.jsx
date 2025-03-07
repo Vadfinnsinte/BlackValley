@@ -68,7 +68,9 @@ const MaterialScreen = () => {
                 </Pressable>
               )}
             </View>
-            {openAddWool && <AddModal from="wool" />}
+            {openAddWool && (
+              <AddModal from="wool" fetchProducts={fetchProducts} />
+            )}
 
             <FlatList
               contentContainerStyle={styles.container}
