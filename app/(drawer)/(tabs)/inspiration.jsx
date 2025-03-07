@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   ScrollView,
   View,
+  Pressable,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import { useEffect, useState } from "react";
@@ -15,10 +16,16 @@ import { fetchCollection } from "../../../functions/fetchCollection";
 import { Colors } from "@/constants/Colors";
 import InspoList from "../../../components/List/InspoList";
 import GradientBackground from "../../../components/GradiantBackground";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import AddToInspo from "../../../components/AddToInspo";
+import { auth } from "../../../firebaseConfigTwo";
+import { checkboxStyle } from "../../../StyleSheet/formStyles";
 
 const InspirationScreen = () => {
   const { width } = useWindowDimensions();
+  const [loggedIn, setLoggedIn] = useState(false);
   const [inspirationList, setInspirationList] = useState([]);
+  const { openAddInspo, setOpenAddInspo } = adminHooks();
   const numberOfcolums =
     width > 1700 ? 4 : width > 1380 ? 3 : width > 925 ? 2 : 1;
   const colorScheme = useColorScheme();
@@ -32,6 +39,10 @@ const InspirationScreen = () => {
   useEffect(() => {
     fetchInspo();
   }, []);
+
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+  }, [auth.currentUser]);
 
   return (
     <ImageBackground
@@ -53,7 +64,13 @@ const InspirationScreen = () => {
                     className="text-center ">
                     Inspiration
                   </Text>
+                  {loggedIn && (
+                    <Pressable onPress={() => setOpenAddInspo(true)}>
+                      <Text style={checkboxStyle.button}>Lägg till</Text>
+                    </Pressable>
+                  )}
                 </View>
+                {openAddInspo && <AddToInspo />}
                 <FlatList
                   numColumns={numberOfcolums}
                   data={inspirationList}
