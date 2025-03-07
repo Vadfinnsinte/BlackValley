@@ -43,7 +43,7 @@ export const validateStore = create((set) => ({
   },
   postalWarning: {
     bool: false,
-    message: "*Fyll i postnummer",
+    message: "*obligatorisk",
   },
   collarModelWarning: {
     bool: false,

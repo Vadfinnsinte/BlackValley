@@ -36,7 +36,6 @@ const CompleteEmail = () => {
     setOpenSent,
     sent,
     setSent,
-    selectedSecondLeather,
   } = formStore();
 
   const [item, setItem] = useState(true);
@@ -121,6 +120,8 @@ const CompleteEmail = () => {
       measurement: selectedCoatVariables.measurementsCoat,
       materialColor: selectedCoatVariables.selectedColor,
       brodyrColour: selectedCoatVariables.brodyrColor,
+      softshellColor: selectedCoatVariables.softshellColor,
+      cozyCollar: selectedCoatVariables.cosyCollarColor,
       font: selectedCoatVariables.selectedFont,
       text: selectedCoatVariables.brodyrText,
       legStrings: selectedCoatVariables.legString ? "Ja" : "Nej", // Endast för Täcke
@@ -147,15 +148,6 @@ const CompleteEmail = () => {
   if (comingFromForm === "Other") {
     commingSwe = "Annat";
     buyerObj = {
-      // modell: "inte aplicerbart",
-      // measurement: "inte aplicerbart",
-      // width: "inte aplicerbart",
-      // materialColor: "inte aplicerbart",
-      // materialColor2: "inte aplicerbart",
-      // brodyrColour: "inte aplicerbart",
-      // metal: "inte aplicerbart",
-      // font: "inte aplicerbart",
-      // text: "inte aplicerbart",
       comment: specialOrder,
     };
   }
@@ -187,6 +179,11 @@ Produkt information: ${commingSwe}`,
   if (buyerObj.materialColor2 && comingFromForm === "Collar") {
     messageParts.push(`Färg baksida halsband: ${buyerObj.materialColor2}`);
   }
+  if (buyerObj.softshellColor)
+    messageParts.push(`Softshell färg: ${buyerObj.softshellColor} `);
+
+  if (buyerObj.cozyCollar)
+    messageParts.push(`Cozy krages färg: ${buyerObj.cozyCollar}`);
   if (buyerObj.brodyrColour)
     messageParts.push(`Brodyr Färg: ${buyerObj.brodyrColour}`);
   if (buyerObj.font) messageParts.push(`Font: ${buyerObj.font}`);

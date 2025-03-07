@@ -10,6 +10,7 @@ import { Colors } from "../constants/Colors";
 import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";
+import { useState } from "react";
 
 const ContactForm = ({}) => {
   // -- colors and responsiv variables --
@@ -33,6 +34,15 @@ const ContactForm = ({}) => {
     postalWarning,
   } = validateStoreHooks();
   const phonePattern = /^[0-9]{10}$/;
+  const [post, setPost] = useState(() => {
+    const parts = userInformation.postalCode.split(" ");
+    return parts[0] || "";
+  });
+
+  const [postalCode, setPostalCode] = useState(() => {
+    const parts = userInformation.postalCode.split(" ");
+    return parts.slice(1).join(" ") || "";
+  });
 
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const postalPattern = /^[0-9]{3}\s?[0-9]{2}\s?[a-zA-ZåäöÅÄÖ]*$/;
@@ -54,6 +64,7 @@ const ContactForm = ({}) => {
       setChosenForm.setOtherForm(true);
     }
   };
+
   const continueToNext = () => {
     let warning = false;
     if (userInformation.name == "") {
@@ -154,7 +165,7 @@ const ContactForm = ({}) => {
               </Text>
             </View>
             <TextInput
-              value={userInformation.suename}
+              value={userInformation.surname}
               onChangeText={(text) => {
                 setUserInformation.setSurname(text);
                 setWarnings.setSurNameWarning(false);
@@ -217,7 +228,7 @@ const ContactForm = ({}) => {
         <View
           style={[
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
-            { zIndex: 10 },
+            { zIndex: 10, justifyContent: "space-between" },
           ]}>
           <View>
             <View style={{ flexDirection: "row" }}>
@@ -238,10 +249,15 @@ const ContactForm = ({}) => {
               }}
               placeholder="Adressvägen 17"
               placeholderTextColor="#808080"
-              style={styleCoatForm.input}></TextInput>
+              style={
+                width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+              }></TextInput>
           </View>
           <View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+              }}>
               <Text style={{ color: themeColors.text }}>Postnummer</Text>
               <Text
                 style={[
@@ -252,16 +268,49 @@ const ContactForm = ({}) => {
               </Text>
             </View>
             <TextInput
-              value={userInformation.postalCode}
+              value={post}
               onChangeText={(text) => {
-                setUserInformation.setPostalCode(text);
+                const cleanedText = text.replace(/\s+/g, "");
+                setPost(cleanedText);
                 setWarnings.setPostalWarning(false);
+                setUserInformation.setPostalCode(
+                  cleanedText + " " + postalCode
+                );
               }}
-              placeholder="233 33"
+              placeholder="23333"
               placeholderTextColor="#808080"
-              style={styleCoatForm.input}></TextInput>
+              style={
+                width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+              }></TextInput>
+          </View>
+          <View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Postort</Text>
+              <Text
+                style={[
+                  styleCoatForm.warning,
+                  { opacity: postalWarning.bool ? 1 : 0 },
+                ]}>
+                {postalWarning.message}
+              </Text>
+            </View>
+            <View>
+              <TextInput
+                value={postalCode}
+                onChangeText={(text) => {
+                  setPostalCode(text);
+                  setWarnings.setPostalWarning(false);
+                  setUserInformation.setPostalCode(post + " " + text);
+                }}
+                placeholder="Kungälv"
+                placeholderTextColor="#808080"
+                style={
+                  width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+                }></TextInput>
+            </View>
           </View>
         </View>
+
         <Pressable
           style={checkboxStyle.button}
           onPress={() => {

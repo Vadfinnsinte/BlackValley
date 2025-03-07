@@ -46,6 +46,7 @@ const CustomFormCoat = () => {
   const { width } = useWindowDimensions();
   //
   const [woolColors, setWoolColors] = useState([]);
+  const [softshell, setSoftshell] = useState([]);
 
   const [models, setModels] = useState([
     { label: "Cosy", value: "Cosy" },
@@ -71,10 +72,24 @@ const CustomFormCoat = () => {
       setWoolColors(allColors);
     }
   };
+  const fetchSoftshell = async () => {
+    const response = await fetchCollection("softshell");
+    if (response) {
+      const allColors = response
+        .filter((name) => name.color)
+        .map((name) => ({
+          label: name.color,
+          value: name.color,
+        }));
+      setSoftshell(allColors);
+    }
+  };
 
   useEffect(() => {
     if (selectedCoatVariables.selectedModelCoat === "Cosy") {
       setSelectedCoatVariables.setColorColar(true);
+    } else if (selectedCoatVariables.selectedModelCoat === "Limitless") {
+      setSelectedCoatVariables.setSoftShellChosen(true);
     } else {
       setSelectedCoatVariables.setColorColar(false);
     }
@@ -82,8 +97,11 @@ const CustomFormCoat = () => {
 
   useEffect(() => {
     fetchwoolColors();
+    fetchSoftshell();
     setComingFromForm("Coat");
   }, []);
+  console.log(selectedCoatVariables.selectedModelCoat);
+
   const continueToNext = () => {
     let warning = false;
     if (selectedCoatVariables.selectedModelCoat === null) {
@@ -94,7 +112,10 @@ const CustomFormCoat = () => {
       setWarnings.setMeasureWarning(true);
       warning = true;
     }
-    if (selectedCoatVariables.selectedColor === null) {
+    if (
+      selectedCoatVariables.selectedModelCoat !== "Limitless" &&
+      selectedCoatVariables.selectedColor === null
+    ) {
       setWarnings.setWoolWarning(true);
       warning = true;
     }
@@ -216,7 +237,11 @@ const CustomFormCoat = () => {
               items={woolColors}
               setOpen={setOpenColor}
               setItems={setWoolColors}
-              placeholder="Välj färg"
+              placeholder={
+                selectedCoatVariables.softShellChosen
+                  ? "Ej valbar"
+                  : "Välj färg"
+              }
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
@@ -224,29 +249,52 @@ const CustomFormCoat = () => {
                 setSelectedCoatVariables.setSelectedColor(newValue);
                 setWarnings.setWoolWarning(false);
               }}
+              disabled={selectedCoatVariables.softShellChosen}
+              disabledStyle={{ backgroundColor: "#d3d3d3", opacity: 0.6 }}
             />
           </View>
-          {selectedCoatVariables.colorColar && (
+          {(selectedCoatVariables.colorColar ||
+            selectedCoatVariables.softShellChosen) && (
             <View style={{ zIndex: 8 }}>
               <Text style={{ color: themeColors.text }}>
-                Färg på Cosy krage
+                {selectedCoatVariables.colorColar
+                  ? "Färg på Cosy krage"
+                  : "Färg på Softshell"}
               </Text>
               <DropDownPicker
                 showArrowIcon={false}
                 open={openCozy}
-                value={selectedCoatVariables.cosyCollarColor}
-                items={krage}
+                value={
+                  selectedCoatVariables.colorColar
+                    ? selectedCoatVariables.cosyCollarColor
+                    : selectedCoatVariables.softshellColor
+                }
+                items={selectedCoatVariables.colorColar ? krage : softshell}
                 setOpen={setOpenCosy}
                 setItems={setKrage}
                 placeholder="Välj en färg"
                 style={styleCoatForm.dropDown}
                 dropDownContainerStyle={{ maxHeight: 150 }}
+                // setValue={(callback) => {
+                //   const newValue = callback(
+                //     selectedCoatVariables.cosyCollarColor
+                //   );
+                //   setWarnings.setModelWarningCoat(false);
+                //   setSelectedCoatVariables.setCosyCollarColor(newValue);
+                // }}
                 setValue={(callback) => {
                   const newValue = callback(
-                    selectedCoatVariables.cosyCollarColor
+                    selectedCoatVariables.colorColar
+                      ? selectedCoatVariables.cosyCollarColor
+                      : selectedCoatVariables.softshellColor
                   );
                   setWarnings.setModelWarningCoat(false);
-                  setSelectedCoatVariables.setCosyCollarColor(newValue);
+
+                  if (selectedCoatVariables.colorColar) {
+                    setSelectedCoatVariables.setCosyCollarColor(newValue);
+                  } else {
+                    setSelectedCoatVariables.setSoftshellColor(newValue);
+                  }
                 }}
               />
             </View>
