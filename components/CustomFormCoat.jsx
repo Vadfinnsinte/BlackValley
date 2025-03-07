@@ -180,6 +180,8 @@ const CustomFormCoat = () => {
               </Text>
             </View>
             <TextInput
+              placeholder="rygg, bröst, hals (i cm)"
+              placeholderTextColor="#808080"
               // keyboardType="numeric"
               value={selectedCoatVariables.measurementsCoat}
               onChangeText={(text) => {

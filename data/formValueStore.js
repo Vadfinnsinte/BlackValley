@@ -63,6 +63,7 @@ const formValuesStore = create((set) => ({
     selectedModalCollar: null,
     selectedWidth: "",
     selectedLeather: "",
+    selectedSecondLeather: "",
     selectedMetal: "",
     selectedFont: "",
     lengthCollar: "",
@@ -91,6 +92,13 @@ const formValuesStore = create((set) => ({
         selectedCollarVariables: {
           ...state.selectedCollarVariables,
           selectedLeather: value,
+        },
+      })),
+    setSelectedSecondLeather: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedSecondLeather: value,
         },
       })),
     setSelectedMetal: (value) =>

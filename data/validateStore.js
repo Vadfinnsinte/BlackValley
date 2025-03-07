@@ -57,6 +57,10 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "*Välj färg",
   },
+  secondLeatherWarning: {
+    bool: false,
+    message: "*Välj färg",
+  },
   ringWarning: {
     bool: false,
     message: "*Välj metal",
@@ -131,6 +135,10 @@ export const validateStore = create((set) => ({
     setLeatherWarning: (value) =>
       set((state) => ({
         leatherWarning: { ...state.leatherWarning, bool: value },
+      })),
+    setSecondLeatherWarning: (value) =>
+      set((state) => ({
+        secondLeatherWarning: { ...state.secondLeatherWarning, bool: value },
       })),
     setRingWarning: (value) =>
       set((state) => ({

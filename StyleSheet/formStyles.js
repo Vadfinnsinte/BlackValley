@@ -66,7 +66,7 @@ export const styleCoatForm = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
-    padding: 3,
+    padding: 4,
     paddingLeft: 10,
   },
   inputSmall: {
@@ -76,6 +76,7 @@ export const styleCoatForm = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
+    padding: 4,
   },
   bigInput: {
     height: 110,

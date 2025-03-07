@@ -36,6 +36,7 @@ const CompleteEmail = () => {
     setOpenSent,
     sent,
     setSent,
+    selectedSecondLeather,
   } = formStore();
 
   const [item, setItem] = useState(true);
@@ -51,47 +52,50 @@ const CompleteEmail = () => {
   let buyerObj = {};
   let commingSwe;
 
-  if (comingFromForm === "Coat") {
-    commingSwe = "Täcke";
-    buyerObj = {
-      modell: selectedCoatVariables.selectedModelCoat,
-      measurement: selectedCoatVariables.measurementsCoat,
-      materialColor: selectedCoatVariables.selectedColor,
-      brodyrColour: selectedCoatVariables.brodyrColor,
-      font: selectedCoatVariables.selectedFont,
-      text: selectedCoatVariables.brodyrText,
-      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
-      comment: selectedCoatVariables.commentsCoat,
-    };
-  }
-  if (comingFromForm === "Collar") {
-    commingSwe = "Halsband";
-    buyerObj = {
-      modell: selectedCollarVariables.selectedModalCollar,
-      measurement: selectedCollarVariables.lengthCollar,
-      width: selectedCollarVariables.collarWidth,
-      materialColor: selectedCollarVariables.selectedLeather,
-      brodyrColour: selectedCollarVariables.brodyrColor,
-      metal: selectedCollarVariables.selectedMetal,
-      font: selectedCollarVariables.selectedFont,
-      text: selectedCollarVariables.brodyrText,
-      comment: selectedCollarVariables.commentsCollar,
-    };
-  }
-  if (comingFromForm === "Other") {
-    commingSwe = "Annat";
-    buyerObj = {
-      modell: "inte aplicerbart",
-      measurement: "inte aplicerbart",
-      width: "inte aplicerbart",
-      materialColor: "inte aplicerbart",
-      brodyrColour: "inte aplicerbart",
-      metal: "inte aplicerbart",
-      font: "inte aplicerbart",
-      text: "inte aplicerbart",
-      comment: specialOrder,
-    };
-  }
+  // if (comingFromForm === "Coat") {
+  //   commingSwe = "Täcke";
+  //   buyerObj = {
+  //     modell: selectedCoatVariables.selectedModelCoat,
+  //     measurement: selectedCoatVariables.measurementsCoat,
+  //     materialColor: selectedCoatVariables.selectedColor,
+  //     materialColor2: "Inte aplicerbart",
+  //     brodyrColour: selectedCoatVariables.brodyrColor,
+  //     font: selectedCoatVariables.selectedFont,
+  //     text: selectedCoatVariables.brodyrText,
+  //     legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
+  //     comment: selectedCoatVariables.commentsCoat,
+  //   };
+  // }
+  // if (comingFromForm === "Collar") {
+  //   commingSwe = "Halsband";
+  //   buyerObj = {
+  //     modell: selectedCollarVariables.selectedModalCollar,
+  //     measurement: selectedCollarVariables.lengthCollar,
+  //     width: selectedCollarVariables.collarWidth,
+  //     materialColor: " framsidan " + selectedCollarVariables.selectedLeather,
+  //     materialColor2: selectedCollarVariables.selectedSecondLeather,
+  //     brodyrColour: selectedCollarVariables.brodyrColor,
+  //     metal: selectedCollarVariables.selectedMetal,
+  //     font: selectedCollarVariables.selectedFont,
+  //     text: selectedCollarVariables.brodyrText,
+  //     comment: selectedCollarVariables.commentsCollar,
+  //   };
+  // }
+  // if (comingFromForm === "Other") {
+  //   commingSwe = "Annat";
+  //   buyerObj = {
+  //     modell: "inte aplicerbart",
+  //     measurement: "inte aplicerbart",
+  //     width: "inte aplicerbart",
+  //     materialColor: "inte aplicerbart",
+  //     materialColor2: "inte aplicerbart",
+  //     brodyrColour: "inte aplicerbart",
+  //     metal: "inte aplicerbart",
+  //     font: "inte aplicerbart",
+  //     text: "inte aplicerbart",
+  //     comment: specialOrder,
+  //   };
+  // }
   let prevOrder = {
     messageCoat:
       orderMessage?.messageCoat?.length > 0
@@ -107,19 +111,104 @@ const CompleteEmail = () => {
         : "",
   };
 
-  let message = ` 
-  
-Produkt information:  ${commingSwe}
-Modell:  ${buyerObj.modell}
-Mått:  ${buyerObj.measurement && buyerObj.measurement}
-Färg på ${commingSwe}:  ${buyerObj.materialColor}
-Brodyr Färg:  ${buyerObj.brodyrColour}
-Text (blir exakt som skrivet här):  ${buyerObj.text}
-Besnören:  ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
-Metall på ringar:  ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
-Kommentarer och önskemål:  ${buyerObj.comment}
-Detta är under Test så orden kommer EJ bli uppfyld.
-  `;
+  // let buyerObj = {};
+  // let commingSwe;
+
+  if (comingFromForm === "Coat") {
+    commingSwe = "Täcke";
+    buyerObj = {
+      modell: selectedCoatVariables.selectedModelCoat,
+      measurement: selectedCoatVariables.measurementsCoat,
+      materialColor: selectedCoatVariables.selectedColor,
+      brodyrColour: selectedCoatVariables.brodyrColor,
+      font: selectedCoatVariables.selectedFont,
+      text: selectedCoatVariables.brodyrText,
+      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej", // Endast för Täcke
+      comment: selectedCoatVariables.commentsCoat,
+    };
+  }
+
+  if (comingFromForm === "Collar") {
+    commingSwe = "Halsband";
+    buyerObj = {
+      modell: selectedCollarVariables.selectedModalCollar,
+      measurement: selectedCollarVariables.lengthCollar,
+      width: selectedCollarVariables.collarWidth,
+      materialColor: selectedCollarVariables.selectedLeather,
+      materialColor2: selectedCollarVariables.selectedSecondLeather,
+      brodyrColour: selectedCollarVariables.brodyrColor,
+      metal: selectedCollarVariables.selectedMetal,
+      font: selectedCollarVariables.selectedFont,
+      text: selectedCollarVariables.brodyrText,
+      comment: selectedCollarVariables.commentsCollar,
+    };
+  }
+
+  if (comingFromForm === "Other") {
+    commingSwe = "Annat";
+    buyerObj = {
+      // modell: "inte aplicerbart",
+      // measurement: "inte aplicerbart",
+      // width: "inte aplicerbart",
+      // materialColor: "inte aplicerbart",
+      // materialColor2: "inte aplicerbart",
+      // brodyrColour: "inte aplicerbart",
+      // metal: "inte aplicerbart",
+      // font: "inte aplicerbart",
+      // text: "inte aplicerbart",
+      comment: specialOrder,
+    };
+  }
+
+  //   let message = `
+
+  // Produkt information:  ${commingSwe}
+  // Modell:  ${buyerObj.modell}
+  // Mått:  ${buyerObj.measurement && buyerObj.measurement}
+  // Färg på ${commingSwe}: ${buyerObj.materialColor}
+  // Färg  baksida halsband: ${buyerObj.materialColor2}
+  // Brodyr Färg:  ${buyerObj.brodyrColour}
+  // Text (blir exakt som skrivet här):  ${buyerObj.text}
+  // Besnören:  ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
+  // Metall på ringar:  ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
+  // Kommentarer och önskemål:  ${buyerObj.comment}
+  // Detta är under Test så orden kommer EJ bli uppfyld.
+  //   `;
+
+  let messageParts = [
+    `
+Produkt information: ${commingSwe}`,
+  ];
+
+  if (buyerObj.modell) messageParts.push(`Modell: ${buyerObj.modell}`);
+  if (buyerObj.measurement) messageParts.push(`Mått: ${buyerObj.measurement}`);
+  if (buyerObj.materialColor)
+    messageParts.push(`Färg på ${commingSwe}: ${buyerObj.materialColor}`);
+  if (buyerObj.materialColor2 && comingFromForm === "Collar") {
+    messageParts.push(`Färg baksida halsband: ${buyerObj.materialColor2}`);
+  }
+  if (buyerObj.brodyrColour)
+    messageParts.push(`Brodyr Färg: ${buyerObj.brodyrColour}`);
+  if (buyerObj.font) messageParts.push(`Font: ${buyerObj.font}`);
+  if (buyerObj.text)
+    messageParts.push(`Text (blir exakt som skrivet här): ${buyerObj.text}`);
+  if (buyerObj.legStrings && comingFromForm === "Coat") {
+    messageParts.push(`Bensnören: ${buyerObj.legStrings}`);
+  }
+  if (buyerObj.metal && comingFromForm === "Collar") {
+    messageParts.push(`Metall på ringar: ${buyerObj.metal}`);
+  }
+  if (buyerObj.comment)
+    messageParts.push(`Kommentarer och önskemål: ${buyerObj.comment}`);
+
+  // Lägg till testmeddelandet sist
+  messageParts.push("Detta är under Test så orden kommer EJ bli uppfyllda.");
+
+  // Slå ihop arrayen till en sträng med radbrytningar
+  let message = messageParts.join("\n");
+
+  console.log(message);
+
   if (!item) {
     message = "";
   }
@@ -256,7 +345,6 @@ Detta är under Test så orden kommer EJ bli uppfyld.
           }>
           <Text
             style={{ fontSize: 18, flexWrap: "wrap", wordBreak: "break-word" }}>
-            {/* Produkt information: */}
             {message}
           </Text>
           <Text style={{ fontSize: 18 }}>{prevOrder.messageCoat}</Text>
