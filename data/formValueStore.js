@@ -63,6 +63,7 @@ const formValuesStore = create((set) => ({
     selectedModalCollar: null,
     selectedWidth: "",
     selectedLeather: "",
+    selectedSecondLeather: "",
     selectedMetal: "",
     selectedFont: "",
     lengthCollar: "",
@@ -91,6 +92,13 @@ const formValuesStore = create((set) => ({
         selectedCollarVariables: {
           ...state.selectedCollarVariables,
           selectedLeather: value,
+        },
+      })),
+    setSelectedSecondLeather: (value) =>
+      set((state) => ({
+        selectedCollarVariables: {
+          ...state.selectedCollarVariables,
+          selectedSecondLeather: value,
         },
       })),
     setSelectedMetal: (value) =>
@@ -204,11 +212,13 @@ const formValuesStore = create((set) => ({
     selectedModelCoat: null,
     selectedColor: null,
     colorColar: false,
+    softShellChosen: false,
     chosenFont: fontItems,
     selectedFont: "",
     legString: null,
     measurementsCoat: "",
     cosyCollarColor: "",
+    softshellColor: "",
     brodyrColor: "",
     brodyrText: "",
     commentsCoat: "",
@@ -256,6 +266,13 @@ const formValuesStore = create((set) => ({
           cosyCollarColor: value,
         },
       })),
+    setSoftshellColor: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          softshellColor: value,
+        },
+      })),
     setBrodyrColor: (value) =>
       set((state) => ({
         selectedCoatVariables: {
@@ -282,6 +299,13 @@ const formValuesStore = create((set) => ({
         selectedCoatVariables: {
           ...state.selectedCoatVariables,
           colorColar: value,
+        },
+      })),
+    setSoftShellChosen: (value) =>
+      set((state) => ({
+        selectedCoatVariables: {
+          ...state.selectedCoatVariables,
+          softShellChosen: value,
         },
       })),
     setSelectedFont: (value) =>
@@ -319,6 +343,8 @@ const formValuesStore = create((set) => ({
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),
+  saved: false,
+  setSaved: (value) => set({ saved: value }),
 
   specialOrder: "",
   setSpecialOrder: (value) => set({ specialOrder: value }),
