@@ -343,6 +343,8 @@ const formValuesStore = create((set) => ({
   //Saving which form you are on
   comingFromForm: "",
   setComingFromForm: (value) => set({ comingFromForm: value }),
+  saved: false,
+  setSaved: (value) => set({ saved: value }),
 
   specialOrder: "",
   setSpecialOrder: (value) => set({ specialOrder: value }),

@@ -36,6 +36,7 @@ const CompleteEmail = () => {
     setOpenSent,
     sent,
     setSent,
+    setSaved,
   } = formStore();
 
   const [item, setItem] = useState(true);
@@ -51,50 +52,6 @@ const CompleteEmail = () => {
   let buyerObj = {};
   let commingSwe;
 
-  // if (comingFromForm === "Coat") {
-  //   commingSwe = "Täcke";
-  //   buyerObj = {
-  //     modell: selectedCoatVariables.selectedModelCoat,
-  //     measurement: selectedCoatVariables.measurementsCoat,
-  //     materialColor: selectedCoatVariables.selectedColor,
-  //     materialColor2: "Inte aplicerbart",
-  //     brodyrColour: selectedCoatVariables.brodyrColor,
-  //     font: selectedCoatVariables.selectedFont,
-  //     text: selectedCoatVariables.brodyrText,
-  //     legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
-  //     comment: selectedCoatVariables.commentsCoat,
-  //   };
-  // }
-  // if (comingFromForm === "Collar") {
-  //   commingSwe = "Halsband";
-  //   buyerObj = {
-  //     modell: selectedCollarVariables.selectedModalCollar,
-  //     measurement: selectedCollarVariables.lengthCollar,
-  //     width: selectedCollarVariables.collarWidth,
-  //     materialColor: " framsidan " + selectedCollarVariables.selectedLeather,
-  //     materialColor2: selectedCollarVariables.selectedSecondLeather,
-  //     brodyrColour: selectedCollarVariables.brodyrColor,
-  //     metal: selectedCollarVariables.selectedMetal,
-  //     font: selectedCollarVariables.selectedFont,
-  //     text: selectedCollarVariables.brodyrText,
-  //     comment: selectedCollarVariables.commentsCollar,
-  //   };
-  // }
-  // if (comingFromForm === "Other") {
-  //   commingSwe = "Annat";
-  //   buyerObj = {
-  //     modell: "inte aplicerbart",
-  //     measurement: "inte aplicerbart",
-  //     width: "inte aplicerbart",
-  //     materialColor: "inte aplicerbart",
-  //     materialColor2: "inte aplicerbart",
-  //     brodyrColour: "inte aplicerbart",
-  //     metal: "inte aplicerbart",
-  //     font: "inte aplicerbart",
-  //     text: "inte aplicerbart",
-  //     comment: specialOrder,
-  //   };
-  // }
   let prevOrder = {
     messageCoat:
       orderMessage?.messageCoat?.length > 0
@@ -110,9 +67,6 @@ const CompleteEmail = () => {
         : "",
   };
 
-  // let buyerObj = {};
-  // let commingSwe;
-
   if (comingFromForm === "Coat") {
     commingSwe = "Täcke";
     buyerObj = {
@@ -124,7 +78,7 @@ const CompleteEmail = () => {
       cozyCollar: selectedCoatVariables.cosyCollarColor,
       font: selectedCoatVariables.selectedFont,
       text: selectedCoatVariables.brodyrText,
-      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej", // Endast för Täcke
+      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
       comment: selectedCoatVariables.commentsCoat,
     };
   }
@@ -152,11 +106,10 @@ const CompleteEmail = () => {
     };
   }
 
-  let messageParts = [
-    `
-Produkt information: ${commingSwe}`,
-  ];
-
+  let messageParts = [];
+  if (commingSwe !== undefined) {
+    messageParts.push(`Produkt information: ${commingSwe}`);
+  }
   if (buyerObj.modell) messageParts.push(`Modell: ${buyerObj.modell}`);
   if (buyerObj.measurement) messageParts.push(`Mått: ${buyerObj.measurement}`);
   if (buyerObj.materialColor)
@@ -199,6 +152,7 @@ Produkt information: ${commingSwe}`,
     setItem(true);
     keepSome = false;
     setOpenCancel(false);
+    setSaved(false);
     closeAllSteps();
   };
   const closeAllSteps = () => {
@@ -229,16 +183,24 @@ Produkt information: ${commingSwe}`,
   };
 
   const saveOrder = (shouldClose = true) => {
-    console.log(onlySave);
-
-    if (comingFromForm === "Coat") {
+    setSaved(true);
+    if (
+      comingFromForm === "Coat" &&
+      !orderMessage.messageCoat.includes(message)
+    ) {
       setOrderMessage.setMessageCoat([...orderMessage.messageCoat, message]);
-    } else if (comingFromForm === "Collar") {
+    } else if (
+      comingFromForm === "Collar" &&
+      !orderMessage.messageCollar.includes(message)
+    ) {
       setOrderMessage.setMessageCollar([
         ...orderMessage.messageCollar,
         message,
       ]);
-    } else if (comingFromForm === "Other") {
+    } else if (
+      comingFromForm === "Other" &&
+      !orderMessage.messageOther.includes(message)
+    ) {
       setOrderMessage.setMessageOther([...orderMessage.messageOther, message]);
     }
 
