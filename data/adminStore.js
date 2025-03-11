@@ -12,11 +12,12 @@ export const adminStore = create((set) => ({
   openAddLeather: false,
   setOpenAddLeather: (value) => set({ openAddLeather: value }),
 
-
   openAddSoftshell: false,
   setOpenAddSoftshell: (value) => set({ openAddSoftshell: value }),
 
   openAddInspo: false,
   setOpenAddInspo: (value) => set({ openAddInspo: value }),
 
+  openAddOther: false,
+  setOpenAddOther: (value) => set({ openAddOther: value }),
 }));

@@ -16,6 +16,9 @@ export const adminHooks = () => {
   const openAddInspo = adminStore((state) => state.openAddInspo);
   const setOpenAddInspo = adminStore((state) => state.setOpenAddInspo);
 
+  const openAddOther = adminStore((state) => state.openAddOther);
+  const setOpenAddOther = adminStore((state) => state.setOpenAddOther);
+
   return {
     loginModalOpen,
     setLoginModalOpen,
@@ -29,6 +32,7 @@ export const adminHooks = () => {
     openAddSoftshell,
     openAddInspo,
     setOpenAddInspo,
-
+    openAddOther,
+    setOpenAddOther,
   };
 };

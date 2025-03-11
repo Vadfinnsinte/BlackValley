@@ -8,6 +8,7 @@ import {
   useColorScheme,
   useWindowDimensions,
   View,
+  Pressable,
 } from "react-native";
 import woolBg from "../../../assets/images/woolImage.jpg";
 import GradientBackground from "../../../components/GradiantBackground";
@@ -15,11 +16,17 @@ import { Colors } from "@/constants/Colors";
 import { styles } from "./materialWool";
 import { fetchCollection } from "../../../functions/fetchCollection";
 import { useEffect, useState } from "react";
+import { adminHooks } from "../../../data/adminStoreHooks";
+import AddOtherModal from "../../../components/AddOther";
+import { auth } from "../../../firebaseConfigTwo";
+import { checkboxStyle } from "../../../StyleSheet/formStyles";
 const MaterialOther = () => {
   const [list, setList] = useState([]);
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme] || Colors.light;
   const { width } = useWindowDimensions();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const { openAddOther, setOpenAddOther } = adminHooks();
 
   const numberOfcolums =
     width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
@@ -28,6 +35,11 @@ const MaterialOther = () => {
     const sortedList = response.sort((a, b) => a.group.localeCompare(b.group));
     setList(sortedList);
   };
+  useEffect(() => {
+    setLoggedIn(!!auth.currentUser);
+    console.log("ändrat user");
+  }, [auth.currentUser]);
+
   useEffect(() => {
     fetch();
   }, []);
@@ -42,6 +54,7 @@ const MaterialOther = () => {
           ]}
           source={{ uri: image }}
           accessibilityLabel={alt}
+          resizeMode="contain"
         />
         <Text
           style={{ color: themeColors.text }}
@@ -65,6 +78,15 @@ const MaterialOther = () => {
               className="text-center text-2xl">
               Tillbehör och font
             </Text>
+            {loggedIn && (
+              <Pressable onPress={() => setOpenAddOther(true)}>
+                <Text style={checkboxStyle.button}>Lägg till</Text>
+              </Pressable>
+            )}
+
+            {openAddOther && (
+              <AddOtherModal from="other" fetchProducts={fetch} />
+            )}
 
             <FlatList
               contentContainerStyle={styles.container}
