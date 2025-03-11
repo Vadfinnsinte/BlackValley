@@ -152,21 +152,6 @@ const CompleteEmail = () => {
     };
   }
 
-  //   let message = `
-
-  // Produkt information:  ${commingSwe}
-  // Modell:  ${buyerObj.modell}
-  // Mått:  ${buyerObj.measurement && buyerObj.measurement}
-  // Färg på ${commingSwe}: ${buyerObj.materialColor}
-  // Färg  baksida halsband: ${buyerObj.materialColor2}
-  // Brodyr Färg:  ${buyerObj.brodyrColour}
-  // Text (blir exakt som skrivet här):  ${buyerObj.text}
-  // Besnören:  ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
-  // Metall på ringar:  ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
-  // Kommentarer och önskemål:  ${buyerObj.comment}
-  // Detta är under Test så orden kommer EJ bli uppfyld.
-  //   `;
-
   let messageParts = [
     `
 Produkt information: ${commingSwe}`,

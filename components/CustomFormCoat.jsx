@@ -186,6 +186,9 @@ const CustomFormCoat = () => {
                 );
                 setWarnings.setModelWarningCoat(false);
                 setSelectedCoatVariables.setSelectedModelCoat(newValue);
+                if (newValue !== "Limitless") {
+                  setSelectedCoatVariables.setSoftShellChosen(false);
+                }
               }}
             />
           </View>
@@ -257,9 +260,9 @@ const CustomFormCoat = () => {
             selectedCoatVariables.softShellChosen) && (
             <View style={{ zIndex: 8 }}>
               <Text style={{ color: themeColors.text }}>
-                {selectedCoatVariables.colorColar
-                  ? "Färg på Cosy krage"
-                  : "Färg på Softshell"}
+                {selectedCoatVariables.softShellChosen
+                  ? "Färg på Softshell"
+                  : "Färg på Cosy krage"}
               </Text>
               <DropDownPicker
                 showArrowIcon={false}
@@ -275,13 +278,6 @@ const CustomFormCoat = () => {
                 placeholder="Välj en färg"
                 style={styleCoatForm.dropDown}
                 dropDownContainerStyle={{ maxHeight: 150 }}
-                // setValue={(callback) => {
-                //   const newValue = callback(
-                //     selectedCoatVariables.cosyCollarColor
-                //   );
-                //   setWarnings.setModelWarningCoat(false);
-                //   setSelectedCoatVariables.setCosyCollarColor(newValue);
-                // }}
                 setValue={(callback) => {
                   const newValue = callback(
                     selectedCoatVariables.colorColar
