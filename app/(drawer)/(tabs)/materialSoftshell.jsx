@@ -19,6 +19,7 @@ import { adminHooks } from "../../../data/adminStoreHooks";
 import { auth } from "../../../firebaseConfigTwo";
 import { checkboxStyle } from "../../../StyleSheet/formStyles";
 import AddModal from "../../../components/AddWoolProduct";
+import AddSoftshellModal from "../../../components/AddSoftshell";
 const MaterialScreenSoftshell = () => {
   const { width } = useWindowDimensions();
   const [listOfSoftshell, setListOfSoftshell] = useState([]);
@@ -60,18 +61,18 @@ const MaterialScreenSoftshell = () => {
                 className="text-center text-2xl">
                 Softshell till täcken
               </Text>
-              {/* <Text
-                style={{ color: themeColors.text }}
-                className="text-center ">
-                (Färgerna kan avvika från verkligheten)
-              </Text> */}
               {loggedIn && (
                 <Pressable onPress={() => setOpenAddSoftshell(true)}>
                   <Text style={checkboxStyle.button}>Lägg till</Text>
                 </Pressable>
               )}
 
-              {openAddSoftshell && <AddModal from="softshell" />}
+              {openAddSoftshell && (
+                <AddSoftshellModal
+                  from="softshell"
+                  fetchProducts={fetchProducts}
+                />
+              )}
             </View>
             <FlatList
               contentContainerStyle={styles.container}

@@ -9,6 +9,8 @@ export const adminHooks = () => {
   const setOpenAddWool = adminStore((state) => state.setOpenAddWool);
   const openAddLeather = adminStore((state) => state.openAddLeather);
   const setOpenAddLeather = adminStore((state) => state.setOpenAddLeather);
+  const openAddSoftshell = adminStore((state) => state.openAddLeather);
+  const setOpenAddSoftshell = adminStore((state) => state.setOpenAddLeather);
   return {
     loginModalOpen,
     setLoginModalOpen,
@@ -18,5 +20,7 @@ export const adminHooks = () => {
     setOpenAddWool,
     openAddLeather,
     setOpenAddLeather,
+    setOpenAddSoftshell,
+    openAddSoftshell,
   };
 };
