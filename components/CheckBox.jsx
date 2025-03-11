@@ -151,10 +151,13 @@ const CheckBox = () => {
         </View>
       </View>
       <Text
-        style={[
-          styleCoatForm.redText,
-          { opacity: checkBoxWarnings.bool ? 1 : 0 },
-        ]}>
+        style={{
+          color: themeColors.warningColor,
+          opacity: checkBoxWarnings.bool ? 1 : 0,
+          textAlign: "center",
+          marginBottom: -2,
+          marginTop: -2,
+        }}>
         {checkBoxWarnings.message}
       </Text>
     </View>

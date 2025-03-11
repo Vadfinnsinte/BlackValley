@@ -163,10 +163,10 @@ const CustomFormCoat = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Modell</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: modelWarningCoat.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: modelWarningCoat.bool ? 1 : 0,
+                }}>
                 {modelWarningCoat.message}
               </Text>
             </View>
@@ -196,10 +196,10 @@ const CustomFormCoat = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Mått</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: measureWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: measureWarning.bool ? 1 : 0,
+                }}>
                 {measureWarning.message}
               </Text>
             </View>
@@ -226,10 +226,10 @@ const CustomFormCoat = () => {
                 Önskad färg på tyg
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: woolWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: woolWarning.bool ? 1 : 0,
+                }}>
                 {woolWarning.message}
               </Text>
             </View>
@@ -364,10 +364,10 @@ const CustomFormCoat = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Bensnören? </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: legStringWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: legStringWarning.bool ? 1 : 0,
+                }}>
                 {legStringWarning.message}
               </Text>
             </View>

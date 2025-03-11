@@ -25,6 +25,7 @@ export const Colors = {
     hamburgerTextActive: "#fff",
     hamburgerText: "#000",
     detail: "#378182",
+    warningColor: "#ad2424",
   },
   dark: {
     text: "#ECEDEE",
@@ -44,5 +45,6 @@ export const Colors = {
     hamburgerText: "#fff",
     hamburgerTextActive: "#fff",
     detail: "#82BCBD",
+    warningColor: "#f87171",
   },
 };

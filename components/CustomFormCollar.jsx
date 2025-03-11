@@ -150,10 +150,10 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Modell</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: collarModelWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: collarModelWarning.bool ? 1 : 0,
+                }}>
                 {collarModelWarning.message}
               </Text>
             </View>
@@ -181,10 +181,10 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Mått</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: measureWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: measureWarning.bool ? 1 : 0,
+                }}>
                 {measureWarning.message}
               </Text>
             </View>
@@ -205,10 +205,10 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Bredd</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: widthWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: widthWarning.bool ? 1 : 0,
+                }}>
                 {widthWarning.message}
               </Text>
             </View>
@@ -243,10 +243,10 @@ const CustomFormCollar = () => {
                 Färg på skinn framsida
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: leatherWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: leatherWarning.bool ? 1 : 0,
+                }}>
                 {leatherWarning.message}
               </Text>
             </View>
@@ -288,10 +288,10 @@ const CustomFormCollar = () => {
                 Färg på skinn backsidan
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: secondLeatherWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: secondLeatherWarning.bool ? 1 : 0,
+                }}>
                 {secondLeatherWarning.message}
               </Text>
             </View>
@@ -324,10 +324,10 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Metall till ring</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: ringWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: ringWarning.bool ? 1 : 0,
+                }}>
                 {ringWarning.message}
               </Text>
             </View>

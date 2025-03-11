@@ -310,7 +310,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
+                { color: "#000", backgroundColor: "#82BCBD" },
               ]}>
               Lägg till en produkt
             </Text>
@@ -319,7 +319,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { backgroundColor: "#000", color: themeColors.detail },
+                { backgroundColor: "#000", color: "#82BCBD" },
               ]}>
               Avbryt
             </Text>
@@ -333,7 +333,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
+                { color: "#000", backgroundColor: "#82BCBD" },
               ]}>
               Skicka beställning
             </Text>
@@ -404,8 +404,7 @@ const CompleteEmail = () => {
                     { backgroundColor: "#000", minWidth: 50 },
                   ]}
                   onPress={() => setConfirm(false)}>
-                  <Text
-                    style={{ color: themeColors.detail, textAlign: "center" }}>
+                  <Text style={{ color: "#82BCBD", textAlign: "center" }}>
                     Nej
                   </Text>
                 </Pressable>
@@ -413,7 +412,7 @@ const CompleteEmail = () => {
                   style={[
                     stylesModalForm.buttons,
                     {
-                      backgroundColor: themeColors.detail,
+                      backgroundColor: "#82BCBD",
                       minWidth: 50,
                     },
                   ]}

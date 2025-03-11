@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TextInput,
+  useColorScheme,
 } from "react-native";
 import { adminHooks } from "../data/adminStoreHooks";
 import {
@@ -16,11 +17,14 @@ import {
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
+import { Colors } from "../constants/Colors";
 
 const AddModal = ({ from, fetchProducts }) => {
   const [color, setColor] = useState("");
   // const [status, setStatus] = useState(true)
   const [colorGroup, setColorGroup] = useState("");
+  const colorScheme = useColorScheme();
+  const themeColors = Colors[colorScheme] || Colors.light;
   const [url, setUrl] = useState("");
   const [warning, setWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
@@ -95,7 +99,11 @@ const AddModal = ({ from, fetchProducts }) => {
               />
             </View>
             {warning && (
-              <Text style={[styleCoatForm.warning, { textAlign: "center" }]}>
+              <Text
+                style={{
+                  color: themeColors.warningColor,
+                  textAlign: "center",
+                }}>
                 {warningMessage}
               </Text>
             )}

@@ -117,7 +117,7 @@ export const styleCoatForm = StyleSheet.create({
   },
   redText: {
     textAlign: "center",
-    color: "#f87171",
+
     marginBottom: -2,
     marginTop: -2,
   },

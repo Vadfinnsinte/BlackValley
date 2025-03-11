@@ -136,10 +136,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Förnamn</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: nameWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: nameWarning.bool ? 1 : 0,
+                }}>
                 {nameWarning.message}
               </Text>
             </View>
@@ -157,10 +157,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Efternamn</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: surnameWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: surnameWarning.bool ? 1 : 0,
+                }}>
                 {surnameWarning.message}
               </Text>
             </View>
@@ -184,10 +184,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: phoneWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: phoneWarning.bool ? 1 : 0,
+                }}>
                 {phoneWarning.message}
               </Text>
             </View>
@@ -206,10 +206,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Mailadress</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: emailWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: emailWarning.bool ? 1 : 0,
+                }}>
                 {emailWarning.message}
               </Text>
             </View>
@@ -234,10 +234,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Gata</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: streetWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: streetWarning.bool ? 1 : 0,
+                }}>
                 {streetWarning.message}
               </Text>
             </View>
@@ -260,10 +260,10 @@ const ContactForm = ({}) => {
               }}>
               <Text style={{ color: themeColors.text }}>Postnummer</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: postalWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: postalWarning.bool ? 1 : 0,
+                }}>
                 {postalWarning.message}
               </Text>
             </View>
@@ -287,10 +287,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Postort</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: postalWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: postalWarning.bool ? 1 : 0,
+                }}>
                 {postalWarning.message}
               </Text>
             </View>
@@ -316,9 +316,7 @@ const ContactForm = ({}) => {
           onPress={() => {
             continueToNext();
           }}>
-          <Text style={{ color: themeColors.detail, textAlign: "center" }}>
-            Granska
-          </Text>
+          <Text style={{ color: "#82BCBD", textAlign: "center" }}>Granska</Text>
         </Pressable>
       </View>
     </View>
