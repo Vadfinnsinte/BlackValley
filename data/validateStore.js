@@ -11,7 +11,7 @@ export const validateStore = create((set) => ({
   },
   measureWarning: {
     bool: false,
-    message: "*Vänlig skriv in mått",
+    message: "format: a 43, b 55, c 66 | a 43 b 55 c 66",
   },
   woolWarning: {
     bool: false,

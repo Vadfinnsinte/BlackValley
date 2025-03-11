@@ -101,14 +101,18 @@ const CustomFormCoat = () => {
     setComingFromForm("Coat");
   }, []);
   console.log(selectedCoatVariables.selectedModelCoat);
-
+  const measurementPattern =
+    /^[aA]\s?\d+\s*[,\s]\s*[bB]\s?\d+\s*[,\s]\s*[cC]\s?\d+$/;
   const continueToNext = () => {
     let warning = false;
     if (selectedCoatVariables.selectedModelCoat === null) {
       setWarnings.setModelWarningCoat(true);
       warning = true;
     }
-    if (selectedCoatVariables.measurementsCoat === "") {
+    if (
+      selectedCoatVariables.measurementsCoat === "" ||
+      !measurementPattern.test(selectedCoatVariables.measurementsCoat)
+    ) {
       setWarnings.setMeasureWarning(true);
       warning = true;
     }
@@ -194,17 +198,29 @@ const CustomFormCoat = () => {
           </View>
           <View>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: themeColors.text }}>Mått</Text>
-              <Text
+              <Text style={{ color: themeColors.text }}>
+                Mått{" "}
+                <Text
+                  style={{
+                    color: !measureWarning.bool
+                      ? themeColors.text
+                      : themeColors.warningColor,
+                  }}>
+                  {!measureWarning.bool
+                    ? "(a rygg, b bröst, c hals) "
+                    : "*ogiltigt format"}
+                </Text>
+              </Text>
+              {/* <Text
                 style={{
                   color: themeColors.warningColor,
                   opacity: measureWarning.bool ? 1 : 0,
                 }}>
                 {measureWarning.message}
-              </Text>
+              </Text> */}
             </View>
             <TextInput
-              placeholder="rygg, bröst, hals (i cm)"
+              placeholder=" a rygg, b bröst, c hals (i cm)"
               placeholderTextColor="#808080"
               // keyboardType="numeric"
               value={selectedCoatVariables.measurementsCoat}
@@ -213,6 +229,13 @@ const CustomFormCoat = () => {
                 setWarnings.setMeasureWarning(false);
               }}
               style={styleCoatForm.input}></TextInput>
+            <Text
+              style={{
+                color: themeColors.warningColor,
+                opacity: measureWarning.bool ? 1 : 0,
+              }}>
+              {measureWarning.message}
+            </Text>
           </View>
         </View>
         <View
