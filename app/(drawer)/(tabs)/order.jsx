@@ -35,6 +35,8 @@ const OrderScreen = () => {
     openSent,
     setOpenSent,
     sent,
+    saved,
+    setComingFromForm,
   } = formStore();
   const { setWarnings } = validateStoreHooks();
 
@@ -117,9 +119,29 @@ const OrderScreen = () => {
                   {chosenStep.stepOne && (
                     <View>
                       <CheckBox />
-                      <Pressable onPress={openCustomForm}>
-                        <Text style={checkboxStyle.button}>Gå vidare</Text>
-                      </Pressable>
+                      <View
+                        style={{
+                          alignSelf: "center",
+                          flexDirection: width > 780 ? "row" : "column",
+                        }}>
+                        <Pressable onPress={openCustomForm}>
+                          <Text style={checkboxStyle.button}>Gå vidare</Text>
+                        </Pressable>
+                        {saved && (
+                          <Pressable
+                            onPress={() => {
+                              setChosenStep.setStepOne(false);
+                              setChosenStep.setStepTwo(false);
+                              setChosenStep.setStepThree(false);
+                              setChosenStep.setStepFour(true);
+                              setComingFromForm("Sparad order");
+                            }}>
+                            <Text style={checkboxStyle.button}>
+                              Gå till sparad beställning
+                            </Text>
+                          </Pressable>
+                        )}
+                      </View>
                       <Text
                         style={{ color: themeColors.text }}
                         className="text-center text-s -mt-2">
