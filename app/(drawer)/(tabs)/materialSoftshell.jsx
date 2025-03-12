@@ -19,12 +19,13 @@ import { adminHooks } from "../../../data/adminStoreHooks";
 import { auth } from "../../../firebaseConfigTwo";
 import { checkboxStyle } from "../../../StyleSheet/formStyles";
 import AddModal from "../../../components/AddWoolProduct";
-const MaterialScreenLeather = () => {
+import AddSoftshellModal from "../../../components/AddSoftshell";
+const MaterialScreenSoftshell = () => {
   const { width } = useWindowDimensions();
-  const [listOfLeather, setlistOfLeather] = useState([]);
+  const [listOfSoftshell, setListOfSoftshell] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const { openAddLeather, setOpenAddLeather } = adminHooks();
+  const { openAddSoftshell, setOpenAddSoftshell } = adminHooks();
 
   const numberOfcolums =
     width > 1200 ? 5 : width > 880 ? 4 : width > 700 ? 3 : 2;
@@ -32,11 +33,11 @@ const MaterialScreenLeather = () => {
   const themeColors = Colors[colorScheme] || Colors.light;
 
   const fetchProducts = async () => {
-    const snapshot = await fetchCollection("leather");
+    const snapshot = await fetchCollection("softshell");
     const sortedList = snapshot.sort((a, b) =>
       a.colorGroup.localeCompare(b.colorGroup)
     );
-    setlistOfLeather(sortedList);
+    setListOfSoftshell(sortedList);
   };
   useEffect(() => {
     setLoggedIn(!!auth.currentUser);
@@ -58,26 +59,24 @@ const MaterialScreenLeather = () => {
               <Text
                 style={{ color: themeColors.text }}
                 className="text-center text-2xl">
-                Läder till halsband
-              </Text>
-              <Text
-                style={{ color: themeColors.text }}
-                className="text-center ">
-                (Färgerna kan avvika från verkligheten)
+                Softshell till täcken
               </Text>
               {loggedIn && (
-                <Pressable onPress={() => setOpenAddLeather(true)}>
+                <Pressable onPress={() => setOpenAddSoftshell(true)}>
                   <Text style={checkboxStyle.button}>Lägg till</Text>
                 </Pressable>
               )}
 
-              {openAddLeather && (
-                <AddModal from="leather" fetchProducts={fetchProducts} />
+              {openAddSoftshell && (
+                <AddSoftshellModal
+                  from="softshell"
+                  fetchProducts={fetchProducts}
+                />
               )}
             </View>
             <FlatList
               contentContainerStyle={styles.container}
-              data={listOfLeather}
+              data={listOfSoftshell}
               numColumns={numberOfcolums}
               key={numberOfcolums}
               renderItem={({ item }) => (
@@ -111,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MaterialScreenLeather;
+export default MaterialScreenSoftshell;

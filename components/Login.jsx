@@ -4,17 +4,27 @@ import { adminHooks } from "../data/adminStoreHooks";
 import { auth } from "../firebaseConfigTwo";
 import { useState } from "react";
 import { Colors } from "../constants/Colors";
-
-const {
+import {
   Modal,
-  TextInput,
-  Text,
-  View,
   Pressable,
-  useWindowDimensions,
-  useColorScheme,
   StyleSheet,
-} = require("react-native");
+  TextInput,
+  useColorScheme,
+  useWindowDimensions,
+  View,
+  Text,
+} from "react-native";
+
+// const {
+//   Modal,
+//   TextInput,
+//   Text,
+//   View,
+//   Pressable,
+//   useWindowDimensions,
+//   useColorScheme,
+//   StyleSheet,
+// } = require("react-native");
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

@@ -68,6 +68,8 @@ const formStore = () => {
   const setOpenSent = formValuesStore((state) => state.setOpenSent);
   const sent = formValuesStore((state) => state.sent);
   const setSent = formValuesStore((state) => state.setSent);
+  const saved = formValuesStore((state) => state.saved);
+  const setSaved = formValuesStore((state) => state.setSaved);
 
   return {
     setUserInformation,
@@ -110,6 +112,8 @@ const formStore = () => {
     setOpenSent,
     sent,
     setSent,
+    saved,
+    setSaved,
   };
 };
 

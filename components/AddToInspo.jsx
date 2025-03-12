@@ -5,7 +5,6 @@ import {
   Text,
   View,
   TextInput,
-  useColorScheme,
 } from "react-native";
 import { adminHooks } from "../data/adminStoreHooks";
 import {
@@ -13,48 +12,36 @@ import {
   styleCoatForm,
   stylesModalForm,
 } from "../StyleSheet/formStyles";
-// import { TextInput } from "react-native-web";
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
-import { Colors } from "../constants/Colors";
 
-const AddModal = ({ from, fetchProducts }) => {
-  const [color, setColor] = useState("");
-  // const [status, setStatus] = useState(true)
-  const [colorGroup, setColorGroup] = useState("");
-  const colorScheme = useColorScheme();
-  const themeColors = Colors[colorScheme] || Colors.light;
+const AddToInspo = ({ fetchInspo }) => {
+  const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [warning, setWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
-  const { openAddWool, setOpenAddWool, openAddLeather, setOpenAddLeather } =
-    adminHooks();
-  const handleAddWool = async () => {
+  const { openAddInspo, setOpenAddInspo } = adminHooks();
+
+  const handleAddInspo = async () => {
     if (!auth.currentUser) {
       setWarning(true);
       setWarningMessage("Måste logga in för att göra ändringar");
       return;
-    } else if (color === "" || url === "" || colorGroup === "") {
+    } else if (name === "" || url === "") {
       setWarning(true);
       setWarningMessage("Vänligen fyll i alla fält");
       return;
     } else {
-      const collectionName = from === "wool" ? "wool" : "leather";
       try {
-        const docRef = await addDoc(collection(db, collectionName), {
-          color: color,
-          colorGroup: colorGroup,
-          status: true,
+        const docRef = await addDoc(collection(db, "inspiration"), {
+          name: name,
           url: url,
         });
-        setColor("");
-        setColorGroup("");
+        setName("");
         setUrl("");
-        setOpenAddWool(false);
-        setOpenAddLeather(false);
-
-        fetchProducts();
+        setOpenAddInspo(false);
+        fetchInspo();
       } catch (error) {
         setWarning(true);
         setWarningMessage(
@@ -63,29 +50,18 @@ const AddModal = ({ from, fetchProducts }) => {
       }
     }
   };
-  let material = from === "wool" ? "ull" : "läder";
 
   return (
     <View>
-      <Modal
-        visible={from === "wool" ? openAddWool : openAddLeather}
-        transparent={true}>
+      <Modal visible={openAddInspo} transparent={true}>
         <View style={stylesModalForm.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={{ textAlign: "center" }}>Lägg till {material}</Text>
+            <Text style={{ textAlign: "center" }}>Lägg till </Text>
             <View style={{ margin: 10 }}>
-              <Text>Färg: </Text>
+              <Text>Beskrinvning(kort): </Text>
               <TextInput
-                value={color}
-                onChangeText={setColor}
-                style={styles.input}
-              />
-            </View>
-            <View style={{ margin: 10 }}>
-              <Text>Färg grupp</Text>
-              <TextInput
-                value={colorGroup}
-                onChangeText={setColorGroup}
+                value={name}
+                onChangeText={setName}
                 style={styles.input}
               />
             </View>
@@ -99,24 +75,15 @@ const AddModal = ({ from, fetchProducts }) => {
               />
             </View>
             {warning && (
-              <Text
-                style={{
-                  color: themeColors.warningColor,
-                  textAlign: "center",
-                }}>
+              <Text style={[styleCoatForm.warning, { textAlign: "center" }]}>
                 {warningMessage}
               </Text>
             )}
             <View style={{ flexDirection: "row", margin: 10 }}>
-              <Pressable
-                onPress={() =>
-                  from === "wool"
-                    ? setOpenAddWool(false)
-                    : setOpenAddLeather(false)
-                }>
+              <Pressable onPress={() => setOpenAddInspo(false)}>
                 <Text style={checkboxStyle.button}>Avbryt</Text>
               </Pressable>
-              <Pressable onPress={handleAddWool}>
+              <Pressable onPress={handleAddInspo}>
                 <Text style={styles.button}>Lägg till</Text>
               </Pressable>
             </View>
@@ -126,7 +93,7 @@ const AddModal = ({ from, fetchProducts }) => {
     </View>
   );
 };
-export default AddModal;
+export default AddToInspo;
 const styles = StyleSheet.create({
   modalContent: {
     width: 250,

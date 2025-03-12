@@ -44,6 +44,7 @@ const CustomFormCollar = () => {
     widthWarning,
     leatherWarning,
     ringWarning,
+    secondLeatherWarning,
   } = validateStoreHooks();
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
@@ -62,6 +63,7 @@ const CustomFormCollar = () => {
     { label: "Solid mässing (40:- extra)", value: "Solid mässing" },
   ]);
   const [leathers, setLeathers] = useState([]);
+  const [openSecond, setOpenSecond] = useState(false);
 
   const fetchLeatherColors = async () => {
     const response = await fetchCollection("leather");
@@ -102,6 +104,10 @@ const CustomFormCollar = () => {
     }
     if (selectedCollarVariables.selectedMetal === "") {
       setWarnings.setRingWarning(true);
+      warning = true;
+    }
+    if (selectedCollarVariables.selectedSecondLeather === "") {
+      setWarnings.setSecondLeatherWarning(true);
       warning = true;
     } else if (!warning) {
       setChosenStep.setStepThree(true);
@@ -144,14 +150,15 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Modell</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: collarModelWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: collarModelWarning.bool ? 1 : 0,
+                }}>
                 {collarModelWarning.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={collarModelOpen}
               onRequestClose={() => setCollarModelOpen(false)}
               items={models}
@@ -174,14 +181,16 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Mått</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: measureWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: measureWarning.bool ? 1 : 0,
+                }}>
                 {measureWarning.message}
               </Text>
             </View>
             <TextInput
+              placeholder="Skriv i cm"
+              placeholderTextColor="#808080"
               // keyboardType="numeric"
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
@@ -196,14 +205,15 @@ const CustomFormCollar = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Bredd</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: widthWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: widthWarning.bool ? 1 : 0,
+                }}>
                 {widthWarning.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openWidth}
               value={selectedCollarVariables.selectedWidth}
               items={collarWidth}
@@ -230,17 +240,18 @@ const CustomFormCollar = () => {
           <View style={{ zIndex: 11 }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>
-                Önskad färg på skinn
+                Färg på skinn framsida
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: leatherWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: leatherWarning.bool ? 1 : 0,
+                }}>
                 {leatherWarning.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openLeather}
               value={selectedCollarVariables.selectedLeather}
               items={leathers}
@@ -258,6 +269,7 @@ const CustomFormCollar = () => {
               }}
             />
           </View>
+
           <View>
             <Text style={{ color: themeColors.text }}>Färg på brodyr</Text>
 
@@ -273,17 +285,54 @@ const CustomFormCollar = () => {
           <View style={{ zIndex: 10 }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>
-                Önskad metall på ring
+                Färg på skinn backsidan
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: ringWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: secondLeatherWarning.bool ? 1 : 0,
+                }}>
+                {secondLeatherWarning.message}
+              </Text>
+            </View>
+            <DropDownPicker
+              showArrowIcon={false}
+              open={openSecond}
+              value={selectedCollarVariables.selectedSecondLeather}
+              items={leathers}
+              setOpen={setOpenSecond}
+              setItems={setLeathers}
+              placeholder="Välj färg backsida"
+              style={styleCoatForm.dropDown}
+              dropDownContainerStyle={{ maxHeight: 150 }}
+              setValue={(callback) => {
+                const newValue = callback(
+                  selectedCollarVariables.selectedSecondLeather
+                );
+                setWarnings.setSecondLeatherWarning(false);
+                setSelectedCollarVariables.setSelectedSecondLeather(newValue);
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={[
+            width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
+            { zIndex: 7 },
+          ]}>
+          <View style={{ zIndex: 10 }}>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Metall till ring</Text>
+              <Text
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: ringWarning.bool ? 1 : 0,
+                }}>
                 {ringWarning.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openMetal}
               value={selectedCollarVariables.selectedMetal}
               items={metals}
@@ -301,12 +350,6 @@ const CustomFormCollar = () => {
               }}
             />
           </View>
-        </View>
-        <View
-          style={[
-            width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
-            { zIndex: 7 },
-          ]}>
           <View>
             <Text style={{ color: themeColors.text }}>Broderad text</Text>
             <TextInput
@@ -314,7 +357,9 @@ const CustomFormCollar = () => {
               onChangeText={(text) =>
                 setSelectedCollarVariables.setBrodyrText(text)
               }
-              style={styleCoatForm.input}></TextInput>
+              style={
+                width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+              }></TextInput>
             <Text style={{ color: themeColors.text }} className="text-sm">
               te.x. (AlViN)(alvin)
             </Text>
@@ -322,6 +367,7 @@ const CustomFormCollar = () => {
           <View>
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
             <DropDownPicker
+              showArrowIcon={false}
               open={openFont}
               value={selectedCollarVariables.selectedFont}
               items={selectedCollarVariables.chosenFont}

@@ -8,6 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +20,8 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
+
+      "output": "export",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -35,7 +37,8 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/BlackValley"
     }
   }
 }

@@ -10,6 +10,7 @@ import { Colors } from "../constants/Colors";
 import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";
+import { useState } from "react";
 
 const ContactForm = ({}) => {
   // -- colors and responsiv variables --
@@ -32,7 +33,17 @@ const ContactForm = ({}) => {
     streetWarning,
     postalWarning,
   } = validateStoreHooks();
-  const phonePattern = /^[0-9]{3}-[0-9]{7}$/;
+  const phonePattern = /^[0-9]{10}$/;
+  const [post, setPost] = useState(() => {
+    const parts = userInformation.postalCode.split(" ");
+    return parts[0] || "";
+  });
+
+  const [postalCode, setPostalCode] = useState(() => {
+    const parts = userInformation.postalCode.split(" ");
+    return parts.slice(1).join(" ") || "";
+  });
+
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const postalPattern = /^[0-9]{3}\s?[0-9]{2}\s?[a-zA-ZåäöÅÄÖ]*$/;
 
@@ -53,6 +64,7 @@ const ContactForm = ({}) => {
       setChosenForm.setOtherForm(true);
     }
   };
+
   const continueToNext = () => {
     let warning = false;
     if (userInformation.name == "") {
@@ -124,10 +136,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Förnamn</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: nameWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: nameWarning.bool ? 1 : 0,
+                }}>
                 {nameWarning.message}
               </Text>
             </View>
@@ -145,15 +157,15 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Efternamn</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: surnameWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: surnameWarning.bool ? 1 : 0,
+                }}>
                 {surnameWarning.message}
               </Text>
             </View>
             <TextInput
-              value={userInformation.suename}
+              value={userInformation.surname}
               onChangeText={(text) => {
                 setUserInformation.setSurname(text);
                 setWarnings.setSurNameWarning(false);
@@ -172,10 +184,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Telefonnummer</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: phoneWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: phoneWarning.bool ? 1 : 0,
+                }}>
                 {phoneWarning.message}
               </Text>
             </View>
@@ -186,7 +198,7 @@ const ContactForm = ({}) => {
                 setUserInformation.setPhoneNumber(text);
                 setWarnings.setPhoneWarning(false);
               }}
-              placeholder="070-1235678"
+              placeholder="0701235678"
               placeholderTextColor="#808080"
               style={styleCoatForm.input}></TextInput>
           </View>
@@ -194,10 +206,10 @@ const ContactForm = ({}) => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Mailadress</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: emailWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: emailWarning.bool ? 1 : 0,
+                }}>
                 {emailWarning.message}
               </Text>
             </View>
@@ -216,16 +228,16 @@ const ContactForm = ({}) => {
         <View
           style={[
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
-            { zIndex: 10 },
+            { zIndex: 10, justifyContent: "space-between" },
           ]}>
           <View>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Gata</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: streetWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: streetWarning.bool ? 1 : 0,
+                }}>
                 {streetWarning.message}
               </Text>
             </View>
@@ -237,38 +249,74 @@ const ContactForm = ({}) => {
               }}
               placeholder="Adressvägen 17"
               placeholderTextColor="#808080"
-              style={styleCoatForm.input}></TextInput>
+              style={
+                width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+              }></TextInput>
           </View>
           <View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+              }}>
               <Text style={{ color: themeColors.text }}>Postnummer</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: postalWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: postalWarning.bool ? 1 : 0,
+                }}>
                 {postalWarning.message}
               </Text>
             </View>
             <TextInput
-              value={userInformation.postalCode}
+              value={post}
               onChangeText={(text) => {
-                setUserInformation.setPostalCode(text);
+                const cleanedText = text.replace(/\s+/g, "");
+                setPost(cleanedText);
                 setWarnings.setPostalWarning(false);
+                setUserInformation.setPostalCode(
+                  cleanedText + " " + postalCode
+                );
               }}
-              placeholder="233 33"
+              placeholder="23333"
               placeholderTextColor="#808080"
-              style={styleCoatForm.input}></TextInput>
+              style={
+                width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+              }></TextInput>
+          </View>
+          <View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: themeColors.text }}>Postort</Text>
+              <Text
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: postalWarning.bool ? 1 : 0,
+                }}>
+                {postalWarning.message}
+              </Text>
+            </View>
+            <View>
+              <TextInput
+                value={postalCode}
+                onChangeText={(text) => {
+                  setPostalCode(text);
+                  setWarnings.setPostalWarning(false);
+                  setUserInformation.setPostalCode(post + " " + text);
+                }}
+                placeholder="Kungälv"
+                placeholderTextColor="#808080"
+                style={
+                  width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
+                }></TextInput>
+            </View>
           </View>
         </View>
+
         <Pressable
           style={checkboxStyle.button}
           onPress={() => {
             continueToNext();
           }}>
-          <Text style={{ color: themeColors.detail, textAlign: "center" }}>
-            Granska
-          </Text>
+          <Text style={{ color: "#82BCBD", textAlign: "center" }}>Granska</Text>
         </Pressable>
       </View>
     </View>

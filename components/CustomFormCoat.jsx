@@ -9,12 +9,14 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { Colors } from "@/constants/Colors";
-import Fontisto from "@expo/vector-icons/Fontisto";
+// import Fontisto from "@expo/vector-icons/Fontisto";
 import { checkboxStyle, styleCoatForm } from "../StyleSheet/formStyles";
 import { useEffect } from "react";
 import { fetchCollection } from "../functions/fetchCollection";
 import { formStore } from "../data/formStoreHooks";
 import { validateStoreHooks } from "../data/validateStoreHooks";
+import { BiCheckSquare } from "react-icons/bi";
+import { BiRectangle } from "react-icons/bi";
 
 const CustomFormCoat = () => {
   const {
@@ -44,6 +46,7 @@ const CustomFormCoat = () => {
   const { width } = useWindowDimensions();
   //
   const [woolColors, setWoolColors] = useState([]);
+  const [softshell, setSoftshell] = useState([]);
 
   const [models, setModels] = useState([
     { label: "Cosy", value: "Cosy" },
@@ -69,10 +72,24 @@ const CustomFormCoat = () => {
       setWoolColors(allColors);
     }
   };
+  const fetchSoftshell = async () => {
+    const response = await fetchCollection("softshell");
+    if (response) {
+      const allColors = response
+        .filter((name) => name.color)
+        .map((name) => ({
+          label: name.color,
+          value: name.color,
+        }));
+      setSoftshell(allColors);
+    }
+  };
 
   useEffect(() => {
     if (selectedCoatVariables.selectedModelCoat === "Cosy") {
       setSelectedCoatVariables.setColorColar(true);
+    } else if (selectedCoatVariables.selectedModelCoat === "Limitless") {
+      setSelectedCoatVariables.setSoftShellChosen(true);
     } else {
       setSelectedCoatVariables.setColorColar(false);
     }
@@ -80,19 +97,29 @@ const CustomFormCoat = () => {
 
   useEffect(() => {
     fetchwoolColors();
+    fetchSoftshell();
     setComingFromForm("Coat");
   }, []);
+  console.log(selectedCoatVariables.selectedModelCoat);
+  const measurementPattern =
+    /^[aA]\s?\d+\s*[,\s]\s*[bB]\s?\d+\s*[,\s]\s*[cC]\s?\d+$/;
   const continueToNext = () => {
     let warning = false;
     if (selectedCoatVariables.selectedModelCoat === null) {
       setWarnings.setModelWarningCoat(true);
       warning = true;
     }
-    if (selectedCoatVariables.measurementsCoat === "") {
+    if (
+      selectedCoatVariables.measurementsCoat === "" ||
+      !measurementPattern.test(selectedCoatVariables.measurementsCoat)
+    ) {
       setWarnings.setMeasureWarning(true);
       warning = true;
     }
-    if (selectedCoatVariables.selectedColor === null) {
+    if (
+      selectedCoatVariables.selectedModelCoat !== "Limitless" &&
+      selectedCoatVariables.selectedColor === null
+    ) {
       setWarnings.setWoolWarning(true);
       warning = true;
     }
@@ -136,18 +163,19 @@ const CustomFormCoat = () => {
             width > 750 ? styleCoatForm.flexBox : styleCoatForm.flexBoxSmall,
             { zIndex: 10 },
           ]}>
-          <View>
+          <View style={{ zIndex: 11 }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Modell</Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: modelWarningCoat.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: modelWarningCoat.bool ? 1 : 0,
+                }}>
                 {modelWarningCoat.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openCoatModel}
               value={selectedCoatVariables.selectedModelCoat}
               items={models}
@@ -162,21 +190,38 @@ const CustomFormCoat = () => {
                 );
                 setWarnings.setModelWarningCoat(false);
                 setSelectedCoatVariables.setSelectedModelCoat(newValue);
+                if (newValue !== "Limitless") {
+                  setSelectedCoatVariables.setSoftShellChosen(false);
+                }
               }}
             />
           </View>
           <View>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ color: themeColors.text }}>Mått</Text>
-              <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: measureWarning.bool ? 1 : 0 },
-                ]}>
-                {measureWarning.message}
+              <Text style={{ color: themeColors.text }}>
+                Mått{" "}
+                <Text
+                  style={{
+                    color: !measureWarning.bool
+                      ? themeColors.text
+                      : themeColors.warningColor,
+                  }}>
+                  {!measureWarning.bool
+                    ? "(a rygg, b bröst, c hals) "
+                    : "*ogiltigt format"}
+                </Text>
               </Text>
+              {/* <Text
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: measureWarning.bool ? 1 : 0,
+                }}>
+                {measureWarning.message}
+              </Text> */}
             </View>
             <TextInput
+              placeholder=" a rygg, b bröst, c hals (i cm)"
+              placeholderTextColor="#808080"
               // keyboardType="numeric"
               value={selectedCoatVariables.measurementsCoat}
               onChangeText={(text) => {
@@ -184,6 +229,13 @@ const CustomFormCoat = () => {
                 setWarnings.setMeasureWarning(false);
               }}
               style={styleCoatForm.input}></TextInput>
+            <Text
+              style={{
+                color: themeColors.warningColor,
+                opacity: measureWarning.bool ? 1 : 0,
+              }}>
+              {measureWarning.message}
+            </Text>
           </View>
         </View>
         <View
@@ -197,20 +249,25 @@ const CustomFormCoat = () => {
                 Önskad färg på tyg
               </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: woolWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: woolWarning.bool ? 1 : 0,
+                }}>
                 {woolWarning.message}
               </Text>
             </View>
             <DropDownPicker
+              showArrowIcon={false}
               open={openColor}
               value={selectedCoatVariables.selectedColor}
               items={woolColors}
               setOpen={setOpenColor}
               setItems={setWoolColors}
-              placeholder="Välj färg"
+              placeholder={
+                selectedCoatVariables.softShellChosen
+                  ? "Ej valbar"
+                  : "Välj färg"
+              }
               style={styleCoatForm.dropDown}
               dropDownContainerStyle={{ maxHeight: 150 }}
               setValue={(callback) => {
@@ -218,17 +275,27 @@ const CustomFormCoat = () => {
                 setSelectedCoatVariables.setSelectedColor(newValue);
                 setWarnings.setWoolWarning(false);
               }}
+              disabled={selectedCoatVariables.softShellChosen}
+              disabledStyle={{ backgroundColor: "#d3d3d3", opacity: 0.6 }}
             />
           </View>
-          {selectedCoatVariables.colorColar && (
+          {(selectedCoatVariables.colorColar ||
+            selectedCoatVariables.softShellChosen) && (
             <View style={{ zIndex: 8 }}>
               <Text style={{ color: themeColors.text }}>
-                Färg på Cosy krage
+                {selectedCoatVariables.softShellChosen
+                  ? "Färg på Softshell"
+                  : "Färg på Cosy krage"}
               </Text>
               <DropDownPicker
+                showArrowIcon={false}
                 open={openCozy}
-                value={selectedCoatVariables.cosyCollarColor}
-                items={krage}
+                value={
+                  selectedCoatVariables.colorColar
+                    ? selectedCoatVariables.cosyCollarColor
+                    : selectedCoatVariables.softshellColor
+                }
+                items={selectedCoatVariables.colorColar ? krage : softshell}
                 setOpen={setOpenCosy}
                 setItems={setKrage}
                 placeholder="Välj en färg"
@@ -236,10 +303,17 @@ const CustomFormCoat = () => {
                 dropDownContainerStyle={{ maxHeight: 150 }}
                 setValue={(callback) => {
                   const newValue = callback(
-                    selectedCoatVariables.cosyCollarColor
+                    selectedCoatVariables.colorColar
+                      ? selectedCoatVariables.cosyCollarColor
+                      : selectedCoatVariables.softshellColor
                   );
                   setWarnings.setModelWarningCoat(false);
-                  setSelectedCoatVariables.setCosyCollarColor(newValue);
+
+                  if (selectedCoatVariables.colorColar) {
+                    setSelectedCoatVariables.setCosyCollarColor(newValue);
+                  } else {
+                    setSelectedCoatVariables.setSoftshellColor(newValue);
+                  }
                 }}
               />
             </View>
@@ -269,6 +343,7 @@ const CustomFormCoat = () => {
             <Text style={{ color: themeColors.text }}>Typsnitt</Text>
 
             <DropDownPicker
+              showArrowIcon={false}
               open={openFont}
               value={selectedCoatVariables.selectedFont}
               items={selectedCoatVariables.chosenFont}
@@ -312,10 +387,10 @@ const CustomFormCoat = () => {
             <View style={{ flexDirection: "row" }}>
               <Text style={{ color: themeColors.text }}>Bensnören? </Text>
               <Text
-                style={[
-                  styleCoatForm.warning,
-                  { opacity: legStringWarning.bool ? 1 : 0 },
-                ]}>
+                style={{
+                  color: themeColors.warningColor,
+                  opacity: legStringWarning.bool ? 1 : 0,
+                }}>
                 {legStringWarning.message}
               </Text>
             </View>
@@ -332,30 +407,46 @@ const CustomFormCoat = () => {
                 </Text>
                 <Pressable
                   onPress={() => setSelectedCoatVariables.setLegString(true)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === true
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
+                  {selectedCoatVariables.legString === true ? (
+                    <BiCheckSquare
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  ) : (
+                    <BiRectangle
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  )}
                 </Pressable>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text style={{ color: themeColors.text, margin: 2 }}>Nej</Text>
                 <Pressable
                   onPress={() => setSelectedCoatVariables.setLegString(false)}>
-                  <Fontisto
-                    name={
-                      selectedCoatVariables.legString === false
-                        ? "checkbox-active"
-                        : "checkbox-passive"
-                    }
-                    size={24}
-                    color={themeColors.detail}
-                  />
+                  {selectedCoatVariables.legString === false ? (
+                    <BiCheckSquare
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  ) : (
+                    <BiRectangle
+                      style={{
+                        fontSize: 30,
+                        color: themeColors.detail,
+                        alignSelf: "center",
+                      }}
+                    />
+                  )}
                 </Pressable>
               </View>
             </View>

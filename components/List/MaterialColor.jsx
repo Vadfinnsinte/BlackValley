@@ -11,6 +11,7 @@ const WoolColor = ({ image, color, width }) => {
         accessibilityLabel={`${color} ull`}
         style={width > 780 ? styles.image : styles.smallimage}
         source={{ uri: image }}
+        resizeMode="contain"
       />
       <Text style={[styles.text, { color: themeColors.text }]}>{color}</Text>
     </View>

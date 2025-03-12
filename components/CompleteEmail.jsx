@@ -5,7 +5,6 @@ import {
   useColorScheme,
   useWindowDimensions,
   Modal,
-  StyleSheet,
 } from "react-native";
 import { useState } from "react";
 import { formStore } from "../data/formStoreHooks";
@@ -17,7 +16,6 @@ import {
   resetStoreVariables,
   resetStoreVariablesHard,
 } from "../functions/resetStoreVariables";
-import { measure } from "react-native-reanimated";
 
 const CompleteEmail = () => {
   const {
@@ -38,6 +36,7 @@ const CompleteEmail = () => {
     setOpenSent,
     sent,
     setSent,
+    setSaved,
   } = formStore();
 
   const [item, setItem] = useState(true);
@@ -53,47 +52,6 @@ const CompleteEmail = () => {
   let buyerObj = {};
   let commingSwe;
 
-  if (comingFromForm === "Coat") {
-    commingSwe = "Täcke";
-    buyerObj = {
-      modell: selectedCoatVariables.selectedModelCoat,
-      measurement: selectedCoatVariables.measurementsCoat,
-      materialColor: selectedCoatVariables.selectedColor,
-      brodyrColour: selectedCoatVariables.brodyrColor,
-      font: selectedCoatVariables.selectedFont,
-      text: selectedCoatVariables.brodyrText,
-      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
-      comment: selectedCoatVariables.commentsCoat,
-    };
-  }
-  if (comingFromForm === "Collar") {
-    commingSwe = "Halsband";
-    buyerObj = {
-      modell: selectedCollarVariables.selectedModalCollar,
-      measurement: selectedCollarVariables.lengthCollar,
-      width: selectedCollarVariables.collarWidth,
-      materialColor: selectedCollarVariables.selectedLeather,
-      brodyrColour: selectedCollarVariables.brodyrColor,
-      metal: selectedCollarVariables.selectedMetal,
-      font: selectedCollarVariables.selectedFont,
-      text: selectedCollarVariables.brodyrText,
-      comment: selectedCollarVariables.commentsCollar,
-    };
-  }
-  if (comingFromForm === "Other") {
-    commingSwe = "Annat";
-    buyerObj = {
-      modell: "inte aplicerbart",
-      measurement: "inte aplicerbart",
-      width: "inte aplicerbart",
-      materialColor: "inte aplicerbart",
-      brodyrColour: "inte aplicerbart",
-      metal: "inte aplicerbart",
-      font: "inte aplicerbart",
-      text: "inte aplicerbart",
-      comment: specialOrder,
-    };
-  }
   let prevOrder = {
     messageCoat:
       orderMessage?.messageCoat?.length > 0
@@ -109,18 +67,83 @@ const CompleteEmail = () => {
         : "",
   };
 
-  let message = ` 
-  
-  Produkt information: ${commingSwe}
-  Modell: ${buyerObj.modell}
-  Mått: ${buyerObj.measurement && buyerObj.measurement}
-  Färg på ${commingSwe}: ${buyerObj.materialColor}
-  Brodyr Färg: ${buyerObj.brodyrColour}
-  Text (blir exakt som skrivet här): ${buyerObj.text}
-  Besnören: ${buyerObj.legStrings ? buyerObj.legStrings : "inte aplicerbart"}
-  Metall på ringar: ${buyerObj.metal ? buyerObj.metal : "inte aplicerbart"}
-  Kommentarer och önskemål: ${buyerObj.comment}
-  `;
+  if (comingFromForm === "Coat") {
+    commingSwe = "Täcke";
+    buyerObj = {
+      modell: selectedCoatVariables.selectedModelCoat,
+      measurement: selectedCoatVariables.measurementsCoat,
+      materialColor: selectedCoatVariables.selectedColor,
+      brodyrColour: selectedCoatVariables.brodyrColor,
+      softshellColor: selectedCoatVariables.softshellColor,
+      cozyCollar: selectedCoatVariables.cosyCollarColor,
+      font: selectedCoatVariables.selectedFont,
+      text: selectedCoatVariables.brodyrText,
+      legStrings: selectedCoatVariables.legString ? "Ja" : "Nej",
+      comment: selectedCoatVariables.commentsCoat,
+    };
+  }
+
+  if (comingFromForm === "Collar") {
+    commingSwe = "Halsband";
+    buyerObj = {
+      modell: selectedCollarVariables.selectedModalCollar,
+      measurement: selectedCollarVariables.lengthCollar,
+      width: selectedCollarVariables.collarWidth,
+      materialColor: selectedCollarVariables.selectedLeather,
+      materialColor2: selectedCollarVariables.selectedSecondLeather,
+      brodyrColour: selectedCollarVariables.brodyrColor,
+      metal: selectedCollarVariables.selectedMetal,
+      font: selectedCollarVariables.selectedFont,
+      text: selectedCollarVariables.brodyrText,
+      comment: selectedCollarVariables.commentsCollar,
+    };
+  }
+
+  if (comingFromForm === "Other") {
+    commingSwe = "Annat";
+    buyerObj = {
+      comment: specialOrder,
+    };
+  }
+
+  let messageParts = [];
+  if (commingSwe !== undefined) {
+    messageParts.push(`Produkt information: ${commingSwe}`);
+  }
+  if (buyerObj.modell) messageParts.push(`Modell: ${buyerObj.modell}`);
+  if (buyerObj.measurement) messageParts.push(`Mått: ${buyerObj.measurement}`);
+  if (buyerObj.materialColor)
+    messageParts.push(`Färg på ${commingSwe}: ${buyerObj.materialColor}`);
+  if (buyerObj.materialColor2 && comingFromForm === "Collar") {
+    messageParts.push(`Färg baksida halsband: ${buyerObj.materialColor2}`);
+  }
+  if (buyerObj.softshellColor)
+    messageParts.push(`Softshell färg: ${buyerObj.softshellColor} `);
+
+  if (buyerObj.cozyCollar)
+    messageParts.push(`Cozy krages färg: ${buyerObj.cozyCollar}`);
+  if (buyerObj.brodyrColour)
+    messageParts.push(`Brodyr Färg: ${buyerObj.brodyrColour}`);
+  if (buyerObj.font) messageParts.push(`Font: ${buyerObj.font}`);
+  if (buyerObj.text)
+    messageParts.push(`Text (blir exakt som skrivet här): ${buyerObj.text}`);
+  if (buyerObj.legStrings && comingFromForm === "Coat") {
+    messageParts.push(`Bensnören: ${buyerObj.legStrings}`);
+  }
+  if (buyerObj.metal && comingFromForm === "Collar") {
+    messageParts.push(`Metall på ringar: ${buyerObj.metal}`);
+  }
+  if (buyerObj.comment)
+    messageParts.push(`Kommentarer och önskemål: ${buyerObj.comment}`);
+
+  // Lägg till testmeddelandet sist
+  messageParts.push("Detta är under Test så orden kommer EJ bli uppfyllda.");
+
+  // Slå ihop arrayen till en sträng med radbrytningar
+  let message = messageParts.join("\n");
+
+  console.log(message);
+
   if (!item) {
     message = "";
   }
@@ -129,6 +152,7 @@ const CompleteEmail = () => {
     setItem(true);
     keepSome = false;
     setOpenCancel(false);
+    setSaved(false);
     closeAllSteps();
   };
   const closeAllSteps = () => {
@@ -159,16 +183,24 @@ const CompleteEmail = () => {
   };
 
   const saveOrder = (shouldClose = true) => {
-    console.log(onlySave);
-
-    if (comingFromForm === "Coat") {
+    setSaved(true);
+    if (
+      comingFromForm === "Coat" &&
+      !orderMessage.messageCoat.includes(message)
+    ) {
       setOrderMessage.setMessageCoat([...orderMessage.messageCoat, message]);
-    } else if (comingFromForm === "Collar") {
+    } else if (
+      comingFromForm === "Collar" &&
+      !orderMessage.messageCollar.includes(message)
+    ) {
       setOrderMessage.setMessageCollar([
         ...orderMessage.messageCollar,
         message,
       ]);
-    } else if (comingFromForm === "Other") {
+    } else if (
+      comingFromForm === "Other" &&
+      !orderMessage.messageOther.includes(message)
+    ) {
       setOrderMessage.setMessageOther([...orderMessage.messageOther, message]);
     }
 
@@ -195,7 +227,7 @@ const CompleteEmail = () => {
     <View
       style={[
         styleCoatForm.centerContent,
-        { backgroundColor: "#D9D9D9", padding: 10 },
+        { backgroundColor: "#D9D9D9", padding: width > 500 ? 10 : 0 },
       ]}>
       <Pressable
         style={{ alignSelf: "flex-end" }}
@@ -213,7 +245,7 @@ const CompleteEmail = () => {
           Tillbaka till kontakt.
         </Text>
       </Pressable>
-      <View style={{ margin: 20 }}>
+      <View style={{ margin: width > 500 ? 20 : 5 }}>
         <Text
           style={{
             color: "#000",
@@ -223,6 +255,7 @@ const CompleteEmail = () => {
           }}>
           Beställning till Black Valley.
         </Text>
+        <Text>Test fas, orden kommer EJ bli uppfylld.</Text>
         <View style={styleCoatForm.contactInfoConatainer}>
           <View style={{ alignSelf: "center" }}>
             <Text
@@ -254,8 +287,8 @@ const CompleteEmail = () => {
               ? { maxWidth: 600, margin: 10, minWidth: 400 }
               : { margin: 10 }
           }>
-          <Text style={{ fontSize: 18 }}>
-            {/* Produkt information: */}
+          <Text
+            style={{ fontSize: 18, flexWrap: "wrap", wordBreak: "break-word" }}>
             {message}
           </Text>
           <Text style={{ fontSize: 18 }}>{prevOrder.messageCoat}</Text>
@@ -277,7 +310,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
+                { color: "#000", backgroundColor: "#82BCBD" },
               ]}>
               Lägg till en produkt
             </Text>
@@ -286,7 +319,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { backgroundColor: "#000", color: themeColors.detail },
+                { backgroundColor: "#000", color: "#82BCBD" },
               ]}>
               Avbryt
             </Text>
@@ -300,7 +333,7 @@ const CompleteEmail = () => {
             <Text
               style={[
                 stylesModalForm.buttons,
-                { color: "#000", backgroundColor: themeColors.detail },
+                { color: "#000", backgroundColor: "#82BCBD" },
               ]}>
               Skicka beställning
             </Text>
@@ -371,8 +404,7 @@ const CompleteEmail = () => {
                     { backgroundColor: "#000", minWidth: 50 },
                   ]}
                   onPress={() => setConfirm(false)}>
-                  <Text
-                    style={{ color: themeColors.detail, textAlign: "center" }}>
+                  <Text style={{ color: "#82BCBD", textAlign: "center" }}>
                     Nej
                   </Text>
                 </Pressable>
@@ -380,7 +412,7 @@ const CompleteEmail = () => {
                   style={[
                     stylesModalForm.buttons,
                     {
-                      backgroundColor: themeColors.detail,
+                      backgroundColor: "#82BCBD",
                       minWidth: 50,
                     },
                   ]}

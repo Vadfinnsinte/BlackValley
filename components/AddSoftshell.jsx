@@ -5,7 +5,6 @@ import {
   Text,
   View,
   TextInput,
-  useColorScheme,
 } from "react-native";
 import { adminHooks } from "../data/adminStoreHooks";
 import {
@@ -17,19 +16,16 @@ import {
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";
-import { Colors } from "../constants/Colors";
 
-const AddModal = ({ from, fetchProducts }) => {
+const AddSoftshellModal = ({ from, fetchProducts }) => {
   const [color, setColor] = useState("");
   // const [status, setStatus] = useState(true)
   const [colorGroup, setColorGroup] = useState("");
-  const colorScheme = useColorScheme();
-  const themeColors = Colors[colorScheme] || Colors.light;
   const [url, setUrl] = useState("");
   const [warning, setWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
-  const { openAddWool, setOpenAddWool, openAddLeather, setOpenAddLeather } =
-    adminHooks();
+  const { setOpenAddSoftshell, openAddSoftshell } = adminHooks();
+
   const handleAddWool = async () => {
     if (!auth.currentUser) {
       setWarning(true);
@@ -40,7 +36,7 @@ const AddModal = ({ from, fetchProducts }) => {
       setWarningMessage("Vänligen fyll i alla fält");
       return;
     } else {
-      const collectionName = from === "wool" ? "wool" : "leather";
+      const collectionName = from;
       try {
         const docRef = await addDoc(collection(db, collectionName), {
           color: color,
@@ -51,9 +47,7 @@ const AddModal = ({ from, fetchProducts }) => {
         setColor("");
         setColorGroup("");
         setUrl("");
-        setOpenAddWool(false);
-        setOpenAddLeather(false);
-
+        setOpenAddSoftshell(false);
         fetchProducts();
       } catch (error) {
         setWarning(true);
@@ -63,13 +57,11 @@ const AddModal = ({ from, fetchProducts }) => {
       }
     }
   };
-  let material = from === "wool" ? "ull" : "läder";
+  let material = from;
 
   return (
     <View>
-      <Modal
-        visible={from === "wool" ? openAddWool : openAddLeather}
-        transparent={true}>
+      <Modal visible={openAddSoftshell} transparent={true}>
         <View style={stylesModalForm.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={{ textAlign: "center" }}>Lägg till {material}</Text>
@@ -99,21 +91,12 @@ const AddModal = ({ from, fetchProducts }) => {
               />
             </View>
             {warning && (
-              <Text
-                style={{
-                  color: themeColors.warningColor,
-                  textAlign: "center",
-                }}>
+              <Text style={[styleCoatForm.warning, { textAlign: "center" }]}>
                 {warningMessage}
               </Text>
             )}
             <View style={{ flexDirection: "row", margin: 10 }}>
-              <Pressable
-                onPress={() =>
-                  from === "wool"
-                    ? setOpenAddWool(false)
-                    : setOpenAddLeather(false)
-                }>
+              <Pressable onPress={() => setOpenAddSoftshell(false)}>
                 <Text style={checkboxStyle.button}>Avbryt</Text>
               </Pressable>
               <Pressable onPress={handleAddWool}>
@@ -126,7 +109,8 @@ const AddModal = ({ from, fetchProducts }) => {
     </View>
   );
 };
-export default AddModal;
+
+export default AddSoftshellModal;
 const styles = StyleSheet.create({
   modalContent: {
     width: 250,

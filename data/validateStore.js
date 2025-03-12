@@ -11,7 +11,7 @@ export const validateStore = create((set) => ({
   },
   measureWarning: {
     bool: false,
-    message: "*Vänlig skriv in mått",
+    message: "format: a 43, b 55, c 66 | a 43 b 55 c 66",
   },
   woolWarning: {
     bool: false,
@@ -43,7 +43,7 @@ export const validateStore = create((set) => ({
   },
   postalWarning: {
     bool: false,
-    message: "*Fyll i postnummer",
+    message: "*obligatorisk",
   },
   collarModelWarning: {
     bool: false,
@@ -54,6 +54,10 @@ export const validateStore = create((set) => ({
     message: "*Välj bredd",
   },
   leatherWarning: {
+    bool: false,
+    message: "*Välj färg",
+  },
+  secondLeatherWarning: {
     bool: false,
     message: "*Välj färg",
   },
@@ -131,6 +135,10 @@ export const validateStore = create((set) => ({
     setLeatherWarning: (value) =>
       set((state) => ({
         leatherWarning: { ...state.leatherWarning, bool: value },
+      })),
+    setSecondLeatherWarning: (value) =>
+      set((state) => ({
+        secondLeatherWarning: { ...state.secondLeatherWarning, bool: value },
       })),
     setRingWarning: (value) =>
       set((state) => ({
