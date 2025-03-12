@@ -40,7 +40,6 @@ const CheckBox = () => {
     setOther(false);
     setChosenProduct.setOther(!otherother);
     setOtherother(!otherother);
-    console.log(chosenProduct.other);
   };
   const handleOtherOther = () => {
     setWarnings.setCheckbox(false);

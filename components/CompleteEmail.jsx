@@ -139,8 +139,6 @@ const CompleteEmail = () => {
   // Slå ihop arrayen till en sträng med radbrytningar
   let message = messageParts.join("\n");
 
-  console.log(message);
-
   if (!item) {
     message = "";
   }
@@ -306,7 +304,6 @@ const CompleteEmail = () => {
           }>
           <Pressable
             onPress={() => {
-              // setOnlySave(true);
               saveOrder(true);
             }}>
             <Text

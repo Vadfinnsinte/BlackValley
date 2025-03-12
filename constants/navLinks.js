@@ -16,7 +16,6 @@ export const navLinks = [
   },
   {
     title: "Material",
-    // path: "/material",
     submenu: [
       { title: "Ull - Till täcke", path: "/materialWool" },
       { title: "Softshell - Till täcke", path: "/materialSoftshell" },

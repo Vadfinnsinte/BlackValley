@@ -13,7 +13,7 @@ import {
   styleCoatForm,
   stylesModalForm,
 } from "../StyleSheet/formStyles";
-// import { TextInput } from "react-native-web";
+
 import { useState } from "react";
 import { auth, db } from "../firebaseConfigTwo";
 import { addDoc, collection } from "firebase/firestore";

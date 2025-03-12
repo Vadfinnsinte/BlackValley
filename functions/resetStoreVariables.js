@@ -12,7 +12,6 @@ const resetStoreVariables = (
   setSelectedCollarVariables.setAllValuesCollar();
   setSelectedCoatVariables.setAllValuesCoat();
   setSpecialOrder("");
-  console.log("notHard");
 };
 const resetStoreVariablesHard = (
   setChosenForm,
@@ -23,8 +22,6 @@ const resetStoreVariablesHard = (
   setUserInformation,
   setOrderMessage
 ) => {
-  console.log("HARD");
-
   setOrderMessage.setMessageCoat([]);
   setOrderMessage.setMessageCollar([]);
   setOrderMessage.setMessageOther([]);

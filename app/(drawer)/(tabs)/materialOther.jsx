@@ -37,7 +37,6 @@ const MaterialOther = () => {
   };
   useEffect(() => {
     setLoggedIn(!!auth.currentUser);
-    console.log("ändrat user");
   }, [auth.currentUser]);
 
   useEffect(() => {

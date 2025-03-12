@@ -15,17 +15,6 @@ import {
   Text,
 } from "react-native";
 
-// const {
-//   Modal,
-//   TextInput,
-//   Text,
-//   View,
-//   Pressable,
-//   useWindowDimensions,
-//   useColorScheme,
-//   StyleSheet,
-// } = require("react-native");
-
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
