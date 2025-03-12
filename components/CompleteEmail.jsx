@@ -136,9 +136,6 @@ const CompleteEmail = () => {
   if (buyerObj.comment)
     messageParts.push(`Kommentarer och önskemål: ${buyerObj.comment}`);
 
-  // Lägg till testmeddelandet sist
-  messageParts.push("Detta är under Test så orden kommer EJ bli uppfyllda.");
-
   // Slå ihop arrayen till en sträng med radbrytningar
   let message = messageParts.join("\n");
 
@@ -222,12 +219,17 @@ const CompleteEmail = () => {
     sendEmail(userInformation, orderMessage, setSent);
 
     setOpenSent(true);
+    setSaved(false);
   };
   return (
     <View
       style={[
         styleCoatForm.centerContent,
-        { backgroundColor: "#D9D9D9", padding: width > 500 ? 10 : 0 },
+        {
+          backgroundColor: "#D9D9D9",
+          padding: width > 500 ? 10 : 0,
+          marginBottom: 10,
+        },
       ]}>
       <Pressable
         style={{ alignSelf: "flex-end" }}
@@ -255,7 +257,7 @@ const CompleteEmail = () => {
           }}>
           Beställning till Black Valley.
         </Text>
-        <Text>Test fas, orden kommer EJ bli uppfylld.</Text>
+
         <View style={styleCoatForm.contactInfoConatainer}>
           <View style={{ alignSelf: "center" }}>
             <Text

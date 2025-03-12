@@ -21,7 +21,7 @@ export const navLinks = [
       { title: "Ull - Till täcke", path: "/materialWool" },
       { title: "Softshell - Till täcke", path: "/materialSoftshell" },
       { title: "Läder - Till halsband", path: "/materialLeather" },
-      { title: "Tillbehör och font", path: "/materialOther" },
+      { title: "Symboler och font", path: "/materialOther" },
     ],
   },
   {

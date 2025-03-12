@@ -76,7 +76,11 @@ const MaterialOther = () => {
             <Text
               style={{ color: themeColors.text }}
               className="text-center text-2xl">
-              Tillbehör och font
+              Symboler och font
+            </Text>
+            <Text style={{ color: themeColors.text }} className="text-center ">
+              Det finns mer symboler, skriv önskemål i kommentarer på
+              beställningen.
             </Text>
             {loggedIn && (
               <Pressable onPress={() => setOpenAddOther(true)}>
