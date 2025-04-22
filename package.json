@@ -2,7 +2,7 @@
   "name": "blackvalley",
   "main": "expo-router/entry",
   "version": "1.0.0",
-  "homepage": "https://vadfinnsinte.github.io/BlackValley/",
+  "homepage": "https://www.blackvalley.nu/",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
