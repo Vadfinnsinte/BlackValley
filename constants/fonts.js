@@ -1,7 +1,6 @@
 const fonts = [
   "Block 01",
   "Block 03",
-  "Block 04",
   "Block 06",
   "Brussels",
   "Calgary",
@@ -10,11 +9,8 @@ const fonts = [
   "Script 01",
   "Script 02",
   "Script 04",
-  "Serif 01",
   "Istanbul",
   "Los Angeles",
-  "San Diego",
-  "Annat (kan diskuteras)",
 ];
 
 export const fontItems = fonts.map((font) => ({

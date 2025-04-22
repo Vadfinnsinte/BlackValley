@@ -220,7 +220,7 @@ export const CustomDrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            label={"Tillbehör och font"}
+            label={"Symboler och font"}
             labelStyle={[
               styles.navItemLabelsmall,
               {

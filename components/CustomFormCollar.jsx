@@ -191,7 +191,6 @@ const CustomFormCollar = () => {
             <TextInput
               placeholder="Skriv i cm"
               placeholderTextColor="#808080"
-              // keyboardType="numeric"
               style={
                 width < 790 ? styleCoatForm.input : styleCoatForm.inputSmall
               }

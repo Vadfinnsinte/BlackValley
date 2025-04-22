@@ -22,7 +22,6 @@ const Navstyles = StyleSheet.create({
     flexDirection: "row",
   },
   menuButton: {
-    // alignSelf: "start",
     marginBottom: -10,
     justifyContent: "flex-end",
     zIndex: 20,
@@ -30,7 +29,6 @@ const Navstyles = StyleSheet.create({
   smallLogo: {
     width: "100%",
     height: 80,
-    // marginTop: 40,
     marginLeft: -40,
   },
 

@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const Terms = StyleSheet.create({
   body: {
-    // marginTop: 10,
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 70,

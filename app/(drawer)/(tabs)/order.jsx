@@ -24,7 +24,7 @@ import CompleteEmail from "../../../components/CompleteEmail";
 import { formStore } from "../../../data/formStoreHooks";
 import { validateStoreHooks } from "../../../data/validateStoreHooks";
 import { Link } from "expo-router";
-// import SendEmail from "../../../functions/SendEmail";
+
 const OrderScreen = () => {
   const {
     chosenForm,
@@ -73,7 +73,6 @@ const OrderScreen = () => {
         <View style={themeColors.overlay}>
           <ScrollView
             contentContainerStyle={{
-              // paddingBottom: 50,
               flexGrow: 1,
             }}
             keyboardShouldPersistTaps="handled">

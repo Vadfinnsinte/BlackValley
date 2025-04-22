@@ -100,7 +100,7 @@ const CustomFormCoat = () => {
     fetchSoftshell();
     setComingFromForm("Coat");
   }, []);
-  console.log(selectedCoatVariables.selectedModelCoat);
+
   const measurementPattern =
     /^[aA]\s?\d+\s*[,\s]\s*[bB]\s?\d+\s*[,\s]\s*[cC]\s?\d+$/;
   const continueToNext = () => {
@@ -211,13 +211,6 @@ const CustomFormCoat = () => {
                     : "*ogiltigt format"}
                 </Text>
               </Text>
-              {/* <Text
-                style={{
-                  color: themeColors.warningColor,
-                  opacity: measureWarning.bool ? 1 : 0,
-                }}>
-                {measureWarning.message}
-              </Text> */}
             </View>
             <TextInput
               placeholder=" a rygg, b bröst, c hals (i cm)"

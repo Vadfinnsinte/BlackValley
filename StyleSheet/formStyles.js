@@ -87,7 +87,6 @@ export const styleCoatForm = StyleSheet.create({
     padding: 4,
   },
   dropDown: {
-    // zIndex: 1000,
     position: "relative",
     width: 250,
     height: 40,
