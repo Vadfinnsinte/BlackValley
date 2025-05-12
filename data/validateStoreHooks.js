@@ -17,6 +17,9 @@ export const validateStoreHooks = () => {
   const widthWarning = validateStore((state) => state.widthWarning);
   const leatherWarning = validateStore((state) => state.leatherWarning);
   const ringWarning = validateStore((state) => state.ringWarning);
+  const measureCollarWarning = validateStore(
+    (state) => state.measureCollarWarning
+  );
   const secondLeatherWarning = validateStore(
     (state) => state.secondLeatherWarning
   );
@@ -39,5 +42,6 @@ export const validateStoreHooks = () => {
     leatherWarning,
     ringWarning,
     secondLeatherWarning,
+    measureCollarWarning,
   };
 };

@@ -39,8 +39,8 @@ const CustomFormCollar = () => {
   } = formStore();
   const {
     setWarnings,
-    measureWarning,
     collarModelWarning,
+    measureCollarWarning,
     widthWarning,
     leatherWarning,
     ringWarning,
@@ -49,13 +49,13 @@ const CustomFormCollar = () => {
   const [models, setModels] = useState([
     { label: "Snäpplås", value: "Snäpplås" },
     { label: "Halvstryp", value: "Halvstryp" },
-    { label: "Snäpp + Halvstryp", value: "Snäpp + halvstryp" },
+    { label: "Snäpp + Halvstryp", value: "Snäpp + Halvstryp" },
     { label: "Annat( specifiera i kommentarer ) ", value: "Annat" },
   ]);
   const [collarWidth, setCollarWidth] = useState([
-    { label: "5cm, 589:-", value: "5cm, 589:-" },
-    { label: "3,5cm, 529:-", value: "3,5cm, 529:-" },
-    { label: "4cm, 529:-", value: "4cm, 529:-" },
+    { label: "5cm, 589:-", value: "5cm" },
+    { label: "3,5cm, 529:-", value: "3,5cm" },
+    { label: "4cm, 529:-", value: "4cm" },
   ]);
   const [metals, setMetals] = useState([
     { label: "Svart", value: "Svart" },
@@ -91,7 +91,7 @@ const CustomFormCollar = () => {
       warning = true;
     }
     if (selectedCollarVariables.lengthCollar === "") {
-      setWarnings.setMeasureWarning(true);
+      setWarnings.setCollarMeasureWarning(true);
       warning = true;
     }
     if (selectedCollarVariables.selectedWidth === "") {
@@ -183,9 +183,9 @@ const CustomFormCollar = () => {
               <Text
                 style={{
                   color: themeColors.warningColor,
-                  opacity: measureWarning.bool ? 1 : 0,
+                  opacity: measureCollarWarning.bool ? 1 : 0,
                 }}>
-                {measureWarning.message}
+                {measureCollarWarning.message}
               </Text>
             </View>
             <TextInput

@@ -13,6 +13,10 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "format: a 43, b 55, c 66 | a 43 b 55 c 66",
   },
+  measureCollarWarning: {
+    bool: false,
+    message: "Skriv mått",
+  },
   woolWarning: {
     bool: false,
     message: "*Välj en färg",
@@ -79,6 +83,10 @@ export const validateStore = create((set) => ({
     setMeasureWarning: (value) =>
       set((state) => ({
         measureWarning: { ...state.measureWarning, bool: value },
+      })),
+    setCollarMeasureWarning: (value) =>
+      set((state) => ({
+        measureCollarWarning: { ...state.measureCollarWarning, bool: value },
       })),
     setWoolWarning: (value) =>
       set((state) => ({

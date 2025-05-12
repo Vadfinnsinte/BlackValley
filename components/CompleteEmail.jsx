@@ -88,7 +88,7 @@ const CompleteEmail = () => {
     buyerObj = {
       modell: selectedCollarVariables.selectedModalCollar,
       measurement: selectedCollarVariables.lengthCollar,
-      width: selectedCollarVariables.collarWidth,
+      width: selectedCollarVariables.selectedWidth,
       materialColor: selectedCollarVariables.selectedLeather,
       materialColor2: selectedCollarVariables.selectedSecondLeather,
       brodyrColour: selectedCollarVariables.brodyrColor,
@@ -111,7 +111,15 @@ const CompleteEmail = () => {
     messageParts.push(`Produkt information: ${commingSwe}`);
   }
   if (buyerObj.modell) messageParts.push(`Modell: ${buyerObj.modell}`);
-  if (buyerObj.measurement) messageParts.push(`Mått: ${buyerObj.measurement}`);
+  if (buyerObj.measurement)
+    messageParts.push(
+      `Mått: ${buyerObj.measurement} ${
+        buyerObj.measurement.toLowerCase().includes("cm") ? "" : "cm"
+      }`
+    );
+  if (buyerObj.width && comingFromForm === "Collar") {
+    messageParts.push(`Bredd på halsband: ${buyerObj.width}`);
+  }
   if (buyerObj.materialColor)
     messageParts.push(`Färg på ${commingSwe}: ${buyerObj.materialColor}`);
   if (buyerObj.materialColor2 && comingFromForm === "Collar") {
@@ -134,7 +142,8 @@ const CompleteEmail = () => {
     messageParts.push(`Metall på ringar: ${buyerObj.metal}`);
   }
   if (buyerObj.comment)
-    messageParts.push(`Kommentarer och önskemål: ${buyerObj.comment}`);
+    messageParts.push(`Kommentarer och önskemål: ${buyerObj.comment}
+  `);
 
   // Slå ihop arrayen till en sträng med radbrytningar
   let message = messageParts.join("\n");
