@@ -49,6 +49,10 @@ export const validateStore = create((set) => ({
     bool: false,
     message: "*obligatorisk",
   },
+  postalTownWarning: {
+    bool: false,
+    message: "*obligatorisk",
+  },
   collarModelWarning: {
     bool: false,
     message: "*Välj model",
@@ -127,6 +131,10 @@ export const validateStore = create((set) => ({
     setPostalWarning: (value) =>
       set((state) => ({
         postalWarning: { ...state.postalWarning, bool: value },
+      })),
+    setPostalTownWarning: (value) =>
+      set((state) => ({
+        postalTownWarning: { ...state.postalTownWarning, bool: value },
       })),
     setPostalWarningMessage: (value) =>
       set((state) => ({

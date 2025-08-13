@@ -32,6 +32,7 @@ const ContactForm = ({}) => {
     emailWarning,
     streetWarning,
     postalWarning,
+    postalTownWarning,
   } = validateStoreHooks();
   const phonePattern = /^[0-9]{10}$/;
   const [post, setPost] = useState(() => {
@@ -39,9 +40,9 @@ const ContactForm = ({}) => {
     return parts[0] || "";
   });
 
-  const [postalCode, setPostalCode] = useState(() => {
-    const parts = userInformation.postalCode.split(" ");
-    return parts.slice(1).join(" ") || "";
+  const [postalTown, setPostalTown] = useState(() => {
+    const parts = userInformation.postalTown;
+    return parts;
   });
 
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -100,7 +101,11 @@ const ContactForm = ({}) => {
       warning = true;
     } else if (!postalPattern.test(userInformation.postalCode)) {
       setWarnings.setPostalWarning(true);
-      setWarnings.setPostalWarningMessage("*Ogiltigt postnummer.");
+      setWarnings.setPostalWarningMessage("*Ogiltigt");
+      warning = true;
+    }
+    if (userInformation.postalTown == "") {
+      setWarnings.setPostalTownWarning(true);
       warning = true;
     } else if (!warning) {
       setChosenStep.setStepThree(false);
@@ -273,9 +278,7 @@ const ContactForm = ({}) => {
                 const cleanedText = text.replace(/\s+/g, "");
                 setPost(cleanedText);
                 setWarnings.setPostalWarning(false);
-                setUserInformation.setPostalCode(
-                  cleanedText + " " + postalCode
-                );
+                setUserInformation.setPostalCode(cleanedText);
               }}
               placeholder="23333"
               placeholderTextColor="#808080"
@@ -289,18 +292,18 @@ const ContactForm = ({}) => {
               <Text
                 style={{
                   color: themeColors.warningColor,
-                  opacity: postalWarning.bool ? 1 : 0,
+                  opacity: postalTownWarning.bool ? 1 : 0,
                 }}>
-                {postalWarning.message}
+                {postalTownWarning.message}
               </Text>
             </View>
             <View>
               <TextInput
-                value={postalCode}
+                value={postalTown}
                 onChangeText={(text) => {
-                  setPostalCode(text);
-                  setWarnings.setPostalWarning(false);
-                  setUserInformation.setPostalCode(post + " " + text);
+                  setWarnings.setPostalTownWarning(false);
+                  setPostalTown(text);
+                  setUserInformation.setPostalTown(text);
                 }}
                 placeholder="Kungälv"
                 placeholderTextColor="#808080"

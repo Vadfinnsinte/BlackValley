@@ -370,6 +370,7 @@ const formValuesStore = create((set) => ({
     email: "",
     street: "",
     postalCode: "",
+    postalTown: "",
   },
   setUserInformation: {
     setName: (value) =>
@@ -396,6 +397,10 @@ const formValuesStore = create((set) => ({
       set((state) => ({
         userInformation: { ...state.userInformation, postalCode: value },
       })),
+    setPostalTown: (value) =>
+      set((state) => ({
+        userInformation: { ...state.userInformation, postalTown: value },
+      })),
     setResetAll: () =>
       set(() => ({
         userInformation: {
@@ -405,6 +410,7 @@ const formValuesStore = create((set) => ({
           email: "",
           street: "",
           postalCode: "",
+          postalTown: "",
         },
       })),
   },

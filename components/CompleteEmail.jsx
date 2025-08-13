@@ -285,7 +285,8 @@ const CompleteEmail = () => {
               Mailadress: {userInformation.email}
             </Text>
             <Text style={styleCoatForm.contactText}>
-              Adress: {userInformation.street}, {userInformation.postalCode}
+              Adress: {userInformation.street}, {userInformation.postalCode}{" "}
+              {userInformation.postalTown}
             </Text>
           </View>
         </View>

@@ -13,6 +13,7 @@ export const validateStoreHooks = () => {
   const emailWarning = validateStore((state) => state.emailWarning);
   const streetWarning = validateStore((state) => state.streetWarning);
   const postalWarning = validateStore((state) => state.postalWarning);
+  const postalTownWarning = validateStore((state) => state.postalTownWarning);
   const collarModelWarning = validateStore((state) => state.collarModelWarning);
   const widthWarning = validateStore((state) => state.widthWarning);
   const leatherWarning = validateStore((state) => state.leatherWarning);
@@ -43,5 +44,6 @@ export const validateStoreHooks = () => {
     ringWarning,
     secondLeatherWarning,
     measureCollarWarning,
+    postalTownWarning,
   };
 };
