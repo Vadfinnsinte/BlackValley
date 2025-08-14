@@ -220,6 +220,25 @@ export const CustomDrawerContent = (props) => {
             }}
           />
           <DrawerItem
+            label={"Material till koppel"}
+            labelStyle={[
+              styles.navItemLabelsmall,
+              {
+                color:
+                  pathname == "/materialLeash"
+                    ? themeColors.hamburgerTextActive
+                    : themeColors.hamburgerText,
+              },
+            ]}
+            style={{
+              backgroundColor:
+                pathname == "/materialLeash" ? "#333" : themeColors.background,
+            }}
+            onPress={() => {
+              router.push("/materialLeash");
+            }}
+          />
+          <DrawerItem
             label={"Symboler och font"}
             labelStyle={[
               styles.navItemLabelsmall,

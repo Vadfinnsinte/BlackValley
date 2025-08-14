@@ -9,7 +9,7 @@ export const navLinks = [
   {
     title: "Modeller",
     submenu: [
-      { title: "Halsband", path: "/collarLeashModels" },
+      { title: "Halsband och koppel", path: "/collarLeashModels" },
       { title: "Täcke", path: "/coatModels" },
       { title: "Instruktioner", path: "/instructions" },
     ],
@@ -20,6 +20,7 @@ export const navLinks = [
       { title: "Ull - Till täcke", path: "/materialWool" },
       { title: "Softshell - Till täcke", path: "/materialSoftshell" },
       { title: "Läder - Till halsband", path: "/materialLeather" },
+      { title: "Material - Till koppel", path: "/materialLeash" },
       { title: "Symboler och font", path: "/materialOther" },
     ],
   },
